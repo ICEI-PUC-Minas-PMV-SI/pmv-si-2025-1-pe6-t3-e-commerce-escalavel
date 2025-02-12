@@ -10,11 +10,11 @@ Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo de
 
 ## Integrantes
 
-#Gabriel Mazock de Assis Silva
-#Marco Túlio Denucci Di Spirito 
-#Marcos Sabino Mendes de Souza
-#Petronio Neves Moreira
-#Talis Lopes Pereira
+# Gabriel Mazock de Assis Silva
+# Marco Túlio Denucci Di Spirito 
+# Marcos Sabino Mendes de Souza
+# Petronio Neves Moreira
+# Talis Lopes Pereira
 
 ## Orientador
 
