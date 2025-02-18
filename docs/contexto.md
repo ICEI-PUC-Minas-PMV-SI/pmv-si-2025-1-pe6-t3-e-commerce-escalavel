@@ -1,6 +1,8 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+O mercado de tecnologia e a demanda por peças de computadores impulsionam a necessidade de soluções digitais eficientes. Este projeto visa desenvolver uma plataforma de e-commerce especializada nesse segmento, garantindo escalabilidade, segurança e experiência otimizada para consumidores e empresas.
+
+A solução incluirá uma aplicação distribuída baseada na web, com API integrada, além de versões web e mobile para acesso intuitivo. Serão abordadas estratégias de gerenciamento de serviços de TI, segurança digital e boas práticas de engenharia de software para garantir a manutenção e expansão da plataforma.
 
 ## Problema
 Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
