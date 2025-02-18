@@ -88,9 +88,34 @@ Definição de como o software é estruturado em termos dos componentes que faze
 
 ## Tecnologias Utilizadas
 
-Descreva aqui qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas.
+* Frontend: React.js (web) e React Native (mobile)
+* Backend: Node.js com Express
+* Banco de Dados: MongoDB
+* Autenticação: Login JWT
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+Fluxo de Interação do Usuário
+
+A seguir, vou descrever como o usuário interage com o sistema e como as tecnologias se conectam nesse processo.
+
+Interação do Usuário:
+1. Acesso à aplicação web ou mobile:
+
+* O usuário abre a aplicação na versão web (React.js) ou mobile (React Native).
+
+2. Autenticação:
+
+* O usuário entra na aplicação fornecendo suas credenciais (email, Google, etc.).
+* O frontend se comunica com o Firebase Authentication para validar o usuário.
+
+3. Interação com a Aplicação:
+
+* Após a autenticação, o usuário pode realizar ações como navegar, consultar dados, realizar compras, etc.
+* O frontend (React.js/React Native) faz requisições para o Backend (Node.js com Express), que processa as requisições e interage com o Banco de Dados MongoDB para obter ou armazenar dados.
+
+4. Resposta ao Usuário:
+
+* O backend processa as requisições e envia os dados ou status de volta ao frontend.
+* O frontend exibe a resposta para o usuário de forma interativa e dinâmica.
 
 ## Hospedagem
 
