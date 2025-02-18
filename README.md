@@ -1,4 +1,4 @@
-# TÍTULO DO PROJETO
+# E-Commerce escalavel
 
 `CURSO: Sistemas de Informação`
 
