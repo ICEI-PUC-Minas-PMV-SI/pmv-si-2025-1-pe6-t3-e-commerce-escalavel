@@ -1,9 +1,8 @@
 # Introdução
 
-O mercado de tecnologia e a demanda por peças de computadores impulsionam a necessidade de soluções digitais eficientes. Este projeto visa desenvolver uma plataforma de e-commerce especializada nesse segmento, garantindo escalabilidade, segurança e experiência otimizada para consumidores e empresas.
+O mercado de tecnologia e a demanda por peças de computadores impulsionam a necessidade de soluções digitais eficientes. Este projeto visa desenvolver uma plataforma de e-commerce especializada nesse segmento, garantindo escalabilidade, segurança e experiência otimizada para consumidores empresas.
 
-A solução incluirá uma aplicação distribuída baseada na web, com API integrada, além de versões web e mobile para acesso intuitivo. Serão abordadas estratégias de gerenciamento de serviços de TI, segurança digital e boas práticas de engenharia de software para garantir a manutenção e expansão da plataforma.
-Este projeto tem como objetivo desenvolver uma aplicação de e-commerce voltada para pequenos e médios comerciantes que desejam expandir suas vendas online. A solução busca facilitar a gestão de produtos, pedidos e pagamentos, proporcionando uma experiência otimizada para lojistas e consumidores.
+A solução incluirá uma aplicação distribuída baseada na web, com API integrada, além de versões web e mobile para acesso intuitivo. Serão abordadas estratégias de gerenciamento de serviços de TI, segurança digital e boas práticas de engenharia de software para garantir a manutenção e expansão da plataforma. Dessa forma, busca-se facilitar a gestão de produtos, pedidos e pagamentos, oferecendo uma solução eficiente e acessível para lojistas de pequeno e médio porte, bem como para consumidores finais.
 
 ## Problema
 Muitos pequenos e médios lojistas enfrentam dificuldades na digitalização de seus negócios devido à complexidade de plataformas existentes, altos custos de implementação e falta de conhecimento técnico. Esses fatores resultam em baixa presença digital e perda de oportunidades de vendas online.
