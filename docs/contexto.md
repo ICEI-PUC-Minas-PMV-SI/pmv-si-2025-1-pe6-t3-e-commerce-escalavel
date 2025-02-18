@@ -73,6 +73,11 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 # Catálogo de Serviços
 
 Descreva aqui todos os serviços que serão disponibilizados pelo seu projeto, detalhando suas características e funcionalidades.
+* Cadastro e gerenciamento de produtos
+* Processamento de pagamentos
+* Controle de pedidos e estoque
+* Suporte a integração com marketplaces
+* Notificações para lojistas sobre vendas e pedidos
 
 # Arquitetura da Solução
 
