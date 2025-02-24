@@ -15,6 +15,7 @@ A solução será construída utilizando React.js e React Native no frontend, No
 * Gabriel Mazock de Assis Silva
 * Marco Túlio Denucci Di Spirito 
 * Marcos Sabino Mendes de Souza
+* Patrick Magalhães Robaina
 * Petronio Neves Moreira
 * Talis Lopes Pereira
 
