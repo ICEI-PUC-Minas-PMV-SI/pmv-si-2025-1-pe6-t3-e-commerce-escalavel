@@ -84,7 +84,8 @@ A abordagem utilizada é baseada no modelo Cliente-Servidor, que divide o sistem
 
 Mesmo sendo uma arquitetura distribuída, a camada Back-End age como um ponto central, coordenando as operações entre o Front-End (clientes) e a Camada de Dados (banco de dados e armazenamento).
 
-![arq](https://github.com/user-attachments/assets/b9402e05-8445-47c3-9d47-f11696e38a3d)
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/2c93d73a17b3f7446a87a81206a6caeb6e3321df/docs/img/Arquitetura2.png)
+
 
 
 ## Tecnologias Utilizadas
