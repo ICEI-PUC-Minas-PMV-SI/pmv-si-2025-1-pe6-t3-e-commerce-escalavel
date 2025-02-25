@@ -42,14 +42,14 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 ### Requisitos Funcionais
 
-|ID    | Descrição do Requisito  | Prioridade |
-|------|-----------------------------------------|----|
-|RF-001| Permitir cadastro e login de usuários | ALTA | 
-|RF-002| Exibir catálogo de produtos   | MÉDIA |
-|RF-003| Permitir adição de produtos ao carrinho | ALTA | 
-|RF-004| Realizar checkout e pagamento   | MÉDIA |
-|RF-005| Emitir confirmação de pedido | ALTA | 
-|RF-006| Gerenciar estoque dos produtos   | MÉDIA |
+|ID    | Descrição do Requisito  | Prioridade |Responsável |
+|------|-----------------------------------------|----|----|
+|RF-001| Gestão de Usuários: cadastro, autenticação e gerenciamento de clientes e lojistas.| ALTA | Petronio |
+|RF-002| Gestão de produtos: adicionar, editar, excluir, visualizar e listar produtos com pesquisa e filtros.  | MÉDIA | Petronio |
+|RF-003| Gestão de pedidos e estoque: adicionar produtos ao carrinho, realizar checkout, processar pagamentos e atualizar estoque automaticamente. | ALTA | Petronio |
+|RF-004| Acompanhamento de pedidos: permitir que clientes e lojistas visualizem status dos pedidos e recebam notificações.  | MÉDIA | Petronio |
+|RF-005| Experiência do cliente: permitir avaliações, comentários e acesso ao histórico de compras.| ALTA | Petronio |
+|RF-006| Gerenciar estoque dos produtos   | MÉDIA | Petronio |
 
 ### Requisitos não Funcionais
 
@@ -58,7 +58,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
 |RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
 |RNF-003| Deve garantir a segurança dos dados dos usuários | MÉDIA | 
-|RNF-004| Integração com um gateway de pagamento confiável |  BAIXA | 
+|RNF-004| Integração com um simualador de pagamentos |  BAIXA | 
 
 ## Restrições
 
@@ -71,12 +71,13 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 
 # Catálogo de Serviços
 
-Descreva aqui todos os serviços que serão disponibilizados pelo seu projeto, detalhando suas características e funcionalidades.
-* Cadastro e gerenciamento de produtos
-* Processamento de pagamentos
-* Controle de pedidos e estoque
-* Suporte a integração com marketplaces
-* Notificações para lojistas sobre vendas e pedidos
+O e-commerce foi projetado para oferecer uma experiência completa e eficiente tanto para lojistas quanto para consumidores. 
+A plataforma contará com os seguintes serviços principais:
+
+* Gerenciamento de Produtos: Lojistas poderão cadastrar, editar e excluir produtos de forma intuitiva, incluindo imagens, descrições detalhadas, preços e controle de estoque automatizado.
+* Processamento de pagamentos: A plataforma integrará gateways de pagamento, permitindo simular transações seguras via cartão de crédito, débito, Pix e outras opções, garantindo uma experiência de compra ágil e transparente.
+* Gestão de Pedidos e Estoque: odo o fluxo de compra será monitorado em tempo real, desde a realização do pedido até a entrega. O estoque será atualizado automaticamente a cada venda, evitando problemas como falta de produtos.
+* Notificações e Alertas: Lojistas receberão notificações sobre novos pedidos, atualizações de estoque e status de pagamento, garantindo um acompanhamento eficiente das operações.
 
 # Arquitetura da Solução
 
