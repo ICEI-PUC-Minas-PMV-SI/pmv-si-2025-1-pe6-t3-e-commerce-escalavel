@@ -80,7 +80,9 @@ Descreva aqui todos os serviços que serão disponibilizados pelo seu projeto, d
 
 # Arquitetura da Solução
 
-Definição de como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.
+A abordagem utilizada é baseada no modelo Cliente-Servidor, que divide o sistema em três camadas distintas. Essa separação permite melhor organização, escalabilidade e manutenção do sistema.
+
+Mesmo sendo uma arquitetura distribuída, a camada Back-End age como um ponto central, coordenando as operações entre o Front-End (clientes) e a Camada de Dados (banco de dados e armazenamento).
 
 ![arq](https://github.com/user-attachments/assets/b9402e05-8445-47c3-9d47-f11696e38a3d)
 
