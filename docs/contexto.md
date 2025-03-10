@@ -5,9 +5,9 @@ O mercado de tecnologia e a demanda por peças de computadores impulsionam a nec
 A solução incluirá uma aplicação distribuída baseada na web, com API integrada, além de versões web e mobile para acesso intuitivo. Serão abordadas estratégias de gerenciamento de serviços de TI, segurança digital e boas práticas de engenharia de software para garantir a manutenção e expansão da plataforma. Dessa forma, busca-se facilitar a gestão de produtos, pedidos e pagamentos, oferecendo uma solução eficiente e acessível para lojistas de pequeno e médio porte, bem como para consumidores finais.
 
 ## Problema
-Muitos pequenos e médios lojistas enfrentam dificuldades na digitalização de seus negócios devido à complexidade de plataformas existentes, altos custos de implementação e falta de conhecimento técnico. Esses fatores resultam em baixa presença digital e perda de oportunidades de vendas online.
+Lojistas de pequeno e médio porte enfrentam dificuldades na digitalização de seus negócios devido à complexidade das plataformas existentes, aos altos custos de implementação e à falta de conhecimento técnico. Esses fatores resultam em baixa presença digital e perda de oportunidades de vendas online.
 
-A aplicação proposta visa resolver essa questão ao oferecer uma plataforma acessível, intuitiva e eficiente para gerenciamento de lojas virtuais.
+A aplicação proposta visa resolver essa questão ao oferecer uma plataforma acessível, intuitiva e eficiente para o gerenciamento de lojas virtuais.
 
 ## Objetivos
 
@@ -27,7 +27,7 @@ Oferecer um sistema de acompanhamento de pedidos em tempo real.
 
 ## Justificativa
 
-A digitalização do comércio é uma tendência crescente e essencial para a sobrevivência dos pequenos e médios empreendimentos. Contudo, muitos lojistas ainda enfrentam barreiras tecnológicas e financeiras para ingressar nesse mercado. Este projeto busca democratizar o acesso ao e-commerce, fornecendo uma ferramenta eficaz e acessível para esses comerciantes.
+A digitalização do comércio é uma tendência crescente e essencial para a sobrevivência dos pequenos e médios empreendimentos. Contudo, muitos lojistas ainda enfrentam barreiras tecnológicas e financeiras para ingressarem nesse mercado. Este projeto busca democratizar o acesso ao e-commerce, fornecendo uma ferramenta eficaz e acessível para esses comerciantes.
 
 ## Público-Alvo
 
@@ -37,7 +37,7 @@ O público-alvo da aplicação são pequenos e médios comerciantes que desejam 
 
 ## Requisitos
 
-As tabelas que se seguem apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade de requisitos, aplicar uma técnica de priorização de requisitos e detalhar como a técnica foi aplicada.
+As tabelas a seguir apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade dos requisitos, será aplicada uma técnica de priorização, detalhando como foi utilizada.
 
 ### Requisitos Funcionais
 
@@ -75,7 +75,7 @@ A plataforma contará com os seguintes serviços principais:
 
 * Gerenciamento de Produtos: Lojistas poderão cadastrar, editar e excluir produtos de forma intuitiva, incluindo imagens, descrições detalhadas, preços e controle de estoque automatizado.
 * Processamento de pagamentos: A plataforma integrará gateways de pagamento, permitindo simular transações seguras via cartão de crédito, débito, Pix e outras opções, garantindo uma experiência de compra ágil e transparente.
-* Gestão de Pedidos e Estoque: odo o fluxo de compra será monitorado em tempo real, desde a realização do pedido até a entrega. O estoque será atualizado automaticamente a cada venda, evitando problemas como falta de produtos.
+* Gestão de Pedidos e Estoque: Todo o fluxo de compra será monitorado em tempo real, desde a realização do pedido até a entrega. O estoque será atualizado automaticamente a cada venda, evitando problemas como falta de produtos.
 * Notificações e Alertas: Lojistas receberão notificações sobre novos pedidos, atualizações de estoque e status de pagamento, garantindo um acompanhamento eficiente das operações.
 
 # Arquitetura da Solução
