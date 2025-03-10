@@ -43,12 +43,13 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 
 |ID    | Descrição do Requisito  | Prioridade |Responsável |
 |------|-----------------------------------------|----|----|
-|RF-001| Gestão de Usuários: cadastro, autenticação e gerenciamento de clientes e lojistas.| ALTA | Petronio |
-|RF-002| Gestão de produtos: adicionar, editar, excluir, visualizar e listar produtos com pesquisa e filtros.  | MÉDIA | Patrick |
-|RF-003| Gestão de pedidos e estoque: adicionar produtos ao carrinho, realizar checkout, processar pagamentos e atualizar estoque automaticamente. | ALTA | Marco Túlio |
-|RF-004| Acompanhamento de pedidos: permitir que clientes e lojistas visualizem status dos pedidos e recebam notificações.  | MÉDIA | Talis |
-|RF-005| Experiência do cliente: permitir avaliações, comentários e acesso ao histórico de compras.| ALTA | Gabriel |
-|RF-006| Gerenciar estoque dos produtos   | MÉDIA | Marcos |
+|RF-001| Gestão de usuários: cadastro, autenticação e gerenciamento de clientes e lojistas.| ALTA | Membro1 |
+|RF-002| Gestão de produtos: cadastro, edição, exclusão e visualização de produtos. | MÉDIA | Membro2 |
+|RF-003| Carrinho de compras e checkout: adicionar, remover, ajustar a quantidade de produtos, exibir valor total da compra. | ALTA | Membro3 |
+|RF-004| Processamento de Pedidos e Pagamentos: Validação e processamento seguro de pagamentos. | ALTA | Membro4 |
+|RF-005| Acompanhamento e Histórico de Pedidos: rastreamento do status do pedido e exibição do histórico de compras para clientes. | MÉDIA | Membro5 |
+|RF-006| Gestão de estoque: atualização automática do estoque após vendas. | MÉDIA | Membro6 |
+|RF-007| Avaliações e Suporte ao Cliente: sistema de avaliações e comentários para produtos. | BAIXA |  Membro7 |
 
 ### Requisitos não Funcionais
 
