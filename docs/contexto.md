@@ -49,7 +49,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-003| Gestão de pedidos e estoque: adicionar produtos ao carrinho, realizar checkout, processar pagamentos e atualizar estoque automaticamente. | ALTA | Marco Túlio |
 |RF-004| Acompanhamento de pedidos: permitir que clientes e lojistas visualizem status dos pedidos e recebam notificações.  | MÉDIA | Talis |
 |RF-005| Experiência do cliente: permitir avaliações, comentários e acesso ao histórico de compras.| ALTA | Gabriel |
-|RF-006| Gerenciar estoque dos produtos   | MÉDIA | Petronio |
+|RF-006| Gerenciar estoque dos produtos   | MÉDIA | Patrick |
 
 ### Requisitos não Funcionais
 
