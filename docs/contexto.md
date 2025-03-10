@@ -17,13 +17,12 @@ Objetivos Específicos
 
 Criar um sistema de cadastro e gestão de produtos.
 
-Implementar um sistema de processamento de pagamentos seguro e integrado.
+Implementar um sistema de processamento de pagamentos.
 
 Desenvolver uma interface responsiva e amigável para lojistas e clientes.
 
 Oferecer um sistema de acompanhamento de pedidos em tempo real.
 
-Permitir a integração com marketplaces.
 
 
 ## Justificativa
