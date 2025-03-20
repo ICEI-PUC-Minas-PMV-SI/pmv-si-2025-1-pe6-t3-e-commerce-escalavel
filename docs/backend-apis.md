@@ -2,22 +2,22 @@
 
 O planejamento de uma aplicação de APIS Web é uma etapa fundamental para o sucesso do projeto. Ao planejar adequadamente, você pode evitar muitos problemas e garantir que a sua API seja segura, escalável e eficiente.
 
-## Descrição do Projeto:
+### Descrição do Projeto:
 O projeto consiste no desenvolvimento de uma API para um e-commerce especializado em equipamentos para computadores, como placas de vídeo, processadores, memórias RAM, entre outros. A API foi construída utilizando Node.js como tecnologia principal, com o banco de dados MongoDB (e Prisma como ORM para gerenciamento das operações de banco de dados). Para testes e validação dos endpoints, foi utilizado o Insomnia. A API oferece funcionalidades como cadastro de usuários, gerenciamento de produtos, criação de carrinhos de compras, processamento de pedidos e autenticação de usuários.
 
 ## Objetivos da API
 
-Facilitar a gestão de produtos: Permitir que administradores cadastrem, atualizem, listem e removam produtos do catálogo da loja.
+**Facilitar a gestão de produtos:** Permitir que administradores cadastrem, atualizem, listem e removam produtos do catálogo da loja.
 
-Gerenciamento de usuários: Oferecer funcionalidades para cadastro, autenticação e gerenciamento de perfis de usuários.
+**Gerenciamento de usuários:** Oferecer funcionalidades para cadastro, autenticação e gerenciamento de perfis de usuários.
 
-Carrinho de compras: Permitir que os usuários adicionem, removam e gerenciem produtos em seus carrinhos de compras.
+**Carrinho de compras:** Permitir que os usuários adicionem, removam e gerenciem produtos em seus carrinhos de compras.
 
-Processamento de pedidos: Facilitar a criação e o acompanhamento de pedidos, integrando os carrinhos de compras com o sistema de pagamentos.
+**Processamento de pedidos:** Facilitar a criação e o acompanhamento de pedidos, integrando os carrinhos de compras com o sistema de pagamentos.
 
-Escalabilidade e segurança: Garantir que a API seja escalável para suportar um grande número de requisições e segura para proteger dados sensíveis dos usuários.
+**Escalabilidade e segurança:** Garantir que a API seja escalável para suportar um grande número de requisições e segura para proteger dados sensíveis dos usuários.
 
-Integração com sistemas externos: Fornecer endpoints bem documentados para que futuros parceiros ou aplicações externas possam integrar-se ao e-commerce.
+**Integração com sistemas externos:** Fornecer endpoints bem documentados para que futuros parceiros ou aplicações externas possam integrar-se ao e-commerce.
 
 
 ## Modelagem da Aplicação
