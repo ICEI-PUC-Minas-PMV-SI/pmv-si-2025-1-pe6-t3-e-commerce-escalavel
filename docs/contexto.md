@@ -43,13 +43,13 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 
 |ID     | Descrição do Requisito  | Prioridade |Responsável |
 |-------|-----------------------------------------|----|----|
-|RF-001 | Gestão de usuários: cadastro, autenticação e gerenciamento de clientes e lojistas.| ALTA | Membro1 |
-|RF-002 | Gestão de produtos: cadastro, edição, exclusão e visualização de produtos. | MÉDIA | Membro2 |
-|RF-003 | Carrinho de compras e checkout: adicionar, remover, ajustar a quantidade de produtos, exibir valor total da compra. | ALTA | Membro3 |
-|RF-004 | Processamento de Pedidos e Pagamentos: Validação e processamento seguro de pagamentos. | ALTA | Membro4 |
-|RF-005 | Acompanhamento e Histórico de Pedidos: rastreamento do status do pedido e exibição do histórico de compras para clientes. | MÉDIA | Membro5 |
-|RF-006 | Gestão de estoque: atualização automática do estoque após vendas. | MÉDIA | Membro6 |
-|RF-007 | Avaliações e Suporte ao Cliente: sistema de avaliações e comentários para produtos. | BAIXA |  Membro7 |
+|RF-001 | Gestão de usuários: cadastro, autenticação e gerenciamento de clientes e lojistas.| ALTA |Marco Túlio |
+|RF-002 | Gestão de produtos: cadastro, edição, exclusão e visualização de produtos. | MÉDIA | Marco Túlio |
+|RF-003 | Carrinho de compras e checkout: adicionar, remover, ajustar a quantidade de produtos, exibir valor total da compra. | ALTA | Marcos|
+|RF-004 | Processamento de Pedidos e Pagamentos: Validação e processamento seguro de pagamentos. | ALTA | Petrônio |
+|RF-005 | Acompanhamento e Histórico de Pedidos: rastreamento do status do pedido e exibição do histórico de compras para clientes. | MÉDIA | Gabriel |
+|RF-006 | Gestão de estoque: atualização automática do estoque após vendas. | MÉDIA | Patrick |
+|RF-007 | Avaliações e Suporte ao Cliente: sistema de avaliações e comentários para produtos. | BAIXA | Talis |
 
 ### Requisitos não Funcionais
 
