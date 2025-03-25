@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  email    String     @unique
+  nome     String
+  cel      String
+  senha    String
+  perfil   String     @default("user") //  (admin ou user)
+  carrinho Carrinho[] // Relação com o carrinho
+   vendas   Venda[]    // Relação com as vendas
+}
+
+model Product {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String // Nome do produto
+  descricao String // Descrição do produto
+  preco     Float // Preço do produto
+  categoria String // Categoria (ex: "Processador", "Placa de Vídeo")
+  estoque   Int // Quantidade em estoque
+  createdAt DateTime   @default(now()) // Data de criação
+  carrinho  Carrinho[] // Relação com o carrinho
+  vendas    Venda[]    // Relação com as vendas
+}
+
+model Carrinho {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  usuarioId  String   @db.ObjectId // ID do usuário
+  produtoId  String   @db.ObjectId // ID do produto
+  quantidade Int // Quantidade do produto no carrinho
+  usuario    User     @relation(fields: [usuarioId], references: [id]) // Relação com o usuário
+  produto    Product  @relation(fields: [produtoId], references: [id]) // Relação com o produto
+  createdAt  DateTime @default(now()) // Data de criação
+}
+
+model Venda {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  usuarioId  String   @db.ObjectId
+  produtoId  String   @db.ObjectId
+  quantidade Int
+  createdAt  DateTime @default(now())
+
+  usuario    User     @relation(fields: [usuarioId], references: [id])
+  produto    Product  @relation(fields: [produtoId], references: [id])
+}
