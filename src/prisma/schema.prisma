@@ -21,7 +21,7 @@ model User {
   senha    String
   perfil   String     @default("user") //  (admin ou user)
   carrinho Carrinho[] // Relação com o carrinho
-   vendas   Venda[]    // Relação com as vendas
+  vendas   Venda[]    // Relação com as vendas
 }
 
 model Product {
