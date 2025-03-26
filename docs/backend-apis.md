@@ -6,7 +6,7 @@ O planejamento de uma aplicação de APIS Web é uma etapa fundamental para o su
 O projeto consiste no desenvolvimento de uma API para um e-commerce especializado em equipamentos para computadores, como placas de vídeo, processadores, memórias RAM, entre outros. A API foi construída utilizando Node.js como tecnologia principal, com o banco de dados MongoDB (e Prisma como ORM para gerenciamento das operações de banco de dados). Para testes e validação dos endpoints, foi utilizado o Insomnia. A API oferece funcionalidades como cadastro de usuários, gerenciamento de produtos, criação de carrinhos de compras, processamento de pedidos e autenticação de usuários.
 
 ## Objetivos da API
-### Segue alguns tópicos relatando os objetivos da api no projeto:
+### Alguns tópicos relatando os objetivos da api no projeto:
 
 
   - **Facilitar a gestão de produtos:** Permitir que administradores cadastrem, atualizem, listem e removam produtos do catálogo da loja.
@@ -24,6 +24,21 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 
 ## Modelagem da Aplicação
 [Descreva a modelagem da aplicação, incluindo a estrutura de dados, diagramas de classes ou entidades, e outras representações visuais relevantes.]
+
+## Cadastro de usuários
+### Tabela Users (Mongo/Prisma)
+
+
+| Campo        | Tipo de Dado  | Restrição               | Descrição                     |
+|-------------|--------------|-------------------------|--------------------------------|
+| id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
+| email        | VARCHAR(255) | UNIQUE, NOT NULL                | E-mail para login     |
+| nome         | VARCHAR(100) |   NOT NULL       | E-mail para login             |
+| senha_hash  | VARCHAR(100)    | NOT NULL               | Hash da senha                 |
+| Celular   | VARCHAR(20)  |      NOT NULL             | Telefone do usuário           |
+| Pedidos   | VARCHAR(20)  |    foreign key        | Pedido do usuário           |
+| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+
 
 
 ## Tecnologias Utilizadas
