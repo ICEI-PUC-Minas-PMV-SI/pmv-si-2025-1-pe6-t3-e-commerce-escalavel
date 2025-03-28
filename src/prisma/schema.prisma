@@ -14,36 +14,39 @@ datasource db {
 }
 
 model User {
-  id       String     @id @default(auto()) @map("_id") @db.ObjectId
-  email    String     @unique
-  nome     String
-  cel      String
-  senha    String
-  perfil   String     @default("user") //  (admin ou user)
-  carrinho Carrinho[] // Relação com o carrinho
-  vendas   Venda[]    // Relação com as vendas
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  email     String      @unique
+  nome      String
+  cel       String
+  senha     String
+  perfil    String      @default("user") // (admin ou user)
+  carrinho  Carrinho[]
+  vendas    Venda[]
+  avaliacoes Avaliacao[] // Relação com avaliações feitas pelo usuário
 }
 
 model Product {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  nome      String // Nome do produto
-  descricao String // Descrição do produto
-  preco     Float // Preço do produto
-  categoria String // Categoria (ex: "Processador", "Placa de Vídeo")
-  estoque   Int // Quantidade em estoque
-  createdAt DateTime   @default(now()) // Data de criação
-  carrinho  Carrinho[] // Relação com o carrinho
-  vendas    Venda[]    // Relação com as vendas
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  nome       String
+  descricao  String
+  preco      Float
+  categoria  String
+  estoque    Int
+  createdAt  DateTime    @default(now())
+  carrinho   Carrinho[]
+  vendas     Venda[]
+  avaliacoes Avaliacao[] // Relação com avaliações do produto
 }
 
 model Carrinho {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  usuarioId  String   @db.ObjectId // ID do usuário
-  produtoId  String   @db.ObjectId // ID do produto
-  quantidade Int // Quantidade do produto no carrinho
-  usuario    User     @relation(fields: [usuarioId], references: [id]) // Relação com o usuário
-  produto    Product  @relation(fields: [produtoId], references: [id]) // Relação com o produto
-  createdAt  DateTime @default(now()) // Data de criação
+  usuarioId  String   @db.ObjectId
+  produtoId  String   @db.ObjectId
+  quantidade Int
+  createdAt  DateTime @default(now())
+
+  usuario    User     @relation(fields: [usuarioId], references: [id])
+  produto    Product  @relation(fields: [produtoId], references: [id])
 }
 
 model Venda {
@@ -56,3 +59,16 @@ model Venda {
   usuario    User     @relation(fields: [usuarioId], references: [id])
   produto    Product  @relation(fields: [produtoId], references: [id])
 }
+
+model Avaliacao {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  usuarioId  String   @db.ObjectId
+  produtoId  String   @db.ObjectId
+  nota       Int
+  comentario String
+  createdAt  DateTime @default(now())
+
+  usuario    User     @relation(fields: [usuarioId], references: [id])
+  produto    Product  @relation(fields: [produtoId], references: [id])
+}
+///npx prisma generate
