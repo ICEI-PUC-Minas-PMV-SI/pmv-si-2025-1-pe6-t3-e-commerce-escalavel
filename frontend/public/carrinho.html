@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrinho - E-Informática</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">Meu Carrinho</h2>
+    <div id="carrinho" class="mb-3"></div>
+    <h4>Total: R$ <span id="total">0.00</span></h4>
+    <button class="btn btn-success" onclick="finalizarPedido()">Finalizar Pedido</button>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+    const headers = { "Authorization": `Bearer ${token}` };
+
+    async function carregarCarrinho() {
+      if (!user || !token) return alert("Você precisa estar logado.");
+
+      const res = await fetch(`http://localhost:3000/api/carrinho/${user.id}`, { headers });
+      const itens = await res.json();
+
+      const container = document.getElementById("carrinho");
+      container.innerHTML = "";
+      let total = 0;
+
+      itens.forEach(item => {
+        total += item.quantidade * item.produto.preco;
+        container.innerHTML += `
+          <div class="card mb-2">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div>
+                <h5>${item.produto.nome}</h5>
+                <p>Quantidade: ${item.quantidade}</p>
+                <p>Preço: R$ ${(item.produto.preco * item.quantidade).toFixed(2)}</p>
+              </div>
+              <button class="btn btn-danger" onclick="removerItem('${item.id}')">Remover</button>
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById("total").textContent = total.toFixed(2);
+    }
+
+    async function removerItem(id) {
+      await fetch(`http://localhost:3000/api/carrinho/${id}`, {
+        method: "DELETE",
+        headers
+      });
+      carregarCarrinho();
+    }
+
+    async function finalizarPedido() {
+      const res = await fetch("http://localhost:3000/api/checkout", {
+        method: "POST",
+        headers
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Pedido finalizado com sucesso! Total: R$ " + data.total.toFixed(2));
+        location.reload();
+      } else {
+        alert("Erro: " + (data.error || "Não foi possível finalizar o pedido."));
+      }
+    }
+
+    carregarCarrinho();
+  </script>
+</body>
+</html>

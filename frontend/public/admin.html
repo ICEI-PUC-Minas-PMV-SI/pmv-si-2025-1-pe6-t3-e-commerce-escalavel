@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Usuários</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">Painel de Administração - Usuários</h2>
+    <div id="usuarios"></div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    const headers = { "Authorization": `Bearer ${token}` };
+
+    async function carregarUsuarios() {
+      if (!token) return alert("Você precisa estar logado como admin.");
+
+      const res = await fetch("http://localhost:3000/api/admin/usuarios", { headers });
+      const users = await res.json();
+
+      const container = document.getElementById("usuarios");
+      container.innerHTML = "";
+
+      if (users.length === 0) {
+        container.innerHTML = `<p>Nenhum usuário encontrado.</p>`;
+        return;
+      }
+
+      users.forEach(user => {
+        container.innerHTML += `
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5>${user.nome} (${user.perfil})</h5>
+              <p>Email: ${user.email}</p>
+              <p>Celular: ${user.cel}</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    carregarUsuarios();
+  </script>
+</body>
+</html>
