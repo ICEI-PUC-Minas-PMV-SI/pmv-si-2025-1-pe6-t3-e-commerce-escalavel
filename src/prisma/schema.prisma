@@ -21,7 +21,7 @@ model User {
   senha     String
   perfil    String      @default("user") // (admin ou user)
   carrinho  Carrinho[]
-  vendas    Venda[]
+  pedidos  Pedido[] // Relação com os pedidos
   avaliacoes Avaliacao[] // Relação com avaliações feitas pelo usuário
 }
 
@@ -34,7 +34,6 @@ model Product {
   estoque    Int
   createdAt  DateTime    @default(now())
   carrinho   Carrinho[]
-  vendas     Venda[]
   avaliacoes Avaliacao[] // Relação com avaliações do produto
 }
 
@@ -44,20 +43,20 @@ model Carrinho {
   produtoId  String   @db.ObjectId
   quantidade Int
   createdAt  DateTime @default(now())
-
   usuario    User     @relation(fields: [usuarioId], references: [id])
   produto    Product  @relation(fields: [produtoId], references: [id])
+  Pedido     Pedido[]
 }
 
-model Venda {
+model Pedido {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  usuarioId  String   @db.ObjectId
-  produtoId  String   @db.ObjectId
-  quantidade Int
-  createdAt  DateTime @default(now())
-
-  usuario    User     @relation(fields: [usuarioId], references: [id])
-  produto    Product  @relation(fields: [produtoId], references: [id])
+  usuarioId  String   @db.ObjectId // ID do usuário
+  carrinhoId String   @db.ObjectId // ID do carrinho
+  total      Float // Valor total do pedido
+  status     String // Status do pedido (ex: "pendente", "pago", "cancelado")
+  createdAt  DateTime @default(now()) // Data de criação
+  usuario    User     @relation(fields: [usuarioId], references: [id]) // Relação com o usuário
+  carrinho   Carrinho @relation(fields: [carrinhoId], references: [id]) // Relação com o carrinho
 }
 
 model Avaliacao {
