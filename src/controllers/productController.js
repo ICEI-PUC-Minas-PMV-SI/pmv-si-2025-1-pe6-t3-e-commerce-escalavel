@@ -59,12 +59,22 @@ export const updateProduct = async (req, res) => {
         estoque: req.body.estoque,
       },
     });
-    res.status(200).json(updatedProduct);
+
+    // Verifica o estoque do produto após atualização
+    if (updatedProduct.estoque <= 3) {
+      res.status(200).json({
+        message: `Atenção: o estoque do produto "${updatedProduct.nome}" está igual ou abaixo de 3 unidades.`,
+        product: updatedProduct,
+      });
+    } else {
+      res.status(200).json(updatedProduct);
+    }
   } catch (error) {
     console.error('Erro ao atualizar produto:', error);
     res.status(500).json({ error: 'Erro ao atualizar produto', details: error.message });
   }
 };
+
 
 // Deletar produto
 export const deleteProduct = async (req, res) => {
