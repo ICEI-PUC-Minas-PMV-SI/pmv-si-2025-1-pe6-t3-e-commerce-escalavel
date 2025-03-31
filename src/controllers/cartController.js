@@ -84,50 +84,18 @@ export const removeCartItem = async (req, res) => {
   }
 };
 
-/*// Processar Venda
-export const processSale = async (req, res) => {
+
+// Função para listar todos os carrinhos
+export const getAllCarts = async (req, res) => {
   try {
-    const { usuarioId, produtoId, quantidadeVendida } = req.body;
-
-    // Verificar se o produto existe
-    const produto = await prisma.product.findUnique({ where: { id: produtoId } });
-
-    if (!produto) {
-      return res.status(404).json({ error: "Produto não encontrado" });
-    }
-
-    // Verificar se há estoque suficiente
-    if (produto.estoque < quantidadeVendida) {
-      return res.status(400).json({ error: "Estoque insuficiente" });
-    }
-
-    // Atualizar o estoque
-    const novoEstoque = produto.estoque - quantidadeVendida;
-    const produtoAtualizado = await prisma.product.update({
-      where: { id: produtoId },
-      data: { estoque: novoEstoque },
+    // Busca todos os carrinhos
+    const carrinhos = await prisma.Carrinho.findMany({
+      include: { produto: true, usuario: true }, // Inclui detalhes do produto e do usuário
     });
 
-    // Registrar a venda no banco de dados
-    await prisma.venda.create({
-      data: {
-        usuarioId,
-        produtoId,
-        quantidade: quantidadeVendida,
-      },
-    });
-
-    // Verificar se o estoque está baixo (ajuste conforme necessidade)
-    if (novoEstoque <= 3) {
-      console.log(`⚠️ Estoque baixo do produto "${produto.nome}" (${novoEstoque} unidades restantes).`);
-    }
-
-    res.status(200).json({ message: "Venda realizada com sucesso!", produtoAtualizado });
+    res.status(200).json(carrinhos);
   } catch (error) {
-    console.error("Erro ao processar venda:", error);
-    res.status(500).json({ error: "Erro ao processar venda", details: error.message });
+    console.error('Erro ao buscar todos os carrinhos:', error);
+    res.status(500).json({ error: 'Erro ao buscar todos os carrinhos', details: error.message });
   }
 };
-
-
-*/
