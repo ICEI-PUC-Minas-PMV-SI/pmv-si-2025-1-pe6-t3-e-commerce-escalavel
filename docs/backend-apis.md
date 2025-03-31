@@ -3,7 +3,7 @@
 O planejamento de uma aplicação de APIS Web é uma etapa fundamental para o sucesso do projeto. Ao planejar adequadamente, você pode evitar muitos problemas e garantir que a sua API seja segura, escalável e eficiente.
 
 ### Descrição do Projeto:
-O projeto consiste no desenvolvimento de uma API para um e-commerce especializado em equipamentos para computadores, como placas de vídeo, processadores, memórias RAM, entre outros. A API foi construída utilizando Node.js como tecnologia principal, com o banco de dados MongoDB (e Prisma como ORM para gerenciamento das operações de banco de dados). Para testes e validação dos endpoints, foi utilizado o Insomnia. A API oferece funcionalidades como cadastro de usuários, gerenciamento de produtos, criação de carrinhos de compras, processamento de pedidos e autenticação de usuários.
+O projeto consiste no desenvolvimento de uma API para um e-commerce especializado em equipamentos para computadores, como placas de vídeo, processadores, memórias RAM, entre outros. A API foi construída utilizando Node.js como tecnologia principal, com o banco de dados MongoDB (e Prisma como ORM para gerenciamento das operações de banco de dados). Para testes e validação dos endpoints, foi utilizado o Insomnia e Swagger. A API oferece funcionalidades como cadastro de usuários, gerenciamento de produtos, criação de carrinhos de compras, processamento de pedidos e autenticação de usuários.
 
 ## Objetivos da API
 ### Principais tópicos sobre os objetivos da API no projeto:
@@ -44,7 +44,7 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
-| id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
+| id          | UUID         | PRIMARY KEY            | Identificador produto |
 |nome       | VARCHAR(255) |  NOT NULL                | nome do produto    |
 | descricao         | VARCHAR(255) |    NULL       | descrição do produto           |
 | preco  | DECIMAL(10,2)    | NOT NULL               | preço produtos              |
@@ -59,7 +59,7 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
-| id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
+| id          | UUID         | PRIMARY KEY            | Identificador carrinho |
 |usuarioId      | INT |  FK              | identificação usuário   |
 | produtoId         | INT |    FK     | identificação produto         |
   | quantidade  | INT    | NOT NULL               | total de produtos            |
@@ -69,7 +69,27 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 
 ### Tabela Pedido
 
+| Campo        | Tipo de Dado  | Restrição               | Descrição                     |
+|-------------|--------------|-------------------------|--------------------------------|
+| id          | INT        | PRIMARY KEY            | Identificador do pedido |
+|usuarioId      | INT |  FK              | identificação usuário   |
+| carrinhoId         | INT |    FK     | id lista produtos        |
+  | Total  | DECIMAL(10,2)    | NOT NULL               | total de produtos            |
+| categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
+  | pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
+| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+
 ### Tabela Avaliacao
+
+| Campo        | Tipo de Dado  | Restrição               | Descrição                     |
+|-------------|--------------|-------------------------|--------------------------------|
+| id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
+|usuarioId      | INT |  FK              | identificação usuário   |
+| produtoId         | INT |    FK     | identificação produto         |
+  | quantidade  | INT    | NOT NULL               | total de produtos            |
+| categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
+  | pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
+| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
 
 
 ## Tecnologias Utilizadas
@@ -96,19 +116,26 @@ Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs
 
 ## API Endpoints
 
-[Liste os principais endpoints da API, incluindo as operações disponíveis, os parâmetros esperados e as respostas retornadas.]
+**Endpoints da API (localhost:3000) no Swagger, focando no CRUD de usuários. Os exemplos demonstram requisições e respostas para operações como busca (GET), criação (POST), atualização (PUT) e exclusão (DELETE), validando o funcionamento integrado do sistema.**
+- **Capturas de tela do Swagger em execução local (porta 3000) - Testes do CRUD de usuários**
 
-### Segue os prints do Swagger, rodando localmente na porta 3000, para o CRUD de usuários
-
-Metódo POST(Criação de um usuário)
+- **Metódo POST(Criação de um usuário)**
 
 ![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Captura%20de%20tela%202025-03-31%20161606.png)
 
-Observe o código 201, que significa criado com sucesso.
+Observe o código 201, que significa usuário criado com sucesso.
 
+- **Método GET : Busca de usuário**<br>
+Este endpoint realiza a consulta de um usuário com base em dados específicos predefinidos (nome e e-mail), retornando as informações correspondentes.
 
+Parâmetros de busca: nome e email.
 
+Resposta: Dados do usuário encontrado.
 
+Exemplo (figura):
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Captura%20de%20tela%202025-03-31%20163510.png)
+
+Código 200 indicando sucesso na operação.
 
 ## Considerações de Segurança
 
