@@ -98,7 +98,13 @@ Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs
 
 [Liste os principais endpoints da API, incluindo as operações disponíveis, os parâmetros esperados e as respostas retornadas.]
 
-### Segue os prints do Swagger rodando localmente na porta 3000 para o CRUD de usuários
+### Segue os prints do Swagger, rodando localmente na porta 3000, para o CRUD de usuários
+
+Metódo POST(Criação de um usuário)
+
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Captura%20de%20tela%202025-03-31%20161606.png)
+
+Observe o código 201, que significa criado com sucesso.
 
 
 
