@@ -43,13 +43,13 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
 | id          | UUID         | PRIMARY KEY            | Identificador produto |
-| nome | VARCHAR(255) | NOT NULL | nome do produto |
-| descricao | VARCHAR(255) | NULL | descrição do produto |
-| preco | DECIMAL(10,2) | NOT NULL | preço produtos |
-| categoria | VARCHAR(20) | NOT NULL | categoria do produto |
-| estoque | Int | NOT NULL | numero do estoque |
+| nome | VARCHAR(255) | NOT NULL | Nome do produto |
+| descricao | VARCHAR(255) | NULL | Descrição do produto |
+| preco | DECIMAL(10,2) | NOT NULL | Preço produtos |
+| categoria | VARCHAR(20) | NOT NULL | Categoria do produto |
+| estoque | Int | NOT NULL | Número do estoque |
 | carrinho | VARCHAR(255) | foreign key | Lista dos pedidos |
-| avaliacoes | VARCHAR(255) | NULL | avaliação do usuario |
+| avaliacoes | VARCHAR(255) | NULL | Avaliação do usuário |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 
@@ -60,8 +60,8 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | id          | UUID         | PRIMARY KEY            | Identificador carrinho |
 | usuarioId | INT | FK  | identificação usuário |
 | produtoId | INT | FK | identificação produto |
-| quantidade | INT | NOT NULL | total de produtos |
-| categoria  | VARCHAR(20) | NOT NULL | categoria do produto |
+| quantidade | INT | NOT NULL | Total de produtos |
+| categoria  | VARCHAR(20) | NOT NULL | Categoria do produto |
 | pedido | VARCHAR(255) | foreign key | Lista dos pedidos |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
@@ -82,22 +82,17 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
 | id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
-|usuarioId      | INT |  FK              | identificação usuário   |
-| produtoId         | INT |    FK     | identificação produto         |
-| quantidade  | INT    | NOT NULL               | total de produtos            |
-| categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
-| pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
-| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+| usuarioId | INT | FK | Identificação usuário |
+| produtoId | INT | FK | Identificação produto |
+| quantidade | INT | NOT NULL | Total de produtos |
+| categoria | VARCHAR(20) | NOT NULL | Categoria do produto |
+| pedido | VARCHAR(255) | foreign key | Lista dos pedidos 
+| data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 
 ## Tecnologias Utilizadas
 
-Existem muitas tecnologias diferentes que podem ser usadas para desenvolver APIs Web. A tecnologia certa para o seu projeto dependerá dos seus objetivos, dos seus clientes e dos recursos que a API deve fornecer.
-
-
-
- Lista das tecnologias usadas no projeto , com justificativas  e como elas se integram ao seu contexto específico:
-
+Lista das tecnologias usadas no projeto, com justificativas e como elas se integram ao seu contexto específico:
 
 |Categoria	|Tecnologia|	Versão|	Por que foi escolhida?|
 |-----------|----------|--------|-----------------------|
@@ -158,6 +153,14 @@ Código 200 indicando sucesso na operação.
 3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
 4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
 5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
+
+1. Validação de dados: Verificação de se os dados de entrada (como ID de produto ou quantidade) são válidos.
+2. Cadastro de um produto: Verificar se um produto é inserido corretamente no banco de dados quando o endpoint de cadastro de produto é acionado.
+3. Testes de tempo de resposta: Verificar o tempo que leva para a API responder a requisições típicas (consulta de produtos, checkout, etc.) e garantir que ele se mantém dentro de limites aceitáveis.
+4. estar autenticação e autorização: Garantir que apenas usuários autenticados possam acessar determinados recursos, como checkout de pedido.
+5. Documentação da API: Verificar se a documentação está clara e precisa.
+
+A estratégia de teste de uma API de e-commerce de computadores envolve uma combinação de testes unitários, de integração, de carga, de segurança e de usabilidade. A utilização de ferramentas como Jest, Supertest, Artillery e OWASP ZAP ajudará a garantir que a API esteja funcionando corretamente, de maneira eficiente e segura.
 
 # Referências
 
