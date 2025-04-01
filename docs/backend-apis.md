@@ -1,7 +1,5 @@
 # APIs e Web Services
 
-O planejamento de uma aplicação de APIS Web é uma etapa fundamental para o sucesso do projeto. Ao planejar adequadamente, você pode evitar muitos problemas e garantir que a sua API seja segura, escalável e eficiente.
-
 ### Descrição do Projeto:
 O projeto consiste no desenvolvimento de uma API para um e-commerce especializado em equipamentos para computadores, como placas de vídeo, processadores, memórias RAM, entre outros. A API foi construída utilizando Node.js como tecnologia principal, com o banco de dados MongoDB (e Prisma como ORM para gerenciamento das operações de banco de dados). Para testes e validação dos endpoints, foi utilizado o Insomnia e Swagger. A API oferece funcionalidades como cadastro de usuários, gerenciamento de produtos, criação de carrinhos de compras, processamento de pedidos e autenticação de usuários.
 
@@ -31,13 +29,13 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
-| id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
-| email        | VARCHAR(255) | UNIQUE, NOT NULL                | E-mail para login     |
-| nome         | VARCHAR(100) |   NOT NULL       | Nome usuário             |
-| senha_hash  | VARCHAR(100)    | NOT NULL               | Hash da senha                 |
-| Celular   | VARCHAR(20)  |      NOT NULL             | Telefone do usuário           |
-| Pedidos   | VARCHAR(255)  |    foreign key        | Pedido(s) do usuário           |
-| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+| id | UUID | PRIMARY KEY | Identificador único do usuário |
+| email | VARCHAR(255) | UNIQUE, NOT NULL | E-mail para login |
+| nome | VARCHAR(100) | NOT NULL | Nome usuário |
+| senha_hash | VARCHAR(100) | NOT NULL | Hash da senha |
+| cel | VARCHAR(20) | NOT NULL | Telefone do usuário |
+| pedidos | VARCHAR(255) | foreign key | Pedido(s) do usuário |
+| data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 
 ### Tabela Produto
@@ -45,14 +43,14 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
 | id          | UUID         | PRIMARY KEY            | Identificador produto |
-|nome       | VARCHAR(255) |  NOT NULL                | nome do produto    |
-| descricao         | VARCHAR(255) |    NULL       | descrição do produto           |
-| preco  | DECIMAL(10,2)    | NOT NULL               | preço produtos              |
-| categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
-| estoque | Int  |    NOT NULL      | numero do estoque         |
-  | carrinho | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
-| avaliacoes | VARCHAR(255  |    NULL      | avaliação do usuario       |
-| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+| nome | VARCHAR(255) | NOT NULL | nome do produto |
+| descricao | VARCHAR(255) | NULL | descrição do produto |
+| preco | DECIMAL(10,2) | NOT NULL | preço produtos |
+| categoria | VARCHAR(20) | NOT NULL | categoria do produto |
+| estoque | Int | NOT NULL | numero do estoque |
+| carrinho | VARCHAR(255) | foreign key | Lista dos pedidos |
+| avaliacoes | VARCHAR(255) | NULL | avaliação do usuario |
+| data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 
 ### Tabela Carrinho
@@ -60,24 +58,24 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
 | id          | UUID         | PRIMARY KEY            | Identificador carrinho |
-|usuarioId      | INT |  FK              | identificação usuário   |
-| produtoId         | INT |    FK     | identificação produto         |
-  | quantidade  | INT    | NOT NULL               | total de produtos            |
-| categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
-  | pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
-| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+| usuarioId | INT | FK  | identificação usuário |
+| produtoId | INT | FK | identificação produto |
+| quantidade | INT | NOT NULL | total de produtos |
+| categoria  | VARCHAR(20) | NOT NULL | categoria do produto |
+| pedido | VARCHAR(255) | foreign key | Lista dos pedidos |
+| data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 ### Tabela Pedido
 
 | Campo        | Tipo de Dado  | Restrição               | Descrição                     |
 |-------------|--------------|-------------------------|--------------------------------|
 | id          | INT        | PRIMARY KEY            | Identificador do pedido |
-|usuarioId      | INT |  FK              | identificação usuário   |
-| carrinhoId         | INT |    FK     | id lista produtos        |
-  | Total  | DECIMAL(10,2)    | NOT NULL               | total de produtos            |
-| categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
-  | pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
-| data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
+| usuarioId | INT | FK | Identificação usuário |
+| carrinhoId | INT | FK | ID lista produtos |
+| total | DECIMAL(10,2) | NOT NULL | Total de produtos |
+| status | string | NOT NULL | Status do pedido |
+| pedido | VARCHAR(255) | foreign key | Lista dos pedidos |
+| data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 ### Tabela Avaliacao
 
@@ -86,9 +84,9 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
 |usuarioId      | INT |  FK              | identificação usuário   |
 | produtoId         | INT |    FK     | identificação produto         |
-  | quantidade  | INT    | NOT NULL               | total de produtos            |
+| quantidade  | INT    | NOT NULL               | total de produtos            |
 | categoria  | VARCHAR(20)  |      NOT NULL             | categoria do produto          |
-  | pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
+| pedido | VARCHAR(255) |    foreign key      |   Lista dos pedidos         |
 | data_criacao | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta     |
 
 
