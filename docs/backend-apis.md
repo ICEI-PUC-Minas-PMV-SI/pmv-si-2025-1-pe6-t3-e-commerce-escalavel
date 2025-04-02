@@ -132,7 +132,7 @@ Exemplo (figura):
 
 Código 200 indicando sucesso na operação.
 
-- ** Método Put: Atualizando o nome do usuário.**
+- **Método Put: Atualizando o nome do usuário.**
 
 Nesse método foi realizado a mudança do nome do usuário:
 
