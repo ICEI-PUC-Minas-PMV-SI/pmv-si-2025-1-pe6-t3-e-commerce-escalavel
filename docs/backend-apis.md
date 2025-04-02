@@ -32,7 +32,7 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | id | UUID | PRIMARY KEY | Identificador único do usuário |
 | email | VARCHAR(255) | UNIQUE, NOT NULL | E-mail para login |
 | nome | VARCHAR(100) | NOT NULL | Nome usuário |
-| senha_hash | VARCHAR(100) | NOT NULL | Hash da senha |
+| senha | VARCHAR(100) | NOT NULL | Hash da senha |
 | cel | VARCHAR(20) | NOT NULL | Telefone do usuário |
 | pedidos | VARCHAR(255) | foreign key | Pedido(s) do usuário |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
@@ -72,9 +72,8 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | id          | INT        | PRIMARY KEY            | Identificador do pedido |
 | usuarioId | INT | FK | Identificação usuário |
 | carrinhoId | INT | FK | ID lista produtos |
-| total | DECIMAL(10,2) | NOT NULL | Total de produtos |
+| total | Float | NOT NULL | Total de produtos |
 | status | string | NOT NULL | Status do pedido |
-| pedido | VARCHAR(255) | foreign key | Lista dos pedidos |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 ### Tabela Avaliacao
@@ -84,9 +83,8 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
 | usuarioId | INT | FK | Identificação usuário |
 | produtoId | INT | FK | Identificação produto |
-| quantidade | INT | NOT NULL | Total de produtos |
-| categoria | VARCHAR(20) | NOT NULL | Categoria do produto |
-| pedido | VARCHAR(255) | foreign key | Lista dos pedidos 
+|nota | STRING | Null | Nota do produto |
+| comentario | VARCHAR(255) |  NULL | Comentario do produto |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
 
