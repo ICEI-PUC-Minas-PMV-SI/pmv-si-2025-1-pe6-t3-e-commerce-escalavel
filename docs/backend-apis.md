@@ -114,11 +114,11 @@ Lista das tecnologias usadas no projeto, com justificativas e como elas se integ
 **Endpoints da API (localhost:3000) no Swagger, focando no CRUD de usuários. Os exemplos demonstram requisições e respostas para operações como busca (GET), criação (POST), atualização (PUT) e exclusão (DELETE), validando o funcionamento integrado do sistema.**
 - **Capturas de tela do Swagger em execução local (porta 3000) - Testes do CRUD de usuários**
 
-- **Metódo POST(Criação de um usuário)**
+- **Método POST(Criação de um usuário)**
 
 ![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Captura%20de%20tela%202025-03-31%20161606.png)
 
-Observe o código 201, que significa usuário criado com sucesso.
+Observe o código 201, que significa usuário criado com sucesso e sua senha está criptografada e oculta.
 
 - **Método GET : Busca de usuário**<br>
 Este endpoint realiza a consulta de um usuário com base em dados específicos predefinidos (nome e e-mail), retornando as informações correspondentes.
@@ -131,6 +131,17 @@ Exemplo (figura):
 ![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Captura%20de%20tela%202025-03-31%20163510.png)
 
 Código 200 indicando sucesso na operação.
+
+- ** Método Put: Atualizando o nome do usuário.**
+
+Nesse método foi realizado a mudança do nome do usuário:
+
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Metodo%20Put.png)
+
+Código 200 indica sucesso na operação.
+
+
+
 
 ## Considerações de Segurança
 
