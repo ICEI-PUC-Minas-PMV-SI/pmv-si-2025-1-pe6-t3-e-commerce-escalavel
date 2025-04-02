@@ -121,6 +121,7 @@ Lista das tecnologias usadas no projeto, com justificativas e como elas se integ
 Observe o código 201, que significa usuário criado com sucesso e sua senha está criptografada e oculta.
 
 - **Método GET : Busca de usuário**<br>
+
 Este endpoint realiza a consulta de um usuário com base em dados específicos predefinidos (nome e e-mail), retornando as informações correspondentes.
 
 Parâmetros de busca: nome e email.
@@ -134,13 +135,19 @@ Código 200 indicando sucesso na operação.
 
 - **Método Put: Atualizando o nome do usuário.**
 
-Nesse método foi realizado a mudança do nome do usuário:
+Realizando a mudança do nome :
 
 ![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Metodo%20Put.png)
 
 Código 200 indica sucesso na operação.
 
+- **Método Delete: Excluindo um usuário**
 
+A partir do Id, utilizamos o Delete para excluir o usuário
+
+![](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/del_user.png)
+
+Código informa que a operação foi realizada com sucesso.
 
 
 ## Considerações de Segurança
