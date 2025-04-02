@@ -4,7 +4,7 @@
 O projeto consiste no desenvolvimento de uma API para um e-commerce especializado em equipamentos para computadores, como placas de vídeo, processadores, memórias RAM, entre outros. A API foi construída utilizando Node.js como tecnologia principal, com o banco de dados MongoDB (e Prisma como ORM para gerenciamento das operações de banco de dados). Para testes e validação dos endpoints, foi utilizado o Insomnia e Swagger. A API oferece funcionalidades como cadastro de usuários, gerenciamento de produtos, criação de carrinhos de compras, processamento de pedidos e autenticação de usuários.
 
 ## Objetivos da API
-### Principais tópicos sobre os objetivos da API no projeto:
+### Principais tópicos sobre os objetivos da API :
 
 
   - **Facilitar a gestão de produtos:** Permitir que administradores cadastrem, atualizem, listem e removam produtos do catálogo da loja.
@@ -21,9 +21,8 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 
 
 ## Modelagem da Aplicação
-[Descreva a modelagem da aplicação, incluindo a estrutura de dados, diagramas de classes ou entidades, e outras representações visuais relevantes.]
 
-## Estrutura dos dados
+
 ### Tabela Users (Mongo/Prisma)
 
 
@@ -87,6 +86,9 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | comentario | VARCHAR(255) |  NULL | Comentario do produto |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
+### Diagrama
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/DER.png)
+
 
 ## Tecnologias Utilizadas
 
@@ -103,6 +105,8 @@ Lista das tecnologias usadas no projeto, com justificativas e como elas se integ
 |Documentaçã|	Swagger UI	|4.x|	Geração automática de docs interativos para facilitar o consumo da API por frontend/equipe.|
 |Testes	|Insomnnia|	| aplicativo para testar e desenvolver APIs	|
 |Deploy	|	Docker	|	20.x+		|Empacotamento consistente para produção e fácil escalabilidade.	|
+
+
 
 
 ## API Endpoints
