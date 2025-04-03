@@ -166,14 +166,6 @@ Código informa que a operação foi realizada com sucesso.
 
 ## Testes
 
-[Descreva a estratégia de teste, incluindo os tipos de teste a serem realizados (unitários, integração, carga, etc.) e as ferramentas a serem utilizadas.]
-
-1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
-2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
-3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
-4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
-5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
-
 1. Validação de dados: Verificação de se os dados de entrada (como ID de produto ou quantidade) são válidos.
 2. Cadastro de um produto: Verificar se um produto é inserido corretamente no banco de dados quando o endpoint de cadastro de produto é acionado.
 3. Testes de tempo de resposta: Verificar o tempo que leva para a API responder a requisições típicas (consulta de produtos, checkout, etc.) e garantir que ele se mantém dentro de limites aceitáveis.
