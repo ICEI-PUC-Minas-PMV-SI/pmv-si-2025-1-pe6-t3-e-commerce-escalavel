@@ -273,7 +273,7 @@ A estratégia de teste de uma API de e-commerce de computadores envolve uma comb
     Deploy de Aplicações Node.js
     "How to Deploy a Node.js App to Production" – DigitalOcean. Disponível em: https://www.digitalocean.com/community/tutorials
 
-3. Livros 
+3. Livros - 
     Node.js Design Patterns
     Mario Casciaro & Luciano Mammino (3rd Edition, 2020)
 
