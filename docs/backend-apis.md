@@ -152,17 +152,82 @@ Código informa que a operação foi realizada com sucesso.
 
 ## Considerações de Segurança
 
-[Discuta as considerações de segurança relevantes para a aplicação distribuída, como autenticação, autorização, proteção contra ataques, etc.]
+A segurança é um pilar fundamental em qualquer aplicação distribuída, especialmente em sistemas de e-commerce que lidam com dados sensíveis, como informações de pagamento e perfis de usuários. Neste projeto, implementamos um conjunto robusto de medidas para garantir:
 
+- Autenticação segura com JWT (JSON Web Tokens) e hashing de senhas (bcrypt).
+
+- Autorização baseada em perfis (admin/user) para controle de acesso granular.
+
+- Proteção contra ataques comuns, como injeção de dados e acessos não autorizados.
+
+- Boas práticas de configuração, como uso de variáveis de ambiente para chaves sensíveis.
+
+Essas estratégias garantem que apenas usuários autenticados e devidamente autorizados possam acessar recursos críticos, mantendo a integridade e a confidencialidade dos dados. 
 ## Implantação
 
-[Instruções para implantar a aplicação distribuída em um ambiente de produção.]
+Este guia detalha o processo de implantação da aplicação em um ambiente de produção, garantindo segurança, escalabilidade e disponibilidade.
 
-1. Defina os requisitos de hardware e software necessários para implantar a aplicação em um ambiente de produção.
-2. Escolha uma plataforma de hospedagem adequada, como um provedor de nuvem ou um servidor dedicado.
-3. Configure o ambiente de implantação, incluindo a instalação de dependências e configuração de variáveis de ambiente.
-4. Faça o deploy da aplicação no ambiente escolhido, seguindo as instruções específicas da plataforma de hospedagem.
-5. Realize testes para garantir que a aplicação esteja funcionando corretamente no ambiente de produção.
+### 1. Requisitos de Hardware e Software
+Requisitos Mínimos:
+
+Servidor (Node.js + MongoDB);
+
+CPU: 2 vCPUs (mínimo);
+
+RAM: 4GB (recomendado 8GB para alta demanda);
+
+Armazenamento: 20GB SSD (para aplicação + logs);
+
+SO: Linux (Ubuntu 22.04 LTS ou similar).
+
+**Banco de Dados (MongoDB):**
+
+MongoDB Atlas (recomendado) ou servidor dedicado com MongoDB 6.0+;
+
+Storage: 10GB (escalável conforme necessidade).
+
+**Dependências de Software:**
+
+Node.js 18.x+ (LTS);
+
+Docker 20.x+ (para containerização);
+
+Nginx/Apache (como reverse proxy, opcional);
+
+PM2 (para gerenciamento de processos em produção).
+
+### 2. Plataforma de Hospedagem Recomendada
+Opções :
+|Plataforma|	Tipo	|Recomendação para|
+|----------|--------|-----------------|
+|AWS EC2 + MongoDB Atlas|	IaaS (Infraestrutura como Serviço)	|Controle total, escalabilidade|
+|Google Cloud Run	|Serverless (com Docker)	|Custo-efetivo, autoescalável|
+|Render.com	|PaaS (Plataforma como Serviço)	|Simplicidade, integração contínua|
+|DigitalOcean Droplet|	VPS (Virtual Private Server)	|Equilíbrio entre custo e desempenho|
+
+**Sugestão para MVP/Startup:**
+
+Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior controle).
+
+### 3. Configuração do Ambiente
+
+- Clone o repositório e instale as dependências;
+- Configure as variáveis de ambiente (.env);
+- Configure o Nginx;
+
+### 4. Deploy em Produção
+
+**Render.com**
+- Conecte seu repositório Git;
+- Defina as variáveis de ambiente no painel;
+- Configure o comando de build (npm install && npx prisma generate);
+- Defina o comando de start(node app.js).
+
+ ### 5. Testes Pós-Implantação  
+  - Teste as rotas da API (use Insomnia/Postman):
+  - Autenticação;
+  - Rotas protegidas (ex: admin).
+      
 
 ## Testes
 
@@ -176,4 +241,51 @@ A estratégia de teste de uma API de e-commerce de computadores envolve uma comb
 
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvolvimento do trabalho.
+1. Documentação Oficial de Tecnologias
+    Node.js
+    Node.js Documentation. Disponível em: https://nodejs.org/en/docs/
+
+    Express.js
+    Express.js Documentation. Disponível em: https://expressjs.com/
+
+    MongoDB
+    MongoDB Official Documentation. Disponível em: https://www.mongodb.com/docs/
+
+    Prisma (ORM)
+    Prisma Documentation. Disponível em: https://www.prisma.io/docs/
+
+    JWT (JSON Web Tokens)
+    JWT.io Introduction. Disponível em: https://jwt.io/introduction/
+
+    Mercado Pago API
+    Mercado Pago Developers. Disponível em: https://www.mercadopago.com.br/developers
+
+    Docker
+    Docker Documentation. Disponível em: https://docs.docker.com/
+
+2. Artigos e Tutoriais
+    Autenticação com JWT em Node.js
+    "How to Implement JWT Authentication in Node.js" – Auth0. Disponível em: https://auth0.com/blog/node-js-jwt-authentication/
+
+    Segurança em APIs REST
+    "REST API Security Best Practices" – OWASP. Disponível em: https://owasp.org/www-project-api-security/
+
+    Deploy de Aplicações Node.js
+    "How to Deploy a Node.js App to Production" – DigitalOcean. Disponível em: https://www.digitalocean.com/community/tutorials
+
+3. Livros (Opcionais, para Aprofundamento)
+    Node.js Design Patterns
+    Mario Casciaro & Luciano Mammino (3rd Edition, 2020)
+
+    MongoDB: The Definitive Guide
+    Shannon Bradshaw, Eoin Brazil & Kristina Chodorow (3rd Edition, 2019)
+
+    API Security in Action
+    Neil Madden (2021, Manning Publications)
+
+4. Ferramentas de Teste e Documentação
+    Insomnia (Teste de APIs)
+    Documentação Oficial. Disponível em: https://docs.insomnia.rest/
+
+    Swagger (Documentação de APIs)
+    OpenAPI Specification. Disponível em: https://swagger.io/specification/.
