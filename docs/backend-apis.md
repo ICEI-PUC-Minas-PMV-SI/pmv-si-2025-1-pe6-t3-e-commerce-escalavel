@@ -82,7 +82,7 @@ O projeto consiste no desenvolvimento de uma API para um e-commerce especializad
 | id          | UUID         | PRIMARY KEY            | Identificador único do usuário |
 | usuarioId | INT | FK | Identificação usuário |
 | produtoId | INT | FK | Identificação produto |
-|nota | STRING | Null | Nota do produto |
+| nota | STRING | Null | Nota do produto |
 | comentario | VARCHAR(255) |  NULL | Comentario do produto |
 | data_criacao | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Data de criação da conta |
 
@@ -96,14 +96,14 @@ Lista das tecnologias usadas no projeto, com justificativas e como elas se integ
 
 |Categoria	|Tecnologia|	Versão|	Por que foi escolhida?|
 |-----------|----------|--------|-----------------------|
-|Backend|	Node.js|	18.x+	|Ambiente assíncrono ideal para I/O intensivo (como APIs) e ampla comunidade de suporte.|
-|Framework|	Express.js	|4.x	| Minimalista e flexível para estruturar rotas e middlewares.|
-|Banco de Dados|	MongoDB	|6.x+	|Schema-less e escalável para modelos de dados flexíveis (ex: carrinho com produtos variados).|
-|ORM/ODM	|Prisma|	5.x+	|Type-safe, suporte nativo ao MongoDB e gerenciamento fácil de relações.|
+|Backend|	Node.js |	18.x+	|Ambiente assíncrono ideal para I/O intensivo (como APIs) e ampla comunidade de suporte.|
+|Framework |	Express.js	|4.x	| Minimalista e flexível para estruturar rotas e middlewares.|
+|Banco de Dados |	MongoDB	|6.x+	|Schema-less e escalável para modelos de dados flexíveis (ex: carrinho com produtos variados).|
+|ORM/ODM |Prisma|	5.x+	|Type-safe, suporte nativo ao MongoDB e gerenciamento fácil de relações.|
 |Autenticação	|JWT	|2.x	|Stateless, ideal para APIs RESTful e fácil integração com frontend.|
 |Pagamentos|	Mercado Pago SDK|	2.x+	| Solução completa para pagamentos no Brasil, com sandbox para testes.|
-|Documentaçã|	Swagger UI	|4.x|	Geração automática de docs interativos para facilitar o consumo da API por frontend/equipe.|
-|Testes	|Insomnnia|	| aplicativo para testar e desenvolver APIs	|
+|Documentação |	Swagger UI	|4.x|	Geração automática de docs interativos para facilitar o consumo da API por frontend/equipe.|
+|Testes	|Insomnnia |	| Aplicativo para testar e desenvolver APIs	|
 |Deploy	|	Docker	|	20.x+		|Empacotamento consistente para produção e fácil escalabilidade.	|
 
 
