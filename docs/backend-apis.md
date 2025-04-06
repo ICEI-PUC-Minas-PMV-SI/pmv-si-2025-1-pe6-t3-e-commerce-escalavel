@@ -233,12 +233,15 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
   Resultados esperados:
 
  1. Requisições com dados válidos (ex: id de produto correto, quantidade positiva) devem ser processadas com sucesso (ex: HTTP 200 ou 201).
+    ![image](https://github.com/user-attachments/assets/71109bf0-3674-4b78-9b6c-adfbce3dba74)
+
 
  2. Requisições com dados inválidos (ex: id inexistente, quantidade negativa, campos obrigatórios ausentes) devem retornar erros apropriados, como:
 
-    - HTTP 400 Bad Request
+    - HTTP 500 Internal Server Error
 
     - Mensagens claras, como "Quantidade deve ser um número positivo" ou "ID do produto é inválido".
+    ![image](https://github.com/user-attachments/assets/e39f948d-f133-492b-82a8-a08c53f41022)
 
 
 **2. Cadastro de um produto**
@@ -250,14 +253,18 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
  1. Um novo produto com todos os campos obrigatórios preenchidos deve ser salvo no banco e retornar:
 
     - HTTP 201 Created
+![image](https://github.com/user-attachments/assets/20701ef4-18ec-481f-8da8-45e93149014c)
 
-    - Corpo da resposta com os dados do produto recém-criado.
 
  2. O banco deve refletir a inserção (verificável via MongoDB ou uma rota de consulta).
+![image](https://github.com/user-attachments/assets/b8b8f925-50ab-4840-9183-cf681e688275)
+
 
  3. Requisições com dados faltantes ou inválidos devem ser rejeitadas com:
 
     - HTTP 400 ou 422 Unprocessable Entity.
+![image](https://github.com/user-attachments/assets/79390259-bfb3-420e-a67e-ef17852ea88c)
+
 
 
 **3. Testes de tempo de resposta**
@@ -266,11 +273,15 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
 
   Resultados esperados:
 
- 1. Requisições comuns (GET /produtos, POST /carrinho, POST /checkout) devem ter tempo de resposta abaixo de um limite          aceitável, por exemplo:
+ 1. Requisições comuns (GET /produtos, POST /carrinho, POST /checkout) devem ter tempo de resposta abaixo de um limite aceitável, por exemplo:
 
-    - < 300ms para requisições simples.
+   - < 300ms para requisições simples.
+![image](https://github.com/user-attachments/assets/355cdd45-2ffc-420b-af69-0cbda2b7d367)
 
-    - < 800ms para requisições mais complexas como checkout (com validações e alterações no banco).
+
+  - < 800ms para requisições mais complexas como checkout (com validações e alterações no banco).
+![image](https://github.com/user-attachments/assets/841eea5b-8d3f-4e7f-a3a4-d5e37146c471)
+
 
  2. Os testes devem indicar consistência no tempo de resposta sob carga leve a moderada.
 
@@ -288,10 +299,15 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
     - Retornar HTTP 401 Unauthorized ou 403 Forbidden quando:
 
       - O token estiver ausente.
+![erro token](https://github.com/user-attachments/assets/420aa175-b9cd-45f0-b52a-5c3a7cde1055)
+
 
       - O token for inválido ou expirado.
+![image](https://github.com/user-attachments/assets/459a2751-4812-4388-981b-f88de370e709)
+
 
       - O usuário não tiver permissão para o recurso (ex: não-admin tentando cadastrar produto).
+![image](https://github.com/user-attachments/assets/f34c1613-2eda-4562-b94e-aa51cef439a4)
 
  2. Usuários autenticados devem acessar os recursos permitidos sem erro.
 
