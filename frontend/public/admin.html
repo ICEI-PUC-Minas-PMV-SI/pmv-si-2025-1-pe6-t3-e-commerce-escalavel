@@ -3,13 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Usuários</title>
+  <title>Admin - Painel de Controle</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container mt-5">
     <h2 class="mb-4">Painel de Administração - Usuários</h2>
-    <div id="usuarios"></div>
+    <div id="usuarios" class="mb-5"></div>
+
+    <hr class="my-5">
+
+    <h2 class="mb-4">Cadastrar Novo Produto</h2>
+    <form id="formProduto">
+      <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <textarea class="form-control" id="descricao" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Preço</label>
+        <input type="number" step="0.01" class="form-control" id="preco" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Categoria</label>
+        <input type="text" class="form-control" id="categoria" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Estoque</label>
+        <input type="number" class="form-control" id="estoque" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">URL da Imagem</label>
+        <input type="text" class="form-control" id="imagem" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Salvar Produto</button>
+    </form>
   </div>
 
   <script>
@@ -42,6 +73,36 @@
         `;
       });
     }
+
+    document.getElementById("formProduto").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const produto = {
+        nome: document.getElementById("nome").value,
+        descricao: document.getElementById("descricao").value,
+        preco: parseFloat(document.getElementById("preco").value),
+        categoria: document.getElementById("categoria").value,
+        estoque: parseInt(document.getElementById("estoque").value),
+        imagem: document.getElementById("imagem").value,
+      };
+
+      const res = await fetch("http://localhost:3000/api/produtos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(produto),
+      });
+
+      if (res.ok) {
+        alert("Produto criado com sucesso!");
+        document.getElementById("formProduto").reset();
+      } else {
+        const data = await res.json();
+        alert("Erro: " + data.error);
+      }
+    });
 
     carregarUsuarios();
   </script>

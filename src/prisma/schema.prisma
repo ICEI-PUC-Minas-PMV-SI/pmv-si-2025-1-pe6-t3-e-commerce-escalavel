@@ -32,6 +32,7 @@ model Product {
   preco      Float
   categoria  String
   estoque    Int
+   imagem     String?
   createdAt  DateTime    @default(now())
   carrinho   Carrinho[]
   avaliacoes Avaliacao[] // Relação com avaliações do produto
