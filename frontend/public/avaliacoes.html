@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliações</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+  <h2 class="mb-4">Avaliações do Produto</h2>
+  <div id="avaliacoes" class="mb-4"></div>
+
+  <h4>Enviar Avaliação</h4>
+  <form id="formAvaliacao">
+    <div class="mb-3">
+      <label for="nota" class="form-label">Nota (1 a 5)</label>
+      <input type="number" id="nota" class="form-control" min="1" max="5" required />
+    </div>
+    <div class="mb-3">
+      <label for="comentario" class="form-label">Comentário</label>
+      <textarea id="comentario" class="form-control" required></textarea>
+    </div>
+    <button class="btn btn-primary">Enviar</button>
+  </form>
+
+  <script>
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const params = new URLSearchParams(window.location.search);
+    const produtoId = params.get("produtoId");
+
+    const headers = { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" };
+
+    async function carregarAvaliacoes() {
+      const res = await fetch(`http://localhost:3000/api/avaliacoes/${produtoId}`);
+      const avaliacoes = await res.json();
+
+      const container = document.getElementById("avaliacoes");
+      container.innerHTML = "";
+      if (avaliacoes.length === 0) return container.innerHTML = "<p>Nenhuma avaliação ainda.</p>";
+
+      avaliacoes.forEach(a => {
+        container.innerHTML += `
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5>${a.usuario.nome}</h5>
+              <p>Nota: ${a.nota} ⭐</p>
+              <p>${a.comentario}</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    document.getElementById("formAvaliacao").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const nota = parseInt(document.getElementById("nota").value);
+      const comentario = document.getElementById("comentario").value;
+
+      const res = await fetch("http://localhost:3000/api/avaliacoes", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ nota, comentario, produtoId })
+      });
+
+      if (res.ok) {
+        alert("Avaliação enviada!");
+        document.getElementById("formAvaliacao").reset();
+        carregarAvaliacoes();
+      } else {
+        const data = await res.json();
+        alert("Erro: " + data.error);
+      }
+    });
+
+    carregarAvaliacoes();
+  </script>
+</body>
+</html>

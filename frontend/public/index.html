@@ -30,10 +30,12 @@
       const produtos = await res.json();
       const container = document.getElementById("produtos");
 
+      container.innerHTML = "";
       produtos.forEach((p) => {
         container.innerHTML += `
           <div class="col-md-4">
             <div class="card h-100">
+              <img src="${p.imagem || 'https://via.placeholder.com/300x200'}" class="card-img-top" alt="${p.nome}">
               <div class="card-body">
                 <h5 class="card-title">${p.nome}</h5>
                 <p class="card-text">${p.descricao}</p>
