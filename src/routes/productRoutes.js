@@ -2,6 +2,7 @@ import express from 'express';
 import {
   createProduct,
   getProducts,
+  getProductById,
   updateProduct,
   deleteProduct,
 } from '../controllers/productController.js';
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get('/produtos', getProducts);
 
 // Rotas protegidas (apenas admin)
+router.get('/produtos/:id', getProductById);
 router.post('/produtos', authMiddleware, adminMiddleware, createProduct);
 router.put('/produtos/:id', authMiddleware, adminMiddleware, updateProduct);
 router.delete('/produtos/:id', authMiddleware, adminMiddleware, deleteProduct);
