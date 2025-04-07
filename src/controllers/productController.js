@@ -60,7 +60,7 @@ export const updateProduct = async (req, res) => {
       },
     });
 
-    // Verifica o estoque do produto após atualização
+// Verifica o estoque do produto após atualização
     if (updatedProduct.estoque <= 3) {
       res.status(200).json({
         message: `Atenção: o estoque do produto "${updatedProduct.nome}" está igual ou abaixo de 3 unidades.`,
@@ -86,5 +86,25 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
     console.error('Erro ao deletar produto:', error);
     res.status(500).json({ error: 'Erro ao deletar produto', details: error.message });
+  }
+};
+
+// Buscar produto por ID
+export const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await prisma.Product.findUnique({
+      where: { id: id },
+    });
+
+    if (!product) {
+      return res.status(404).json({ error: 'Produto não encontrado' });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    console.error('Erro ao buscar produto por ID:', error);
+    res.status(500).json({ error: 'Erro ao buscar produto', details: error.message });
   }
 };
