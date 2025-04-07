@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
@@ -10,6 +11,8 @@ import specs from './swagger.js';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 
 // Rotas
 app.use('/api', userRoutes); // Rotas de usuários
