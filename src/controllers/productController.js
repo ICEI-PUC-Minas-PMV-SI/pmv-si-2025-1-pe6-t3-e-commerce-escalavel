@@ -11,6 +11,8 @@ export const createProduct = async (req, res) => {
         preco: req.body.preco,
         categoria: req.body.categoria,
         estoque: req.body.estoque,
+        imagem: req.body.imagem,
+        
       },
     });
     res.status(201).json(product);
@@ -57,6 +59,7 @@ export const updateProduct = async (req, res) => {
         preco: req.body.preco,
         categoria: req.body.categoria,
         estoque: req.body.estoque,
+        imagem: req.body.imagem,
       },
     });
 
