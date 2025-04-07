@@ -168,7 +168,7 @@ Essas estratégias garantem que apenas usuários autenticados e devidamente auto
 Este guia detalha o processo de implantação da aplicação em um ambiente de produção, garantindo segurança, escalabilidade e disponibilidade.
 
 ### 1. Requisitos de Hardware e Software
-Requisitos Mínimos:
+**Requisitos Mínimos:**
 
 Servidor (Node.js + MongoDB);
 
@@ -190,11 +190,6 @@ Storage: 10GB (escalável conforme necessidade).
 
 Node.js 18.x+ (LTS);
 
-Docker 20.x+ (para containerização);
-
-Nginx/Apache (como reverse proxy, opcional);
-
-PM2 (para gerenciamento de processos em produção).
 
 ### 2. Plataforma de Hospedagem Recomendada
 Opções :
@@ -231,13 +226,109 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
 
 ## Testes
 
-1. Validação de dados: Verificação de se os dados de entrada (como ID de produto ou quantidade) são válidos.
-2. Cadastro de um produto: Verificar se um produto é inserido corretamente no banco de dados quando o endpoint de cadastro de produto é acionado.
-3. Testes de tempo de resposta: Verificar o tempo que leva para a API responder a requisições típicas (consulta de produtos, checkout, etc.) e garantir que ele se mantém dentro de limites aceitáveis.
-4. estar autenticação e autorização: Garantir que apenas usuários autenticados possam acessar determinados recursos, como checkout de pedido.
-5. Documentação da API: Verificar se a documentação está clara e precisa.
+**1. Validação de dados**
 
-A estratégia de teste de uma API de e-commerce de computadores envolve uma combinação de testes unitários, de integração, de carga, de segurança e de usabilidade. A utilização de ferramentas como Jest, Supertest, Artillery e OWASP ZAP ajudará a garantir que a API esteja funcionando corretamente, de maneira eficiente e segura.
+  Objetivo: Garantir que os dados enviados aos endpoints estejam no formato e tipo corretos.
+
+  Resultados esperados:
+
+ 1. Requisições com dados válidos (ex: id de produto correto, quantidade positiva) devem ser processadas com sucesso (ex: HTTP 200 ou 201).
+    ![image](https://github.com/user-attachments/assets/71109bf0-3674-4b78-9b6c-adfbce3dba74)
+
+
+ 2. Requisições com dados inválidos (ex: id inexistente, quantidade negativa, campos obrigatórios ausentes) devem retornar erros apropriados, como:
+
+    - HTTP 500 Internal Server Error
+
+    - Mensagens claras, como "Quantidade deve ser um número positivo" ou "ID do produto é inválido".
+    ![image](https://github.com/user-attachments/assets/e39f948d-f133-492b-82a8-a08c53f41022)
+
+
+**2. Cadastro de um produto**
+
+  O bjetivo: Testar se o endpoint de cadastro de produto funciona corretamente.
+
+  Resultados esperados:
+
+ 1. Um novo produto com todos os campos obrigatórios preenchidos deve ser salvo no banco e retornar:
+
+    - HTTP 201 Created
+![image](https://github.com/user-attachments/assets/20701ef4-18ec-481f-8da8-45e93149014c)
+
+
+ 2. O banco deve refletir a inserção (verificável via MongoDB ou uma rota de consulta).
+![image](https://github.com/user-attachments/assets/b8b8f925-50ab-4840-9183-cf681e688275)
+
+
+ 3. Requisições com dados faltantes ou inválidos devem ser rejeitadas com:
+
+    - HTTP 400 ou 422 Unprocessable Entity.
+![image](https://github.com/user-attachments/assets/79390259-bfb3-420e-a67e-ef17852ea88c)
+
+
+
+**3. Testes de tempo de resposta**
+
+  Objetivo: Verificar o desempenho da API.
+
+  Resultados esperados:
+
+ 1. Requisições comuns (GET /produtos, POST /carrinho, POST /checkout) devem ter tempo de resposta abaixo de um limite aceitável, por exemplo:
+
+   - < 300ms para requisições simples.
+![image](https://github.com/user-attachments/assets/355cdd45-2ffc-420b-af69-0cbda2b7d367)
+
+
+  - < 800ms para requisições mais complexas como checkout (com validações e alterações no banco).
+![image](https://github.com/user-attachments/assets/841eea5b-8d3f-4e7f-a3a4-d5e37146c471)
+
+
+ 2. Os testes devem indicar consistência no tempo de resposta sob carga leve a moderada.
+
+
+**4. Autenticação e autorização**
+
+  Objetivo: Garantir segurança de acesso aos endpoints sensíveis.
+
+  Resultados esperados:
+
+ 1. Endpoints protegidos (ex: /checkout, /pedidos, /produtos/create) devem:
+
+    - Permitir acesso apenas com token JWT válido.
+
+    - Retornar HTTP 401 Unauthorized ou 403 Forbidden quando:
+
+      - O token estiver ausente.
+![erro token](https://github.com/user-attachments/assets/420aa175-b9cd-45f0-b52a-5c3a7cde1055)
+
+
+      - O token for inválido ou expirado.
+![image](https://github.com/user-attachments/assets/459a2751-4812-4388-981b-f88de370e709)
+
+
+      - O usuário não tiver permissão para o recurso (ex: não-admin tentando cadastrar produto).
+![image](https://github.com/user-attachments/assets/f34c1613-2eda-4562-b94e-aa51cef439a4)
+
+ 2. Usuários autenticados devem acessar os recursos permitidos sem erro.
+
+
+**5. Documentação da API**
+
+  Objetivo: Avaliar clareza e completude da documentação.
+
+  Resultados esperados:
+
+ 1. Documentação (via Swagger ou outra) deve:
+
+    - Apresentar todos os endpoints com seus métodos HTTP.
+
+    - Especificar os parâmetros esperados (body, query, headers).
+
+    - Informar os possíveis códigos de status (200, 400, 401, etc.).
+
+    - Exemplificar requisições e respostas.
+
+ 2. Qualquer desenvolvedor que leia a documentação deve conseguir interagir com a API sem dificuldades.
 
 # Referências
 
