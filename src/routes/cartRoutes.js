@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post('/carrinho', addToCart);
 router.get('/carrinho/:usuarioId', getCart);
-router.get('/carrinho', getAllCarts);  // Nova rota para listar todos os carrinhos
+router.get('/carrinho', getAllCarts); 
 router.put('/carrinho/:id', updateCartItem);
 router.delete('/carrinho/:id', removeCartItem);
 

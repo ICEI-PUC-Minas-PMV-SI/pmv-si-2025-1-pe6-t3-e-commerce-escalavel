@@ -41,3 +41,19 @@ export const listarAvaliacoes = async (req, res) => {
     res.status(500).json({ error: 'Erro ao listar avaliações', details: error.message });
   }
 };
+
+// Listar todas as avaliações (sem filtro de produto)
+export const listarTodasAvaliacoes = async (req, res) => {
+  try {
+    const avaliacoes = await prisma.avaliacao.findMany({
+      include: { usuario: true, produto: true },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    res.status(200).json(avaliacoes);
+  } catch (error) {
+    console.error('Erro ao listar todas as avaliações:', error);
+    res.status(500).json({ error: 'Erro ao listar todas as avaliações', details: error.message });
+  }
+};
+
