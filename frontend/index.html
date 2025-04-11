@@ -3,80 +3,289 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loja de Informática</title>
+  <title>Produtos - TechParts</title>
+  <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/frontend/css/styles.css" />
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<body class="main-layout">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-tech">
     <div class="container">
-      <a class="navbar-brand" href="index.html">E-Informática</a>
-      <div class="d-flex">
-        <a href="carrinho.html" class="btn btn-outline-light me-2">Carrinho</a>
-        <a href="pedidos.html" class="btn btn-outline-light me-2">Pedidos</a>
-        <a href="admin.html" class="btn btn-outline-light me-2">Admin</a>
-        <a href="login.html" class="btn btn-outline-light">Login</a>
+      <a class="navbar-brand-tech" href="index.html">
+        <i class="fas fa-microchip me-2"></i>TechParts
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="carrinho.html" class="nav-link-tech">
+              <i class="fas fa-shopping-cart me-1"></i>Carrinho
+              <span id="cart-count" class="badge bg-primary rounded-pill ms-1">0</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pedidos.html" class="nav-link-tech"><i class="fas fa-clipboard-list me-1"></i>Pedidos</a>
+          </li>
+          <!-- Item Admin (só aparece para admin) -->
+          <li class="nav-item" id="admin-nav-item" style="display: none;">
+            <a href="admin.html" class="nav-link-tech"><i class="fas fa-cog me-1"></i>Admin</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link-tech dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle me-1"></i><span id="user-name"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="perfil.html"><i class="fas fa-user me-2"></i>Perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" id="logout"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
 
-  <div class="container">
-    <h1 class="mb-4">Produtos</h1>
-    <div id="produtos" class="row g-4"></div>
+  <!-- Banner Hero -->
+  <div class="hero-banner">
+    <div class="container">
+      <h1 class="hero-title">Peças de Computador de Alta Performance</h1>
+      <p class="hero-subtitle">Encontre os melhores componentes para seu setup</p>
+    </div>
   </div>
 
+  <!-- Conteúdo Principal -->
+  <main class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="section-title">Nossos Produtos</h2>
+      <div class="search-box">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Pesquisar produtos..." id="searchInput">
+          <button class="btn btn-tech" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="mb-4">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-sm btn-outline-tech active">Todos</button>
+        <button class="btn btn-sm btn-outline-tech">Processadores</button>
+        <button class="btn btn-sm btn-outline-tech">Placas de Vídeo</button>
+        <button class="btn btn-sm btn-outline-tech">Memórias</button>
+        <button class="btn btn-sm btn-outline-tech">Armazenamento</button>
+      </div>
+    </div>
+
+    <!-- Lista de Produtos -->
+    <div id="produtos" class="row g-4"></div>
+
+    <!-- Paginação -->
+    <nav class="mt-5">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Anterior</a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Próxima</a>
+        </li>
+      </ul>
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-tech">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5><i class="fas fa-microchip me-2"></i>TechParts</h5>
+          <p>Sua loja especializada em peças de computador de alta qualidade.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Links Rápidos</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Sobre Nós</a></li>
+            <li><a href="#" class="text-white">Contato</a></li>
+            <li><a href="#" class="text-white">Política de Privacidade</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Contato</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt me-2"></i> Av. Tech, 1234</li>
+            <li><i class="fas fa-phone me-2"></i> (11) 98765-4321</li>
+            <li><i class="fas fa-envelope me-2"></i> contato@techparts.com</li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p class="mb-0">&copy; 2025 TechParts. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    async function carregarProdutos() {
-      const res = await fetch("http://localhost:3000/api/produtos");
-      const produtos = await res.json();
-      const container = document.getElementById("produtos");
-
-      container.innerHTML = "";
-      produtos.forEach((p) => {
-        container.innerHTML += `
-          <div class="col-md-4">
-            <div class="card h-100">
-              <img src="${p.imagem || 'https://via.placeholder.com/300x200'}" class="card-img-top" alt="${p.nome}">
-              <div class="card-body">
-                <h5 class="card-title">${p.nome}</h5>
-                <p class="card-text">${p.descricao}</p>
-                <p><strong>Categoria:</strong> ${p.categoria}</p>
-                <p><strong>Preço:</strong> R$ ${p.preco.toFixed(2)}</p>
-                <p><strong>Estoque:</strong> ${p.estoque}</p>
-                <button onclick="adicionarAoCarrinho('${p.id}')" class="btn btn-primary">Adicionar ao Carrinho</button>
-              </div>
-            </div>
-          </div>
-        `;
-      });
+    // Verificar autenticação
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    
+    if (!token || !user) {
+      window.location.href = "login.html";
     }
-
-    async function adicionarAoCarrinho(produtoId) {
-      const token = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!token || !user) return alert("Você precisa estar logado para adicionar ao carrinho.");
-
-      const res = await fetch("http://localhost:3000/api/carrinho", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          usuarioId: user.id,
-          produtoId,
-          quantidade: 1,
-        }),
-      });
-
-      if (res.ok) {
-        alert("Produto adicionado ao carrinho!");
-      } else {
-        const data = await res.json();
-        alert("Erro: " + data.error);
+    
+    // Mostrar nome do usuário no navbar
+    document.getElementById("user-name").textContent = user.nome;
+    
+    // Verificar se é admin e mostrar o ícone correspondente
+    if (user.perfil === 'admin') {
+      document.getElementById("admin-nav-item").style.display = 'block';
+    }
+  
+    // Atualizar contagem do carrinho
+    async function atualizarContagemCarrinho() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/carrinho/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        if (res.ok) {
+          const carrinho = await res.json();
+          document.getElementById("cart-count").textContent = carrinho.length;
+        }
+      } catch (error) {
+        console.error("Erro ao carregar carrinho:", error);
       }
     }
-
-    carregarProdutos();
+  
+    // Carregar produtos
+    async function carregarProdutos() {
+      try {
+        const res = await fetch("http://localhost:3000/api/produtos", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        if (!res.ok) {
+          throw new Error('Erro ao carregar produtos');
+        }
+        
+        const produtos = await res.json();
+        const container = document.getElementById("produtos");
+  
+        container.innerHTML = "";
+        produtos.forEach((p) => {
+          container.innerHTML += `
+            <div class="col-md-4 col-lg-3">
+              <div class="card product-card h-100">
+                <div class="badge-overlay">
+                  ${p.estoque > 0 
+                    ? `<span class="badge bg-success">Em estoque</span>` 
+                    : `<span class="badge bg-danger">Esgotado</span>`}
+                  ${p.estoque < 5 && p.estoque > 0 
+                    ? `<span class="badge bg-warning text-dark">Últimas unidades</span>` 
+                    : ''}
+                </div>
+                <img src="${p.imagem || 'https://via.placeholder.com/300x200?text=TechParts'}" 
+                     class="card-img-top product-image" alt="${p.nome}">
+                <div class="card-body">
+                  <h5 class="card-title">${p.nome}</h5>
+                  <p class="card-text text-muted product-description">${p.descricao}</p>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-tech-light text-dark">${p.categoria}</span>
+                    <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
+                  </div>
+                  <button onclick="adicionarAoCarrinho('${p.id}')" 
+                          class="btn btn-tech w-100" 
+                          ${p.estoque <= 0 ? 'disabled' : ''}>
+                    <i class="fas fa-cart-plus me-2"></i>
+                    ${p.estoque > 0 ? 'Adicionar ao carrinho' : 'Indisponível'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+        showNotification('danger', 'Erro ao carregar produtos. Tente novamente.');
+      }
+    }
+  
+    // Adicionar ao carrinho
+    async function adicionarAoCarrinho(produtoId) {
+      try {
+        const res = await fetch("http://localhost:3000/api/carrinho", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            usuarioId: user.id,
+            produtoId,
+            quantidade: 1,
+          }),
+        });
+  
+        if (res.ok) {
+          showNotification('success', 'Produto adicionado ao carrinho!');
+          await atualizarContagemCarrinho();
+        } else {
+          const data = await res.json();
+          throw new Error(data.error || "Erro ao adicionar ao carrinho");
+        }
+      } catch (error) {
+        showNotification('danger', error.message);
+      }
+    }
+  
+    // Mostrar notificação
+    function showNotification(type, message) {
+      const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+      const notification = document.createElement("div");
+      notification.className = `alert alert-${type} notification`;
+      notification.innerHTML = `
+        <i class="fas ${icon} me-2"></i>
+        ${message}
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add("fade-out");
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+  
+    // Logout
+    document.getElementById("logout").addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    });
+  
+    // Inicializar
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarProdutos();
+      atualizarContagemCarrinho();
+    });
+  
+    // Tornar funções disponíveis globalmente
+    window.adicionarAoCarrinho = adicionarAoCarrinho;
   </script>
 </body>
 </html>
