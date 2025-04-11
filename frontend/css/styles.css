@@ -1,0 +1,382 @@
+:root {
+    --primary-color: #3a7bd5;
+    --secondary-color: #00d2ff;
+    --dark-color: #1a1a2e;
+    --light-color: #f8f9fa;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  /* Estilos Gerais */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  
+  body:not(.main-layout) {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background: transparent; 
+}
+
+
+  /* Estilos Específicos para Login */
+  .login-page {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-container {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+  
+.login-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+  .brand-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+  }
+  
+  .logo-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: white;
+  }
+  
+  .brand-name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, white, #e0e0e0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .brand-slogan {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-top: 5px;
+  }
+  
+  .login-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    transition: var(--transition);
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+  
+  .login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .login-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--dark-color);
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark-color);
+  }
+  
+  .input-group {
+    margin-bottom: 5px;
+  }
+  
+  .input-group-text {
+    background-color: #f1f3f5;
+    border: 1px solid #ced4da;
+    border-right: none;
+    color: #6c757d;
+  }
+  
+  .form-control {
+    border-left: none;
+    padding: 12px 15px;
+    transition: var(--transition);
+  }
+  
+  .form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(58, 123, 213, 0.25);
+    border-color: var(--primary-color);
+  }
+  
+  .btn-login {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(to right, #2d63b8, #00c4f0);
+  }
+  
+  .toggle-password {
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  .message-alert {
+    color: var(--danger-color);
+    text-align: center;
+    margin: 15px 0;
+    opacity: 0;
+    height: 0;
+    transition: var(--transition);
+  }
+  
+  .message-alert.show {
+    opacity: 1;
+    height: auto;
+  }
+  
+  .login-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .register-link {
+    color: #6c757d;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .register-link span {
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: var(--transition);
+  }
+  
+  .register-link:hover span {
+    text-decoration: underline;
+  }
+  
+  .forgot-password {
+    color: #6c757d;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  .forgot-password:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+  
+  /* Estilos para Página de Produtos */
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Navbar */
+  .navbar-tech {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+  }
+  
+  .navbar-brand-tech {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .navbar-brand-tech i {
+    margin-right: 10px;
+  }
+  
+  .nav-link-tech {
+    color: white !important;
+    transition: var(--transition);
+    padding: 8px 15px !important;
+  }
+  
+  .nav-link-tech:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+  
+  /* Hero Banner */
+  .hero-banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    margin-bottom: 40px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+  
+  /* Cards de Produto */
+  .product-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    height: 100%;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .product-image {
+    height: 200px;
+    object-fit: contain;
+    padding: 20px;
+    background: #f8f9fa;
+  }
+  
+  .product-description {
+    /* Prefixos vendor para line clamping */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* Fallback para navegadores modernos */
+    display: -moz-box;
+    display: box;
+    -moz-box-orient: vertical;
+    line-clamp: 2;
+    box-orient: vertical;
+  }
+  
+  .product-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+  
+  .badge-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  /* Notificações */
+  .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: var(--shadow);
+  }
+  
+  .notification.fade-out {
+    animation: fadeOut 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  
+  /* Footer */
+  .footer-tech {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 30px 0;
+    margin-top: auto;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .login-card {
+      padding: 20px;
+    }
+    
+    .brand-name {
+      font-size: 2rem;
+    }
+    
+    .login-title {
+      font-size: 1.5rem;
+    }
+  }
