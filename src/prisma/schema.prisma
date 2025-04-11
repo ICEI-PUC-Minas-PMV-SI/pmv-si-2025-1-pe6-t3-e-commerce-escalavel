@@ -25,17 +25,27 @@ model User {
   avaliacoes Avaliacao[] // Relação com avaliações feitas pelo usuário
 }
 
+enum CategoriaProduto {
+  PROCESSADORES
+  PLACAS_VIDEO
+  MEMORIAS_RAM
+  ARMAZENAMENTO
+  PLACAS_MAE
+ 
+}
+
+
 model Product {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
   nome       String
   descricao  String
   preco      Float
-  categoria  String
+  categoria  CategoriaProduto
   estoque    Int
-   imagem     String?
-  createdAt  DateTime    @default(now())
+  imagem     String?
+  createdAt  DateTime        @default(now())
   carrinho   Carrinho[]
-  avaliacoes Avaliacao[] // Relação com avaliações do produto
+  avaliacoes Avaliacao[]
 }
 
 model Carrinho {
