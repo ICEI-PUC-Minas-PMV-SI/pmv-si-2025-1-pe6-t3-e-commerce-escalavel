@@ -380,3 +380,110 @@
       font-size: 1.5rem;
     }
   }
+
+  /* Estilos Específicos para Admin */
+.admin-container {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0 0 15px 15px;
+  box-shadow: var(--shadow);
+}
+
+.admin-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.admin-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: var(--transition);
+}
+
+.admin-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.section-divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+  margin: 2rem 0;
+}
+
+.btn-admin {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: var(--transition);
+}
+
+.btn-admin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(58, 123, 213, 0.25);
+}
+
+.user-card {
+  border-left: 4px solid var(--primary-color);
+  transition: var(--transition);
+}
+
+.user-card:hover {
+  transform: translateX(5px);
+}
+
+.user-card .card-title {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.user-card .card-text {
+  color: #555;
+}
+
+/* Badges para tipos de usuário */
+.badge-admin {
+  background-color: var(--danger-color);
+}
+
+.badge-user {
+  background-color: var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .admin-title {
+      font-size: 1.8rem;
+  }
+  
+  .admin-card {
+      padding: 1.5rem;
+  }
+}

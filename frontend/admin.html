@@ -3,90 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Painel de Controle</title>
+  <title>Admin - Painel de Controle | TechParts</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/frontend/css/styles.css" />
 </head>
-<body>
-  <div class="container mt-5">
-    <h2 class="mb-4">Painel de Administração - Usuários</h2>
-    <div id="usuarios" class="mb-5"></div>
+<body class="admin-page">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-tech">
+    <div class="container">
+      <a class="navbar-brand-tech" href="index.html">
+        <i class="fas fa-microchip me-2"></i>TechParts <small>Admin</small>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link-tech">
+              <i class="fas fa-store me-1"></i>Loja
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="admin.html" class="nav-link-tech active">
+              <i class="fas fa-users-cog me-1"></i>Usuários
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link-tech">
+              <i class="fas fa-boxes me-1"></i>Produtos
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link-tech dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle me-1"></i><span id="user-name"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" id="logout"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <hr class="my-5">
+  <!-- Conteúdo Principal -->
+  <main class="container admin-container">
+    <div class="admin-header text-center">
+      <h1 class="admin-title"><i class="fas fa-tachometer-alt me-2"></i>Painel de Administração</h1>
+      <p class="admin-subtitle">Gerencie usuários e produtos do sistema</p>
+    </div>
 
-    <h2 class="mb-4">Cadastrar Novo Produto</h2>
-    <form id="formProduto">
-      <div class="mb-3">
-        <label class="form-label">Nome</label>
-        <input type="text" class="form-control" id="nome" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Descrição</label>
-        <textarea class="form-control" id="descricao" required></textarea>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Preço</label>
-        <input type="number" step="0.01" class="form-control" id="preco" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Categoria</label>
-        <select class="form-select" id="categoria" required>
-          <option value="" selected disabled>Selecione uma categoria</option>
-          <option value="Processadores">Processadores</option>
-          <option value="Placas de Vídeo">Placas de Vídeo</option>
-          <option value="Memórias RAM">Memórias RAM</option>
-          <option value="Armazenamento (SSD/HDD)">Armazenamento (SSD/HDD)</option>
-          <option value="Placas-mãe">Placas-mãe</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Estoque</label>
-        <input type="number" class="form-control" id="estoque" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">URL da Imagem</label>
-        <input type="text" class="form-control" id="imagem" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Salvar Produto</button>
-    </form>
-  </div>
+    <!-- Seção de Usuários -->
+    <div class="admin-card">
+      <h2 class="mb-4"><i class="fas fa-users me-2"></i>Gerenciamento de Usuários</h2>
+      <div id="usuarios" class="row g-3"></div>
+    </div>
 
+    <hr class="section-divider">
+
+    <!-- Seção de Produtos -->
+    <div class="admin-card">
+      <h2 class="mb-4"><i class="fas fa-plus-circle me-2"></i>Cadastrar Novo Produto</h2>
+      <form id="formProduto">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" id="categoria" required>
+              <option value="" selected disabled>Selecione uma categoria</option>
+              <option value="Processadores">Processadores</option>
+              <option value="Placas de Vídeo">Placas de Vídeo</option>
+              <option value="Memórias RAM">Memórias RAM</option>
+              <option value="Armazenamento (SSD/HDD)">Armazenamento (SSD/HDD)</option>
+              <option value="Placas-mãe">Placas-mãe</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" rows="3" required></textarea>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Preço (R$)</label>
+            <input type="number" step="0.01" class="form-control" id="preco" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Estoque</label>
+            <input type="number" class="form-control" id="estoque" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">URL da Imagem</label>
+            <input type="text" class="form-control" id="imagem" required>
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-admin">
+              <i class="fas fa-save me-2"></i>Salvar Produto
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  if (!token || !user || user.perfil !== "admin") {
-    alert("Acesso restrito! Você precisa estar logado como administrador.");
-    window.location.href = "index.html"; // ou "login.html"
-  }
+    if (!token || !user || user.perfil !== "admin") {
+      alert("Acesso restrito! Você precisa estar logado como administrador.");
+      window.location.href = "login.html";
+    }
 
-  const headers = { "Authorization": `Bearer ${token}` };
+    // Mostrar nome do usuário no navbar
+    document.getElementById("user-name").textContent = user.nome;
+
+    const headers = { 
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    };
+
 
     async function carregarUsuarios() {
-      if (!token) return alert("Você precisa estar logado como admin.");
-
-      const res = await fetch("http://localhost:3000/api/admin/usuarios", { headers });
-      const users = await res.json();
-
-      const container = document.getElementById("usuarios");
-      container.innerHTML = "";
-
-      if (users.length === 0) {
-        container.innerHTML = `<p>Nenhum usuário encontrado.</p>`;
-        return;
+  try {
+    const res = await fetch("http://localhost:3000/api/usuarios", { 
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
+    });
+    
+    if (!res.ok) {
+      throw new Error(`Erro HTTP: ${res.status}`);
+    }
 
-      users.forEach(user => {
-        container.innerHTML += `
-          <div class="card mb-3">
+    const users = await res.json();
+
+    const container = document.getElementById("usuarios");
+    container.innerHTML = "";
+
+    if (users.length === 0) {
+      container.innerHTML = `
+        <div class="col-12">
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>Nenhum usuário encontrado.
+          </div>
+        </div>`;
+      return;
+    }
+
+    users.forEach(user => {
+      container.innerHTML += `
+        <div class="col-md-6 col-lg-4">
+          <div class="card user-card h-100">
             <div class="card-body">
-              <h5>${user.nome} (${user.perfil})</h5>
-              <p>Email: ${user.email}</p>
-              <p>Celular: ${user.cel}</p>
+              <div class="d-flex justify-content-between align-items-start">
+                <h5 class="card-title">${user.nome}</h5>
+                <span class="badge ${user.perfil === 'admin' ? 'bg-danger' : 'bg-primary'}">
+                  ${user.perfil}
+                </span>
+              </div>
+              <p class="card-text"><i class="fas fa-envelope me-2"></i>${user.email}</p>
+              <p class="card-text"><i class="fas fa-phone me-2"></i>${user.cel || 'Não informado'}</p>
+              <div class="d-flex justify-content-end gap-2 mt-3">
+                <button class="btn btn-sm btn-outline-primary" onclick="editarUsuario('${user.id}')">
+                  <i class="fas fa-edit me-1"></i>Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="confirmarExclusao('${user.id}')">
+                  <i class="fas fa-trash-alt me-1"></i>Excluir
+                </button>
+              </div>
             </div>
           </div>
-        `;
-      });
-    }
+        </div>`;
+    });
+
+  } catch (error) {
+    console.error("Erro ao carregar usuários:", error);
+    const container = document.getElementById("usuarios");
+    container.innerHTML = `
+      <div class="col-12">
+        <div class="alert alert-danger">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          Erro ao carregar usuários: ${error.message}
+        </div>
+      </div>`;
+  }
+}
 
     document.getElementById("formProduto").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -100,25 +209,76 @@
         imagem: document.getElementById("imagem").value,
       };
 
-      const res = await fetch("http://localhost:3000/api/produtos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(produto),
-      });
+      try {
+        const res = await fetch("http://localhost:3000/api/produtos", {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(produto),
+        });
 
-      if (res.ok) {
-        alert("Produto criado com sucesso!");
-        document.getElementById("formProduto").reset();
-      } else {
-        const data = await res.json();
-        alert("Erro: " + data.error);
+        if (res.ok) {
+          alert("Produto criado com sucesso!");
+          document.getElementById("formProduto").reset();
+        } else {
+          const data = await res.json();
+          throw new Error(data.error || "Erro ao criar produto");
+        }
+      } catch (error) {
+        console.error("Erro:", error);
+        alert("Erro: " + error.message);
       }
     });
 
-    carregarUsuarios();
+    // Logout
+    document.getElementById("logout").addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    });
+
+    // Inicializar
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarUsuarios();
+    });
+
+    // Função para editar usuário
+function editarUsuario(userId) {
+  // Implemente a lógica de edição aqui
+  console.log("Editar usuário:", userId);
+  alert(`Edição do usuário ${userId} será implementada aqui`);
+}
+
+// Função para confirmar exclusão
+function confirmarExclusao(userId) {
+  if (confirm("Tem certeza que deseja excluir este usuário?")) {
+    excluirUsuario(userId);
+  }
+}
+
+// Função para excluir usuário
+async function excluirUsuario(userId) {
+  try {
+    const res = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (res.ok) {
+      alert("Usuário excluído com sucesso!");
+      carregarUsuarios(); // Recarrega a lista
+    } else {
+      const error = await res.json();
+      throw new Error(error.message || "Erro ao excluir usuário");
+    }
+  } catch (error) {
+    console.error("Erro ao excluir usuário:", error);
+    alert(`Erro ao excluir usuário: ${error.message}`);
+  }
+}
   </script>
 </body>
 </html>
