@@ -26,12 +26,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="admin.html" class="nav-link-tech active">
+            <a href="#usuarios-section" class="nav-link-tech">
               <i class="fas fa-users-cog me-1"></i>Usuários
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link-tech">
+            <a href="#produtos-section" class="nav-link-tech active">
               <i class="fas fa-boxes me-1"></i>Produtos
             </a>
           </li>
@@ -57,64 +57,125 @@
       <p class="admin-subtitle">Gerencie usuários e produtos do sistema</p>
     </div>
 
-    <!-- Seção de Usuários -->
-    <div class="admin-card">
-      <h2 class="mb-4"><i class="fas fa-users me-2"></i>Gerenciamento de Usuários</h2>
-      <div id="usuarios" class="row g-3"></div>
+    <!-- Seção de Produtos -->
+    <div class="admin-card" id="produtos-section">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-boxes me-2"></i>Gerenciamento de Produtos</h2>
+        <button class="btn btn-admin" data-bs-toggle="modal" data-bs-target="#produtoModal">
+          <i class="fas fa-plus me-2"></i>Novo Produto
+        </button>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagem</th>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="produtos-list">
+            <!-- Produtos serão carregados aqui via JavaScript -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <hr class="section-divider">
 
-    <!-- Seção de Produtos -->
-    <div class="admin-card">
-      <h2 class="mb-4"><i class="fas fa-plus-circle me-2"></i>Cadastrar Novo Produto</h2>
-      <form id="formProduto">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Categoria</label>
-            <select class="form-select" id="categoria" required>
-              <option value="" selected disabled>Selecione uma categoria</option>
-              <option value="Processadores">Processadores</option>
-              <option value="Placas de Vídeo">Placas de Vídeo</option>
-              <option value="Memórias RAM">Memórias RAM</option>
-              <option value="Armazenamento (SSD/HDD)">Armazenamento (SSD/HDD)</option>
-              <option value="Placas-mãe">Placas-mãe</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <label class="form-label">Descrição</label>
-            <textarea class="form-control" id="descricao" rows="3" required></textarea>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Preço (R$)</label>
-            <input type="number" step="0.01" class="form-control" id="preco" required>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Estoque</label>
-            <input type="number" class="form-control" id="estoque" required>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">URL da Imagem</label>
-            <input type="text" class="form-control" id="imagem" required>
-          </div>
-          <div class="col-12 text-end">
-            <button type="submit" class="btn btn-admin">
-              <i class="fas fa-save me-2"></i>Salvar Produto
-            </button>
-          </div>
-        </div>
-      </form>
+    <!-- Seção de Usuários -->
+    <div class="admin-card" id="usuarios-section">
+      <h2 class="mb-4"><i class="fas fa-users me-2"></i>Gerenciamento de Usuários</h2>
+      <div id="usuarios" class="row g-3"></div>
     </div>
   </main>
+
+  <!-- Modal para Adicionar/Editar Produto -->
+  <div class="modal fade" id="produtoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Adicionar Novo Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formProduto">
+            <input type="hidden" id="produtoId">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Categoria</label>
+                <select class="form-select" id="categoria" required>
+                  <option value="" selected disabled>Selecione uma categoria</option>
+                  <option value="Processadores">Processadores</option>
+                  <option value="Placas de Vídeo">Placas de Vídeo</option>
+                  <option value="Memórias RAM">Memórias RAM</option>
+                  <option value="Armazenamento (SSD/HDD)">Armazenamento (SSD/HDD)</option>
+                  <option value="Placas-mãe">Placas-mãe</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-control" id="descricao" rows="3" required></textarea>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Preço (R$)</label>
+                <input type="number" step="0.01" class="form-control" id="preco" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Estoque</label>
+                <input type="number" class="form-control" id="estoque" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">URL da Imagem</label>
+                <input type="text" class="form-control" id="imagem" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-admin" id="saveProdutoBtn">
+            <i class="fas fa-save me-2"></i>Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Exclusão</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja excluir este produto?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
+    let produtoToDelete = null;
+    const modal = new bootstrap.Modal(document.getElementById('produtoModal'));
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
 
     if (!token || !user || user.perfil !== "admin") {
       alert("Acesso restrito! Você precisa estar logado como administrador.");
@@ -129,105 +190,247 @@
       "Content-Type": "application/json"
     };
 
+    // Funções para Produtos
+    async function carregarProdutos() {
+      try {
+        const res = await fetch("http://localhost:3000/api/produtos", { headers });
+        
+        if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
 
-    async function carregarUsuarios() {
-  try {
-    const res = await fetch("http://localhost:3000/api/usuarios", { 
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-    
-    if (!res.ok) {
-      throw new Error(`Erro HTTP: ${res.status}`);
-    }
+        const produtos = await res.json();
+        const container = document.getElementById("produtos-list");
+        container.innerHTML = "";
 
-    const users = await res.json();
+        if (produtos.length === 0) {
+          container.innerHTML = `
+            <tr>
+              <td colspan="6" class="text-center py-4">
+                <div class="alert alert-info mb-0">
+                  <i class="fas fa-info-circle me-2"></i>Nenhum produto cadastrado.
+                </div>
+              </td>
+            </tr>`;
+          return;
+        }
 
-    const container = document.getElementById("usuarios");
-    container.innerHTML = "";
-
-    if (users.length === 0) {
-      container.innerHTML = `
-        <div class="col-12">
-          <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>Nenhum usuário encontrado.
-          </div>
-        </div>`;
-      return;
-    }
-
-    users.forEach(user => {
-      container.innerHTML += `
-        <div class="col-md-6 col-lg-4">
-          <div class="card user-card h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start">
-                <h5 class="card-title">${user.nome}</h5>
-                <span class="badge ${user.perfil === 'admin' ? 'bg-danger' : 'bg-primary'}">
-                  ${user.perfil}
+        produtos.forEach(produto => {
+          container.innerHTML += `
+            <tr>
+              <td>
+                <img src="${produto.imagem || 'https://via.placeholder.com/50?text=TechParts'}" 
+                     alt="${produto.nome}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+              </td>
+              <td>${produto.nome}</td>
+              <td><span class="badge bg-tech-light">${produto.categoria}</span></td>
+              <td>R$ ${produto.preco.toFixed(2)}</td>
+              <td>
+                <span class="badge ${produto.estoque > 0 ? 'bg-success' : 'bg-danger'}">
+                  ${produto.estoque} ${produto.estoque === 1 ? 'unidade' : 'unidades'}
                 </span>
-              </div>
-              <p class="card-text"><i class="fas fa-envelope me-2"></i>${user.email}</p>
-              <p class="card-text"><i class="fas fa-phone me-2"></i>${user.cel || 'Não informado'}</p>
-              <div class="d-flex justify-content-end gap-2 mt-3">
-                <button class="btn btn-sm btn-outline-primary" onclick="editarUsuario('${user.id}')">
-                  <i class="fas fa-edit me-1"></i>Editar
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary me-2" onclick="editarProduto('${produto.id}')">
+                  <i class="fas fa-edit"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick="confirmarExclusao('${user.id}')">
-                  <i class="fas fa-trash-alt me-1"></i>Excluir
+                <button class="btn btn-sm btn-outline-danger" onclick="confirmarExclusaoProduto('${produto.id}')">
+                  <i class="fas fa-trash-alt"></i>
                 </button>
+              </td>
+            </tr>`;
+        });
+      } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+        const container = document.getElementById("produtos-list");
+        container.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-4">
+              <div class="alert alert-danger mb-0">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Erro ao carregar produtos: ${error.message}
               </div>
-            </div>
-          </div>
-        </div>`;
-    });
+            </td>
+          </tr>`;
+      }
+    }
 
-  } catch (error) {
-    console.error("Erro ao carregar usuários:", error);
-    const container = document.getElementById("usuarios");
-    container.innerHTML = `
-      <div class="col-12">
-        <div class="alert alert-danger">
-          <i class="fas fa-exclamation-triangle me-2"></i>
-          Erro ao carregar usuários: ${error.message}
-        </div>
-      </div>`;
-  }
-}
+    function abrirModalNovoProduto() {
+      document.getElementById('modalTitle').textContent = 'Adicionar Novo Produto';
+      document.getElementById('produtoId').value = '';
+      document.getElementById('formProduto').reset();
+      modal.show();
+    }
 
-    document.getElementById("formProduto").addEventListener("submit", async function (e) {
-      e.preventDefault();
+    async function editarProduto(id) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/produtos/${id}`, { headers });
+        
+        if (!res.ok) throw new Error(`Erro ao carregar produto: ${res.status}`);
+        
+        const produto = await res.json();
+        
+        document.getElementById('modalTitle').textContent = 'Editar Produto';
+        document.getElementById('produtoId').value = produto.id;
+        document.getElementById('nome').value = produto.nome;
+        document.getElementById('descricao').value = produto.descricao;
+        document.getElementById('preco').value = produto.preco;
+        document.getElementById('estoque').value = produto.estoque;
+        document.getElementById('imagem').value = produto.imagem || '';
+        document.getElementById('categoria').value = produto.categoria;
+        
+        modal.show();
+      } catch (error) {
+        console.error("Erro ao editar produto:", error);
+        alert(`Erro ao carregar produto: ${error.message}`);
+      }
+    }
+
+    async function salvarProduto() {
+      const produtoId = document.getElementById('produtoId').value;
+      const method = produtoId ? 'PUT' : 'POST';
+      const url = produtoId 
+        ? `http://localhost:3000/api/produtos/${produtoId}`
+        : 'http://localhost:3000/api/produtos';
 
       const produto = {
-        nome: document.getElementById("nome").value,
-        descricao: document.getElementById("descricao").value,
-        preco: parseFloat(document.getElementById("preco").value),
-        categoria: document.getElementById("categoria").value,
-        estoque: parseInt(document.getElementById("estoque").value),
-        imagem: document.getElementById("imagem").value,
+        nome: document.getElementById('nome').value,
+        descricao: document.getElementById('descricao').value,
+        preco: parseFloat(document.getElementById('preco').value),
+        categoria: document.getElementById('categoria').value,
+        estoque: parseInt(document.getElementById('estoque').value),
+        imagem: document.getElementById('imagem').value,
       };
 
       try {
-        const res = await fetch("http://localhost:3000/api/produtos", {
-          method: "POST",
-          headers: headers,
+        const res = await fetch(url, {
+          method,
+          headers,
           body: JSON.stringify(produto),
         });
 
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.message || "Erro ao salvar produto");
+        }
+
+        modal.hide();
+        carregarProdutos();
+        alert(`Produto ${produtoId ? 'atualizado' : 'cadastrado'} com sucesso!`);
+      } catch (error) {
+        console.error("Erro ao salvar produto:", error);
+        alert(`Erro ao salvar produto: ${error.message}`);
+      }
+    }
+
+    function confirmarExclusaoProduto(id) {
+      produtoToDelete = id;
+      confirmModal.show();
+    }
+
+    async function excluirProduto() {
+      if (!produtoToDelete) return;
+
+      try {
+        const res = await fetch(`http://localhost:3000/api/produtos/${produtoToDelete}`, {
+          method: 'DELETE',
+          headers,
+        });
+
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.message || "Erro ao excluir produto");
+        }
+
+        confirmModal.hide();
+        carregarProdutos();
+        alert('Produto excluído com sucesso!');
+      } catch (error) {
+        console.error("Erro ao excluir produto:", error);
+        alert(`Erro ao excluir produto: ${error.message}`);
+      } finally {
+        produtoToDelete = null;
+      }
+    }
+
+    // Event Listeners
+    document.getElementById('saveProdutoBtn').addEventListener('click', salvarProduto);
+    document.getElementById('confirmDeleteBtn').addEventListener('click', excluirProduto);
+    document.querySelector('[data-bs-target="#produtoModal"]').addEventListener('click', abrirModalNovoProduto);
+
+    // Funções para Usuários (mantidas do código anterior)
+    async function carregarUsuarios() {
+      try {
+        const res = await fetch("http://localhost:3000/api/usuarios", { headers });
+        if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
+        
+        const users = await res.json();
+        const container = document.getElementById("usuarios");
+        container.innerHTML = "";
+
+        if (users.length === 0) {
+          container.innerHTML = `<div class="col-12"><div class="alert alert-info"><i class="fas fa-info-circle me-2"></i>Nenhum usuário encontrado.</div></div>`;
+          return;
+        }
+
+        users.forEach(user => {
+          container.innerHTML += `
+            <div class="col-md-6 col-lg-4">
+              <div class="card user-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <h5 class="card-title">${user.nome}</h5>
+                    <span class="badge ${user.perfil === 'admin' ? 'bg-danger' : 'bg-primary'}">${user.perfil}</span>
+                  </div>
+                  <p class="card-text"><i class="fas fa-envelope me-2"></i>${user.email}</p>
+                  <p class="card-text"><i class="fas fa-phone me-2"></i>${user.cel || 'Não informado'}</p>
+                  <div class="d-flex justify-content-end gap-2 mt-3">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editarUsuario('${user.id}')">
+                      <i class="fas fa-edit me-1"></i>Editar
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="confirmarExclusao('${user.id}')">
+                      <i class="fas fa-trash-alt me-1"></i>Excluir
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+        });
+      } catch (error) {
+        console.error("Erro ao carregar usuários:", error);
+        const container = document.getElementById("usuarios");
+        container.innerHTML = `<div class="col-12"><div class="alert alert-danger"><i class="fas fa-exclamation-triangle me-2"></i>Erro ao carregar usuários: ${error.message}</div></div>`;
+      }
+    }
+
+    function editarUsuario(userId) {
+      console.log("Editar usuário:", userId);
+      alert(`Edição do usuário ${userId} será implementada aqui`);
+    }
+
+    function confirmarExclusao(userId) {
+      if (confirm("Tem certeza que deseja excluir este usuário?")) {
+        excluirUsuario(userId);
+      }
+    }
+
+    async function excluirUsuario(userId) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
+          method: "DELETE",
+          headers,
+        });
+
         if (res.ok) {
-          alert("Produto criado com sucesso!");
-          document.getElementById("formProduto").reset();
+          alert("Usuário excluído com sucesso!");
+          carregarUsuarios();
         } else {
-          const data = await res.json();
-          throw new Error(data.error || "Erro ao criar produto");
+          const error = await res.json();
+          throw new Error(error.message || "Erro ao excluir usuário");
         }
       } catch (error) {
-        console.error("Erro:", error);
-        alert("Erro: " + error.message);
+        console.error("Erro ao excluir usuário:", error);
+        alert(`Erro ao excluir usuário: ${error.message}`);
       }
-    });
+    }
 
     // Logout
     document.getElementById("logout").addEventListener("click", (e) => {
@@ -240,45 +443,8 @@
     // Inicializar
     document.addEventListener("DOMContentLoaded", () => {
       carregarUsuarios();
+      carregarProdutos();
     });
-
-    // Função para editar usuário
-function editarUsuario(userId) {
-  // Implemente a lógica de edição aqui
-  console.log("Editar usuário:", userId);
-  alert(`Edição do usuário ${userId} será implementada aqui`);
-}
-
-// Função para confirmar exclusão
-function confirmarExclusao(userId) {
-  if (confirm("Tem certeza que deseja excluir este usuário?")) {
-    excluirUsuario(userId);
-  }
-}
-
-// Função para excluir usuário
-async function excluirUsuario(userId) {
-  try {
-    const res = await fetch(`http://localhost:3000/api/usuarios/${userId}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (res.ok) {
-      alert("Usuário excluído com sucesso!");
-      carregarUsuarios(); // Recarrega a lista
-    } else {
-      const error = await res.json();
-      throw new Error(error.message || "Erro ao excluir usuário");
-    }
-  } catch (error) {
-    console.error("Erro ao excluir usuário:", error);
-    alert(`Erro ao excluir usuário: ${error.message}`);
-  }
-}
   </script>
 </body>
 </html>
