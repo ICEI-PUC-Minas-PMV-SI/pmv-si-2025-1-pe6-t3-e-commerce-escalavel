@@ -1,11 +1,19 @@
-// routes/paymentRoutes.js
 import express from 'express';
-import { processPayment, checkPaymentStatus } from '../controllers/paymentController.js';
+import {
+  createCheckoutSession,
+  confirmarPagamento,
+  getPedidosUsuario
+} from '../controllers/paymentController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js'; // ✅ certo
+
 
 const router = express.Router();
 
-// Rotas de pagamento
-router.post('/pagamento/processar', processPayment); // Processa o pagamento
-router.get('/pagamento/status/:pedidoId', checkPaymentStatus); // Verifica o status do pagamento
+// Rota para criar sessão de checkout (protegida por autenticação)
+router.post('/pagamento/create-checkout-session', authMiddleware, createCheckoutSession);
+
+router.post('/confirmar/:pedidoId', confirmarPagamento); // Nova rota
+
+router.get('/pedidos/:usuarioId', getPedidosUsuario); // Nova rota
 
 export default router;
