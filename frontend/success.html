@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pagamento Aprovado - TechParts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .success-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .success-icon {
+      font-size: 64px;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    .btn-tech {
+      background-color: #0d6efd;
+      color: white;
+      border: none;
+    }
+
+    .btn-tech:hover {
+      background-color: #084298;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h2>Pagamento Aprovado!</h2>
+    <p class="mb-4">Seu pedido foi registrado com sucesso. Obrigado por comprar com a <strong>TechParts</strong>!</p>
+    <a href="index.html" class="btn btn-tech" id="btn-voltar">
+      <i class="fas fa-home me-2"></i>Voltar à loja
+    </a>
+  </div>
+
+  <script>
+    // Verificar autenticação
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    
+    if (!token || !user) {
+      window.location.href = "login.html";
+    }
+
+    // Função para limpar o carrinho
+    async function limparCarrinho() {
+      try {
+        const res = await fetch(`http://localhost:3000/api/carrinho/usuario/${user.id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        if (res.ok) {
+          console.log("Carrinho limpo com sucesso");
+          // Marca no localStorage que o carrinho foi limpo
+          localStorage.setItem('carrinho_limpo', 'true');
+          return true;
+        } else {
+          throw new Error('Falha ao limpar carrinho');
+        }
+      } catch (error) {
+        console.error("Erro ao limpar carrinho:", error);
+        return false;
+      }
+    }
+
+    // Limpar o carrinho quando a página carrega
+    document.addEventListener("DOMContentLoaded", async () => {
+      const sucesso = await limparCarrinho();
+      if (!sucesso) {
+        alert("Ocorreu um erro ao limpar seu carrinho. Por favor, verifique seus itens.");
+      }
+    });
+
+    // Atualizar contagem do carrinho quando voltar
+    document.getElementById("btn-voltar").addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "index.html?pagamento=sucesso";
+    });
+
+    
+  </script>
+</body>
+</html>
