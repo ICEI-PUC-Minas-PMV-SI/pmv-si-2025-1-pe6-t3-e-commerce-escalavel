@@ -7,6 +7,7 @@ import {
   getAllCarts,  // Listar todos os carrinhos
   updateCartItem,
   removeCartItem,
+  limparCarrinho
 } from '../controllers/cartController.js';
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.get('/carrinho/:usuarioId', getCart);
 router.get('/carrinho', getAllCarts); 
 router.put('/carrinho/:id', updateCartItem);
 router.delete('/carrinho/:id', removeCartItem);
+router.delete('/carrinho/usuario/:usuarioId', limparCarrinho)
 
 export default router;
