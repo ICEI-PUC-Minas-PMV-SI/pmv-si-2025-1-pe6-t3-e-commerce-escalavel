@@ -1,141 +1,182 @@
 import { PrismaClient } from '@prisma/client';
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import Stripe from 'stripe';
 import config from '../config.js';
 
 const prisma = new PrismaClient();
-const client = new MercadoPagoConfig({ accessToken: config.mercadopagoAccessToken });
-const preference = new Preference(client);
+const stripe = new Stripe(config.stripeSecretKey);
 
-// Função para atualizar estoque
-const atualizarEstoque = async (carrinho) => {
-  for (const item of carrinho) {
-    await prisma.Product.update({
+// Serviço auxiliar para atualizar estoque
+const atualizarEstoque = async (itensPedido) => {
+  for (const item of itensPedido) {
+    await prisma.product.update({
       where: { id: item.produtoId },
-      data: { estoque: { decrement: item.quantidade } } // Usando decrement para evitar race conditions
+      data: { estoque: { decrement: item.quantidade } }
     });
   }
 };
 
-export const processPayment = async (req, res) => {
+// Criar sessão de checkout no Stripe
+export const createCheckoutSession = async (req, res) => {
   try {
     const { usuarioId } = req.body;
 
-    // Busca o carrinho do usuário
-    const carrinho = await prisma.Carrinho.findMany({
-      where: { usuarioId },
-      include: { produto: true },
+    // 1. Validar usuário e carrinho
+    const usuario = await prisma.user.findUnique({
+      where: { id: usuarioId },
+      include: {
+        carrinho: {
+          include: { produto: true }
+        }
+      }
     });
 
-    if (carrinho.length === 0) {
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    if (usuario.carrinho.length === 0) {
       return res.status(400).json({ error: 'Carrinho vazio' });
     }
 
-    // Verifica estoque antes de processar
-    for (const item of carrinho) {
-      if (item.produto.estoque < item.quantidade) {
-        return res.status(400).json({ 
-          error: 'Estoque insuficiente',
+    // 2. Verificar estoque e calcular total
+    const itensSemEstoque = usuario.carrinho.filter(
+      item => item.quantidade > item.produto.estoque
+    );
+
+    if (itensSemEstoque.length > 0) {
+      return res.status(400).json({
+        error: 'Estoque insuficiente',
+        itens: itensSemEstoque.map(item => ({
           produto: item.produto.nome,
-          estoqueDisponivel: item.produto.estoque
-        });
-      }
+          estoque: item.produto.estoque,
+          quantidade: item.quantidade
+        }))
+      });
     }
 
-    const total = carrinho.reduce((acc, item) => acc + item.produto.preco * item.quantidade, 0);
+    const total = usuario.carrinho.reduce(
+      (sum, item) => sum + (item.produto.preco * item.quantidade),
+      0
+    );
 
-    const preferenceData = {
-      items: carrinho.map(item => ({
-        title: item.produto.nome,
-        unit_price: item.produto.preco,
-        quantity: item.quantidade,
+    // 3. Criar pedido no banco de dados
+   
+const pedido = await prisma.pedido.create({
+  data: {
+    usuarioId,
+    total,
+    status: 'aprovado', // Direto como aprovado
+    dataPagamento: new Date(), // Já registra a data
+    itens: {
+      create: usuario.carrinho.map(item => ({
+        produtoId: item.produtoId,
+        quantidade: item.quantidade,
+        precoUnitario: item.produto.preco
+      }))
+    }
+  }
+});
+
+
+
+    // 4. Criar sessão de checkout no Stripe
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: usuario.carrinho.map(item => ({
+        price_data: {
+          currency: 'brl',
+          product_data: {
+            name: item.produto.nome,
+            images: [item.produto.imagem || '']
+          },
+          unit_amount: Math.round(item.produto.preco * 100)
+        },
+        quantity: item.quantidade
       })),
-      external_reference: usuarioId,
-      back_urls: {
-        success: 'http://seusite.com/success',
-        failure: 'http://seusite.com/failure', 
-        pending: 'http://seusite.com/pending',
-      },
-      auto_return: 'approved',
-    };
-
-    const response = await preference.create({ body: preferenceData });
-
-    // Cria pedido com status 'processando'
-    const pedido = await prisma.Pedido.create({
-      data: {
-        usuarioId,
-        carrinhoId: carrinho[0].id,
-        total,
-        status: 'processando', // Novo status intermediário
-      },
+      mode: 'payment',
+      success_url: `${config.frontendUrl}/frontend/success.html?pedido=${pedido.id}`,
+      cancel_url: `${config.frontendUrl}/carrinho.html`,
+      customer_email: usuario.email
     });
 
-    // Atualiza estoque imediatamente (para pagamentos com auto_return)
-    // Em produção, considere usar webhooks para confirmação
-    await atualizarEstoque(carrinho);
-    
-    // Atualiza status do pedido
-    await prisma.Pedido.update({
+    // 5. Atualizar pedido com sessionId
+    await prisma.pedido.update({
       where: { id: pedido.id },
-      data: { status: 'pendente' }
+      data: { 
+        paymentIntentId: session.id
+      }
     });
 
-    res.status(200).json({ 
-      init_point: response.init_point, 
-      pedidoId: pedido.id 
-    });
+    res.json({ url: session.url });
 
   } catch (error) {
-    console.error('Erro ao processar pagamento:', error);
+    console.error('Erro ao criar sessão de checkout:', error);
     res.status(500).json({ 
-      error: 'Erro ao processar pagamento', 
+      error: 'Erro ao processar pagamento',
       details: error.message 
     });
   }
 };
 
-export const checkPaymentStatus = async (req, res) => {
+// Atualizar pedido como pago
+export const confirmarPagamento = async (req, res) => {
   try {
     const { pedidoId } = req.params;
 
-    const pedido = await prisma.Pedido.findUnique({
+    // Atualizar pedido como pago
+    const pedido = await prisma.pedido.update({
       where: { id: pedidoId },
-      include: { 
-        carrinho: { 
-          include: { produto: true } 
-        } 
+      data: { 
+        status: 'pago',
+        dataPagamento: new Date()
       },
+      include: { itens: true }
     });
 
-    if (!pedido) {
-      return res.status(404).json({ error: 'Pedido não encontrado' });
-    }
+    // Atualizar estoque
+    await atualizarEstoque(pedido.itens);
 
-    // Verifica estoque nos itens (opcional)
-    const itensSemEstoque = pedido.carrinho.filter(
-      item => item.produto.estoque < item.quantidade
-    );
-
-    res.status(200).json({ 
-      status: pedido.status,
-      carrinho: pedido.carrinho,
-      alertaEstoque: itensSemEstoque.length > 0 ? 'Alguns itens estão com estoque baixo' : null
+    // Limpar carrinho do usuário
+    await prisma.carrinho.deleteMany({
+      where: { usuarioId: pedido.usuarioId }
     });
+
+    res.status(200).json({ message: 'Pedido confirmado como pago' });
 
   } catch (error) {
-    console.error('Erro ao verificar status:', error);
+    console.error('Erro ao confirmar pagamento:', error);
     res.status(500).json({ 
-      error: 'Erro ao verificar status',
+      error: 'Erro ao confirmar pagamento',
       details: error.message 
     });
   }
 };
 
-export const atualizarPedido = async (req, res) => {
-  const { data } = req.body;
-  const pedido = await prisma.Pedido.update({
-    where: { id: data.external_reference },
-    data: { status: data.status === 'approved' ? 'pago' : 'cancelado' }
-  });
-  res.status(200).send('OK');
+// Obter pedidos do usuário
+export const getPedidosUsuario = async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+
+    const pedidos = await prisma.pedido.findMany({
+      where: { usuarioId },
+      include: {
+        itens: {
+          include: {
+            produto: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+
+    res.status(200).json(pedidos);
+  } catch (error) {
+    console.error('Erro ao buscar pedidos:', error);
+    res.status(500).json({ 
+      error: 'Erro ao buscar pedidos', 
+      details: error.message 
+    });
+  }
 };

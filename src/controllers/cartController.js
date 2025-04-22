@@ -99,3 +99,31 @@ export const getAllCarts = async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar todos os carrinhos', details: error.message });
   }
 };
+// Limpar carrinho de um usuário específico
+export const limparCarrinho = async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+
+    // Verifica se o usuário existe
+    const usuario = await prisma.User.findUnique({ 
+      where: { id: usuarioId } 
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    // Remove todos os itens do carrinho do usuário
+    await prisma.Carrinho.deleteMany({
+      where: { usuarioId }
+    });
+
+    res.status(200).json({ message: 'Carrinho limpo com sucesso' });
+  } catch (error) {
+    console.error('Erro ao limpar carrinho:', error);
+    res.status(500).json({ 
+      error: 'Erro ao limpar carrinho', 
+      details: error.message 
+    });
+  }
+};
