@@ -6,6 +6,8 @@ import cartRoutes from './routes/cartRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import avaliacaoRoutes from './routes/avaliacaoRoutes.js';
 import 'dotenv/config';
+import config from './config.js'; 
+
 
 import swaggerUi from 'swagger-ui-express';
 import specs from './swagger.js';
