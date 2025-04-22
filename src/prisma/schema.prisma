@@ -14,14 +14,14 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  email     String      @unique
-  nome      String
-  cel       String
-  senha     String
-  perfil    String      @default("user") // (admin ou user)
-  carrinho  Carrinho[]
-  pedidos  Pedido[] // Relação com os pedidos
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  email      String      @unique
+  nome       String
+  cel        String
+  senha      String
+  perfil     String      @default("user") // (admin ou user)
+  carrinho   Carrinho[]
+  pedidos    Pedido[] // Relação com os pedidos
   avaliacoes Avaliacao[] // Relação com avaliações feitas pelo usuário
 }
 
@@ -31,21 +31,20 @@ enum CategoriaProduto {
   MEMORIAS_RAM
   ARMAZENAMENTO
   PLACAS_MAE
- 
 }
 
-
 model Product {
-  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  id         String           @id @default(auto()) @map("_id") @db.ObjectId
   nome       String
   descricao  String
   preco      Float
   categoria  CategoriaProduto
   estoque    Int
   imagem     String?
-  createdAt  DateTime        @default(now())
+  createdAt  DateTime         @default(now())
   carrinho   Carrinho[]
   avaliacoes Avaliacao[]
+  ItemPedido ItemPedido[]
 }
 
 model Carrinho {
@@ -60,14 +59,29 @@ model Carrinho {
 }
 
 model Pedido {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  usuarioId  String   @db.ObjectId // ID do usuário
-  carrinhoId String   @db.ObjectId // ID do carrinho
-  total      Float // Valor total do pedido
-  status     String // Status do pedido (ex: "pendente", "pago", "cancelado")
-  createdAt  DateTime @default(now()) // Data de criação
-  usuario    User     @relation(fields: [usuarioId], references: [id]) // Relação com o usuário
-  carrinho   Carrinho @relation(fields: [carrinhoId], references: [id]) // Relação com o carrinho
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  usuarioId       String    @db.ObjectId
+  total           Float
+  status          String    @default("aprovado") // Valor padrão aqui
+  createdAt       DateTime  @default(now())
+  dataPagamento   DateTime?
+  paymentIntentId String?
+
+  usuario    User         @relation(fields: [usuarioId], references: [id])
+  itens      ItemPedido[] // <- relação 1:n com os itens
+  Carrinho   Carrinho?    @relation(fields: [carrinhoId], references: [id])
+  carrinhoId String?      @db.ObjectId
+}
+
+model ItemPedido {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  pedidoId      String @db.ObjectId
+  produtoId     String @db.ObjectId
+  quantidade    Int
+  precoUnitario Float
+
+  pedido  Pedido  @relation(fields: [pedidoId], references: [id])
+  produto Product @relation(fields: [produtoId], references: [id])
 }
 
 model Avaliacao {
@@ -78,7 +92,8 @@ model Avaliacao {
   comentario String
   createdAt  DateTime @default(now())
 
-  usuario    User     @relation(fields: [usuarioId], references: [id])
-  produto    Product  @relation(fields: [produtoId], references: [id])
+  usuario User    @relation(fields: [usuarioId], references: [id])
+  produto Product @relation(fields: [produtoId], references: [id])
 }
+
 ///npx prisma generate
