@@ -151,6 +151,41 @@
     if (user.perfil === 'admin') {
       document.getElementById("admin-nav-item").style.display = 'block';
     }
+
+    // Verificar se houve um pagamento recente
+    const urlParams = new URLSearchParams(window.location.search);
+    const pagamentoSucesso = urlParams.get("pagamento") === "sucesso";
+
+    // Função para verificar e limpar o carrinho se necessário
+    async function verificarCarrinhoLimpo() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const pagamentoSucesso = urlParams.get("pagamento") === "sucesso";
+  
+  if (pagamentoSucesso || localStorage.getItem('carrinho_limpo') === 'true') {
+    try {
+      // Limpar o parâmetro da URL
+      window.history.replaceState({}, document.title, "index.html");
+      
+      // Limpar a flag do localStorage
+      localStorage.removeItem('carrinho_limpo');
+      
+      // Atualizar a contagem do carrinho
+      document.getElementById("cart-count").textContent = "0";
+      
+      // Mostrar notificação
+      showNotification('success', 'Pagamento realizado com sucesso! Seu carrinho foi limpo.');
+    } catch (error) {
+      console.error("Erro ao processar pagamento:", error);
+    }
+  }
+}
+
+// Inicializar
+document.addEventListener("DOMContentLoaded", async () => {
+  await verificarCarrinhoLimpo();
+  await carregarProdutos();
+  await atualizarContagemCarrinho();
+});
   
     // Atualizar contagem do carrinho
     async function atualizarContagemCarrinho() {
@@ -185,7 +220,7 @@
         
         const produtos = await res.json();
         const container = document.getElementById("produtos");
-  
+
         container.innerHTML = "";
         produtos.forEach((p) => {
           container.innerHTML += `
@@ -279,9 +314,10 @@
     });
   
     // Inicializar
-    document.addEventListener("DOMContentLoaded", () => {
-      carregarProdutos();
-      atualizarContagemCarrinho();
+    document.addEventListener("DOMContentLoaded", async () => {
+      await verificarCarrinhoLimpo();
+      await carregarProdutos();
+      await atualizarContagemCarrinho();
     });
   
     // Tornar funções disponíveis globalmente
