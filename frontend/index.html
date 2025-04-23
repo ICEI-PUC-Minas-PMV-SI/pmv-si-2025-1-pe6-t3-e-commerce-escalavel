@@ -139,63 +139,38 @@
     // Verificar autenticação
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
-    
+  
     if (!token || !user) {
       window.location.href = "login.html";
     }
-    
-    // Mostrar nome do usuário no navbar
+  
     document.getElementById("user-name").textContent = user.nome;
-    
-    // Verificar se é admin e mostrar o ícone correspondente
+  
     if (user.perfil === 'admin') {
       document.getElementById("admin-nav-item").style.display = 'block';
     }
-
-    // Verificar se houve um pagamento recente
-    const urlParams = new URLSearchParams(window.location.search);
-    const pagamentoSucesso = urlParams.get("pagamento") === "sucesso";
-
-    // Função para verificar e limpar o carrinho se necessário
+  
     async function verificarCarrinhoLimpo() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const pagamentoSucesso = urlParams.get("pagamento") === "sucesso";
+      const urlParams = new URLSearchParams(window.location.search);
+      const pagamentoSucesso = urlParams.get("pagamento") === "sucesso";
   
-  if (pagamentoSucesso || localStorage.getItem('carrinho_limpo') === 'true') {
-    try {
-      // Limpar o parâmetro da URL
-      window.history.replaceState({}, document.title, "index.html");
-      
-      // Limpar a flag do localStorage
-      localStorage.removeItem('carrinho_limpo');
-      
-      // Atualizar a contagem do carrinho
-      document.getElementById("cart-count").textContent = "0";
-      
-      // Mostrar notificação
-      showNotification('success', 'Pagamento realizado com sucesso! Seu carrinho foi limpo.');
-    } catch (error) {
-      console.error("Erro ao processar pagamento:", error);
+      if (pagamentoSucesso || localStorage.getItem('carrinho_limpo') === 'true') {
+        try {
+          window.history.replaceState({}, document.title, "index.html");
+          localStorage.removeItem('carrinho_limpo');
+          document.getElementById("cart-count").textContent = "0";
+          showNotification('success', 'Pagamento realizado com sucesso! Seu carrinho foi limpo.');
+        } catch (error) {
+          console.error("Erro ao processar pagamento:", error);
+        }
+      }
     }
-  }
-}
-
-// Inicializar
-document.addEventListener("DOMContentLoaded", async () => {
-  await verificarCarrinhoLimpo();
-  await carregarProdutos();
-  await atualizarContagemCarrinho();
-});
   
-    // Atualizar contagem do carrinho
     async function atualizarContagemCarrinho() {
       try {
         const res = await fetch(`http://localhost:3000/api/carrinho/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` }
         });
-        
         if (res.ok) {
           const carrinho = await res.json();
           document.getElementById("cart-count").textContent = carrinho.length;
@@ -205,37 +180,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   
-    // Carregar produtos
     async function carregarProdutos() {
       try {
         const res = await fetch("http://localhost:3000/api/produtos", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` }
         });
-        
-        if (!res.ok) {
-          throw new Error('Erro ao carregar produtos');
-        }
-        
+  
+        if (!res.ok) throw new Error('Erro ao carregar produtos');
+  
         const produtos = await res.json();
         const container = document.getElementById("produtos");
-
+  
         container.innerHTML = "";
         produtos.forEach((p) => {
           container.innerHTML += `
             <div class="col-md-4 col-lg-3">
               <div class="card product-card h-100">
                 <div class="badge-overlay">
-                  ${p.estoque > 0 
-                    ? `<span class="badge bg-success">Em estoque</span>` 
-                    : `<span class="badge bg-danger">Esgotado</span>`}
-                  ${p.estoque < 5 && p.estoque > 0 
-                    ? `<span class="badge bg-warning text-dark">Últimas unidades</span>` 
-                    : ''}
+                  ${p.estoque > 0 ? `<span class="badge bg-success">Em estoque</span>` : `<span class="badge bg-danger">Esgotado</span>`}
+                  ${p.estoque < 5 && p.estoque > 0 ? `<span class="badge bg-warning text-dark">Últimas unidades</span>` : ''}
                 </div>
-                <img src="${p.imagem || 'https://via.placeholder.com/300x200?text=TechParts'}" 
-                     class="card-img-top product-image" alt="${p.nome}">
+                <img src="${p.imagem || 'https://via.placeholder.com/300x200?text=TechParts'}" class="card-img-top product-image" alt="${p.nome}">
                 <div class="card-body">
                   <h5 class="card-title">${p.nome}</h5>
                   <p class="card-text text-muted product-description">${p.descricao}</p>
@@ -243,9 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <span class="badge bg-tech-light text-dark">${p.categoria}</span>
                     <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
                   </div>
-                  <button onclick="adicionarAoCarrinho('${p.id}')" 
-                          class="btn btn-tech w-100" 
-                          ${p.estoque <= 0 ? 'disabled' : ''}>
+                  <button onclick="adicionarAoCarrinho('${p.id}')" class="btn btn-tech w-100" ${p.estoque <= 0 ? 'disabled' : ''}>
                     <i class="fas fa-cart-plus me-2"></i>
                     ${p.estoque > 0 ? 'Adicionar ao carrinho' : 'Indisponível'}
                   </button>
@@ -260,7 +223,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   
-    // Adicionar ao carrinho
     async function adicionarAoCarrinho(produtoId) {
       try {
         const res = await fetch("http://localhost:3000/api/carrinho", {
@@ -288,24 +250,46 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   
-    // Mostrar notificação
     function showNotification(type, message) {
       const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
       const notification = document.createElement("div");
       notification.className = `alert alert-${type} notification`;
-      notification.innerHTML = `
-        <i class="fas ${icon} me-2"></i>
-        ${message}
-      `;
+      notification.innerHTML = `<i class="fas ${icon} me-2"></i> ${message}`;
       document.body.appendChild(notification);
-      
+  
       setTimeout(() => {
         notification.classList.add("fade-out");
         setTimeout(() => notification.remove(), 300);
       }, 3000);
     }
   
-    // Logout
+    // 🔍 FILTRO DE PESQUISA
+    function filtrarProdutos() {
+      const termo = document.getElementById("searchInput").value.toLowerCase();
+      const cards = document.querySelectorAll("#produtos .card");
+  
+      cards.forEach(card => {
+        const nome = card.querySelector(".card-title").textContent.toLowerCase();
+        const descricao = card.querySelector(".product-description").textContent.toLowerCase();
+  
+        if (nome.includes(termo) || descricao.includes(termo)) {
+          card.parentElement.style.display = "block";
+        } else {
+          card.parentElement.style.display = "none";
+        }
+      });
+    }
+  
+    // Clique no botão de pesquisa
+    document.querySelector(".search-box .btn").addEventListener("click", filtrarProdutos);
+  
+    // Pressionar Enter no campo de pesquisa
+    document.getElementById("searchInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        filtrarProdutos();
+      }
+    });
+  
     document.getElementById("logout").addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.removeItem("token");
@@ -320,8 +304,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       await atualizarContagemCarrinho();
     });
   
-    // Tornar funções disponíveis globalmente
+    // Tornar funções globais
     window.adicionarAoCarrinho = adicionarAoCarrinho;
   </script>
-</body>
-</html>
+  
