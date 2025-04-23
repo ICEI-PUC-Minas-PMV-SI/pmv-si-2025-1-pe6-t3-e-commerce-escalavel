@@ -65,20 +65,104 @@ A interface web do projeto TechParts consiste em uma aplicação web moderna e r
 
 ### Wireframes das páginas principais:
 
-**Página Login
+**Página Login**
 
-[Inclua os wireframes das páginas principais da interface, mostrando a disposição dos elementos na página.]
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Login.png?raw=true)
+
+
+**Página Principal**
+
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20produ.png?raw=true)
+
+**Página Carrinho**
+
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20carrinho.png?raw=true)
+
+**Página Admin**
+
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20Admin.png?raw=true)
+
+**Página Pedidos**
+
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20pedidos.png?raw=true  )
 
 ### Design Visual
 
-[Descreva o estilo visual da interface, incluindo paleta de cores, tipografia, ícones e outros elementos gráficos.]
+**Paleta de Cores:**
+
+- Cor primária: Azul #3a7bd5
+
+- Cor secundária: Ciano #00d2ff
+
+  Cores auxiliares:
+
+- Verde sucesso #28a745
+
+- Vermelho perigo #dc3545
+
+- Cinza claro #f8f9fa
+
+- Cinza escuro #1a1a2e
+
+**O uso predominante de tons de azul transmite segurança, tecnologia e confiança.**
+
+### Tipografia:
+- Fonte principal: Segoe UI, com fallback para Tahoma, Geneva, Verdana, sans-serif. Essa fonte é moderna, limpa e de fácil leitura.
+
+### Ícones:
+- Ícones do FontAwesome (https://fontawesome.com/) para melhor clareza visual e indicação intuitiva das funcionalidades.
+
+### Elementos Gráficos:
+- Cards arredondados com leve sombra para destacar produtos e informações.
+
+- Animações sutis para feedback visual durante interações como cliques e mudanças de estado.
+
 
 ## Fluxo de Dados
 
-[Diagrama ou descrição do fluxo de dados na aplicação.]
+Frontend (HTML/CSS/JS) <br>
 
-## Tecnologias Utilizadas
-[Lista das tecnologias principais que serão utilizadas no projeto.]
+  -   ↓↑ REST API (JSON via HTTP) <br>
+
+Backend (Node.js + Express) <br>
+
+   -  ↓↑ Prisma ORM (MongoDB) <br>
+
+Banco de Dados (MongoDB Atlas)
+
+
+### Fluxo detalhado para compra:
+
+
+- Usuário → Login → Página Inicial → Produtos → Adicionar ao carrinho <br>
+
+   ↓ 
+   
+- Página Carrinho → Finalizar Compra → Stripe Checkout
+
+   ↓
+
+- Pagamento Realizado (Stripe)
+
+   ↓
+
+- Redirecionado → Página Sucesso
+
+   ↓
+
+- Pedido Confirmado no Backend → Salvo no MongoDB
+
+   ↓
+
+- Carrinho Limpo → Página Inicial com Carrinho Zerado
+
+   ↓
+
+- Visualização dos Pedidos na página Pedidos
+
+
+
+
 
 ## Considerações de Segurança
 
