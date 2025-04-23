@@ -12,29 +12,36 @@ export const createUser = async (req, res) => {
       return res.status(400).json({ error: 'Perfil inválido. Use "admin" ou "user".' });
     }
 
-    // Criptografa a senha
-    const senhaCriptografada = await bcrypt.hash(senha, 10); // 10 é o número de rounds de criptografia
+    // Verifica se o email já está cadastrado
+    const existingUser = await prisma.user.findUnique({
+      where: { email }
+    });
 
-    // Cria o usuário no banco de dados
+    if (existingUser) {
+      return res.status(400).json({ error: 'Este email já está cadastrado.' });
+    }
+
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
+
     const user = await prisma.user.create({
       data: {
         email,
         nome,
         cel,
-        senha: senhaCriptografada, // Salva a senha criptografada
-        perfil: perfil || 'user', // Define o perfil (padrão: 'user')
+        senha: senhaCriptografada,
+        perfil: perfil || 'user',
       },
     });
 
-    // Remove a senha da resposta
     const userSemSenha = { ...user, senha: undefined };
 
-    res.status(201).json(userSemSenha); // Retorna o usuário sem a senha
+    res.status(201).json(userSemSenha);
   } catch (error) {
     console.error('Erro ao criar usuário:', error);
     res.status(500).json({ error: 'Erro ao criar usuário', details: error.message });
   }
 };
+
 
 // Listar usuários
 export const getUsers = async (req, res) => {
