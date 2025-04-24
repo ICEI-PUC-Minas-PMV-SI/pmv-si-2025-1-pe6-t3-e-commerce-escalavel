@@ -140,17 +140,51 @@ Banco de Dados (MongoDB Atlas)
 
 ## Considerações de Segurança
 
-[Discuta as considerações de segurança relevantes para a aplicação distribuída, como autenticação, autorização, proteção contra ataques, etc.]
+A segurança da aplicação é tratada como uma prioridade em todas as etapas de desenvolvimento. As principais medidas adotadas incluem:
+
+- Autenticação segura: Utilização de tokens JWT com expiração e renovação controladas.
+
+- Autorização baseada em perfis: Restrição de acessos a áreas administrativas e funcionalidades específicas de acordo com o tipo de usuário.
+
+- Proteção contra ataques comuns: Implementação de medidas contra XSS (Cross-site Scripting), CSRF (Cross-site Request Forgery) e injeções de código.
+
+- Criptografia: Senhas dos usuários armazenadas utilizando algoritmos de hash seguro (bcrypt).
+
+- HTTPS: Comunicação entre cliente e servidor protegida por SSL/TLS.
 
 ## Implantação
 
-[Instruções para implantar a aplicação distribuída em um ambiente de produção.]
+Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 
-1. Defina os requisitos de hardware e software necessários para implantar a aplicação em um ambiente de produção.
-2. Escolha uma plataforma de hospedagem adequada, como um provedor de nuvem ou um servidor dedicado.
-3. Configure o ambiente de implantação, incluindo a instalação de dependências e configuração de variáveis de ambiente.
-4. Faça o deploy da aplicação no ambiente escolhido, seguindo as instruções específicas da plataforma de hospedagem.
-5. Realize testes para garantir que a aplicação esteja funcionando corretamente no ambiente de produção.
+**1-Requisitos básicos:**
+
+- Node.js instalado (versão 18 ou superior)
+
+- Conta no MongoDB Atlas (ou outro serviço de banco de dados)
+
+- Conta em uma plataforma de hospedagem, como Vercel, Render ou Heroku
+
+**2-Preparação:**
+
+- Faça o clone do repositório da aplicação
+
+- Instale as dependências com npm install
+
+- Crie um arquivo .env com as variáveis de ambiente necessárias (como JWT_SECRET, DATABASE_URL, STRIPE_KEY)
+
+**3-Deploy:**
+
+- Suba o projeto para a plataforma de hospedagem escolhida
+
+- Configure as variáveis de ambiente na plataforma
+
+- Execute os comandos de build e start se necessário (npm run build, npm start)
+
+**4-Verificação:**
+
+- Acesse a aplicação online e teste as principais funcionalidades: login, catálogo, carrinho, checkout
+
+
 
 ## Testes
 
