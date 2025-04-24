@@ -134,33 +134,7 @@ Banco de Dados (MongoDB Atlas)
 ### Fluxo detalhado para compra:
 
 
-- Usuário → Login → Página Inicial → Produtos → Adicionar ao carrinho <br>
-
-   ↓ 
-   
-- Página Carrinho → Finalizar Compra → Stripe Checkout
-
-   ↓
-
-- Pagamento Realizado (Stripe)
-
-   ↓
-
-- Redirecionado → Página Sucesso
-
-   ↓
-
-- Pedido Confirmado no Backend → Salvo no MongoDB
-
-   ↓
-
-- Carrinho Limpo → Página Inicial com Carrinho Zerado
-
-   ↓
-
-- Visualização dos Pedidos na página Pedidos
-
-
+![arq](https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/fec2819a3f919514784f0c17c200f5a086f95697/docs/img/Fluxograma_TechParts.png)
 
 
 
