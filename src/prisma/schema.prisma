@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,8 +18,8 @@ model User {
   senha      String
   perfil     String      @default("user") // (admin ou user)
   carrinho   Carrinho[]
-  pedidos    Pedido[] // Relação com os pedidos
-  avaliacoes Avaliacao[] // Relação com avaliações feitas pelo usuário
+  pedidos    Pedido[]
+  avaliacoes Avaliacao[]
 }
 
 enum CategoriaProduto {
@@ -55,45 +52,43 @@ model Carrinho {
   createdAt  DateTime @default(now())
   usuario    User     @relation(fields: [usuarioId], references: [id])
   produto    Product  @relation(fields: [produtoId], references: [id])
-  Pedido     Pedido[]
+  Pedido     Pedido?
 }
 
 model Pedido {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  usuarioId       String    @db.ObjectId
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  usuarioId       String       @db.ObjectId
   total           Float
-  status          String    @default("aprovado") // Valor padrão aqui
-  createdAt       DateTime  @default(now())
+  status          String       @default("aprovado")
+  createdAt       DateTime     @default(now())
   dataPagamento   DateTime?
   paymentIntentId String?
-
-  usuario    User         @relation(fields: [usuarioId], references: [id])
-  itens      ItemPedido[] // <- relação 1:n com os itens
-  Carrinho   Carrinho?    @relation(fields: [carrinhoId], references: [id])
-  carrinhoId String?      @db.ObjectId
+  usuario         User         @relation(fields: [usuarioId], references: [id])
+  itens           ItemPedido[]
+  Carrinho        Carrinho?    @relation(fields: [carrinhoId], references: [id])
+  carrinhoId      String?      @unique @db.ObjectId // Adicionei @unique aqui
+  avaliacoes      Avaliacao[]
 }
 
 model ItemPedido {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  pedidoId      String @db.ObjectId
-  produtoId     String @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  pedidoId      String  @db.ObjectId
+  produtoId     String  @db.ObjectId
   quantidade    Int
   precoUnitario Float
-
-  pedido  Pedido  @relation(fields: [pedidoId], references: [id])
-  produto Product @relation(fields: [produtoId], references: [id])
+  pedido        Pedido  @relation(fields: [pedidoId], references: [id])
+  produto       Product @relation(fields: [produtoId], references: [id])
 }
 
 model Avaliacao {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   usuarioId  String   @db.ObjectId
   produtoId  String   @db.ObjectId
+  pedidoId   String   @db.ObjectId
   nota       Int
   comentario String
   createdAt  DateTime @default(now())
-
-  usuario User    @relation(fields: [usuarioId], references: [id])
-  produto Product @relation(fields: [produtoId], references: [id])
+  usuario    User     @relation(fields: [usuarioId], references: [id])
+  produto    Product  @relation(fields: [produtoId], references: [id])
+  pedido     Pedido   @relation(fields: [pedidoId], references: [id]) // Corrigido o nome do modelo
 }
-
-///npx prisma generate

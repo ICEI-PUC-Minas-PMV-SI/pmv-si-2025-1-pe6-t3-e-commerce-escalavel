@@ -60,24 +60,24 @@ export const createCheckoutSession = async (req, res) => {
     );
 
     // 3. Criar pedido no banco de dados
-   
-const pedido = await prisma.pedido.create({
-  data: {
-    usuarioId,
-    total,
-    status: 'aprovado', // Direto como aprovado
-    dataPagamento: new Date(), // Já registra a data
-    itens: {
-      create: usuario.carrinho.map(item => ({
-        produtoId: item.produtoId,
-        quantidade: item.quantidade,
-        precoUnitario: item.produto.preco
-      }))
-    }
-  }
-});
-
-
+    const pedido = await prisma.pedido.create({
+      data: {
+        usuarioId,
+        total,
+        status: 'aprovado', // Já salva como aprovado
+        dataPagamento: new Date(), // Já registra o pagamento
+        itens: {
+          create: usuario.carrinho.map(item => ({
+            produtoId: item.produtoId,
+            quantidade: item.quantidade,
+            precoUnitario: item.produto.preco
+          }))
+        },
+        avaliacoes: {
+          create: [] // <-- Importante deixar vazio aqui por enquanto
+        }
+      }
+    });
 
     // 4. Criar sessão de checkout no Stripe
     const session = await stripe.checkout.sessions.create({
@@ -102,7 +102,7 @@ const pedido = await prisma.pedido.create({
     // 5. Atualizar pedido com sessionId
     await prisma.pedido.update({
       where: { id: pedido.id },
-      data: { 
+      data: {
         paymentIntentId: session.id
       }
     });
@@ -111,9 +111,9 @@ const pedido = await prisma.pedido.create({
 
   } catch (error) {
     console.error('Erro ao criar sessão de checkout:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Erro ao processar pagamento',
-      details: error.message 
+      details: error.message
     });
   }
 };
@@ -126,7 +126,7 @@ export const confirmarPagamento = async (req, res) => {
     // Atualizar pedido como pago
     const pedido = await prisma.pedido.update({
       where: { id: pedidoId },
-      data: { 
+      data: {
         status: 'pago',
         dataPagamento: new Date()
       },
@@ -145,14 +145,14 @@ export const confirmarPagamento = async (req, res) => {
 
   } catch (error) {
     console.error('Erro ao confirmar pagamento:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Erro ao confirmar pagamento',
-      details: error.message 
+      details: error.message
     });
   }
 };
 
-// Obter pedidos do usuário
+// Obter pedidos do usuário (já trazendo avaliações também!)
 export const getPedidosUsuario = async (req, res) => {
   try {
     const { usuarioId } = req.params;
@@ -161,6 +161,11 @@ export const getPedidosUsuario = async (req, res) => {
       where: { usuarioId },
       include: {
         itens: {
+          include: {
+            produto: true
+          }
+        },
+        avaliacoes: {  // <-- Adicionado para já trazer as avaliações junto
           include: {
             produto: true
           }
@@ -174,9 +179,41 @@ export const getPedidosUsuario = async (req, res) => {
     res.status(200).json(pedidos);
   } catch (error) {
     console.error('Erro ao buscar pedidos:', error);
-    res.status(500).json({ 
-      error: 'Erro ao buscar pedidos', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Erro ao buscar pedidos',
+      details: error.message
+    });
+  }
+};
+
+// Novo! Criar avaliação diretamente ligada ao pedido
+export const criarAvaliacao = async (req, res) => {
+  try {
+    const { pedidoId, produtoId, nota, comentario } = req.body;
+    const usuarioId = req.user.id; // Precisa do middleware authMiddleware!
+
+    if (!pedidoId || !produtoId || !nota) {
+      return res.status(400).json({ error: 'Dados incompletos para avaliação' });
+    }
+
+    const novaAvaliacao = await prisma.avaliacao.create({
+      data: {
+        pedidoId,
+        produtoId,
+        usuarioId,
+        nota,
+        comentario: comentario || '',
+        createdAt: new Date()
+      }
+    });
+
+    res.status(201).json(novaAvaliacao);
+
+  } catch (error) {
+    console.error('Erro ao criar avaliação:', error);
+    res.status(500).json({
+      error: 'Erro ao criar avaliação',
+      details: error.message
     });
   }
 };

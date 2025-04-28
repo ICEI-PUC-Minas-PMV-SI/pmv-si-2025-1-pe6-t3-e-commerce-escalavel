@@ -162,6 +162,40 @@
       margin: 0 auto;
     }
     
+    .rating-stars {
+      font-size: 1.5rem;
+      color: #ddd;
+      cursor: pointer;
+    }
+    
+    .rating-stars .star {
+      transition: color 0.2s;
+    }
+    
+    .rating-stars .star.hover,
+    .rating-stars .star.active {
+      color: #ffc107;
+    }
+    
+    .avaliacao-badge {
+      cursor: pointer;
+      transition: all 0.2s;
+      max-width: 150px;
+    }
+    
+    .avaliacao-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .btn-avaliar {
+      transition: all 0.2s;
+    }
+    
+    .btn-avaliar:hover {
+      transform: translateY(-2px);
+    }
+    
     @media (max-width: 768px) {
       .tech-container {
         padding: 1rem;
@@ -171,6 +205,14 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
+      }
+      
+      .rating-stars {
+        font-size: 1.2rem;
+      }
+      
+      .avaliacao-badge {
+        max-width: 120px;
       }
     }
   </style>
@@ -208,6 +250,44 @@
     </div>
   </div>
 
+  <!-- Modal de Avaliação -->
+  <div class="modal fade" id="avaliacaoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Avaliar Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formAvaliacao">
+            <input type="hidden" id="avaliacaoPedidoId">
+            <input type="hidden" id="avaliacaoProdutoId">
+            <div class="mb-3">
+              <label class="form-label">Nota</label>
+              <div class="rating-stars">
+                <i class="fas fa-star star" data-value="1"></i>
+                <i class="fas fa-star star" data-value="2"></i>
+                <i class="fas fa-star star" data-value="3"></i>
+                <i class="fas fa-star star" data-value="4"></i>
+                <i class="fas fa-star star" data-value="5"></i>
+              </div>
+              <input type="hidden" id="avaliacaoNota" required>
+            </div>
+            <div class="mb-3">
+              <label for="avaliacaoComentario" class="form-label">Comentário</label>
+              <textarea class="form-control" id="avaliacaoComentario" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnSalvarAvaliacao">Salvar Avaliação</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Verificar autenticação
     const token = localStorage.getItem("token");
@@ -216,6 +296,10 @@
     if (!token || !user) {
       window.location.href = "login.html";
     }
+
+    // Variáveis globais
+    let currentRating = 0;
+    let avaliacaoModal = null;
 
     // Funções auxiliares
     function formatarData(data) {
@@ -245,137 +329,292 @@
       return `<span class="badge status-badge ${classes[status]}">${status.toUpperCase()}</span>`;
     }
 
-    // Carregar pedidos do usuário
-    async function carregarPedidos() {
-      try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/${user.id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error('Erro ao carregar pedidos');
-        }
-
-        const pedidos = await response.json();
-        const container = document.getElementById('pedidos-container');
-
-        if (pedidos.length === 0) {
-          container.innerHTML = `
-            <div class="card">
-              <div class="card-body empty-state">
-                <i class="fas fa-box-open"></i>
-                <h3 class="text-muted">Nenhum pedido encontrado</h3>
-                <p class="mb-4">Você ainda não realizou nenhum pedido em nossa loja.</p>
-                <a href="index.html" class="btn btn-tech">
-                  <i class="fas fa-shopping-cart me-2"></i>Ir para loja
-                </a>
-              </div>
-            </div>
-          `;
-          return;
-        }
-
-        let html = '';
-        
-        pedidos.forEach(pedido => {
-          const totalPedido = pedido.itens.reduce((total, item) => 
-            total + (item.quantidade * item.precoUnitario), 0);
-          
-          html += `
-            <div class="pedido-card ${pedido.status.toLowerCase()}">
-              <div class="card-header">
-                <div>
-                  <strong class="me-3">Pedido #${pedido.id}</strong>
-                  <small class="text-muted">${formatarData(pedido.createdAt)}</small>
-                </div>
-                ${getStatusBadge(pedido.status)}
-              </div>
-              
-              <div class="card-body">
-                <div class="row g-4">
-                  <div class="col-lg-8">
-                    <h5 class="mb-3"><i class="fas fa-boxes me-2"></i>Itens do Pedido</h5>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead class="table-light">
-                          <tr>
-                            <th>Produto</th>
-                            <th class="text-end">Preço Unitário</th>
-                            <th class="text-center">Qtd</th>
-                            <th class="text-end">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          ${pedido.itens.map(item => `
-                            <tr>
-                              <td>
-                                <div class="d-flex align-items-center">
-                                  <img src="${item.produto.imagem || 'https://via.placeholder.com/70?text=Produto'}" 
-                                       class="produto-img me-3" alt="${item.produto.nome}">
-                                  <div>
-                                    <strong>${item.produto.nome}</strong>
-                                    ${item.produto.descricao ? `<small class="text-muted d-block">${item.produto.descricao.substring(0, 50)}...</small>` : ''}
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="text-end">${formatarMoeda(item.precoUnitario)}</td>
-                              <td class="text-center">${item.quantidade}</td>
-                              <td class="text-end fw-bold">${formatarMoeda(item.quantidade * item.precoUnitario)}</td>
-                            </tr>
-                          `).join('')}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  
-                  <div class="col-lg-4">
-                    <div class="resumo-card">
-                      <h5 class="mb-4"><i class="fas fa-receipt me-2"></i>Resumo</h5>
-                      <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal:</span>
-                        <span>${formatarMoeda(totalPedido)}</span>
-                      </div>
-                      <div class="d-flex justify-content-between mb-2">
-                        <span>Frete:</span>
-                        <span class="text-success">Grátis</span>
-                      </div>
-                      <hr>
-                      <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
-                        <span>Total:</span>
-                        <span>${formatarMoeda(totalPedido)}</span>
-                      </div>
-                      
-                      ${pedido.status === 'aprovado' && pedido.dataPagamento ? `
-                        <div class="alert alert-success mt-3">
-                          <i class="fas fa-check-circle me-2"></i>
-                          <span>Pagamento aprovado em ${formatarData(pedido.dataPagamento)}</span>
-                        </div>
-                      ` : ''}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-
-        container.innerHTML = html;
-      } catch (error) {
-        console.error('Erro:', error);
-        document.getElementById('pedidos-container').innerHTML = `
-          <div class="alert alert-danger">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            <strong>Erro ao carregar pedidos</strong>
-            <p class="mb-0 mt-2">Não foi possível carregar seus pedidos. Por favor, tente novamente mais tarde.</p>
-          </div>
-        `;
-      }
+    function renderAvaliacoes(pedidoId, produtoId) {
+      return `
+        <div class="d-flex justify-content-end mt-2">
+          <button class="btn btn-sm btn-outline-success btn-avaliar" 
+                  data-pedido="${pedidoId}" 
+                  data-produto="${produtoId}">
+            <i class="fas fa-star me-1"></i>Avaliar
+          </button>
+        </div>
+      `;
     }
 
-    // Carregar pedidos quando a página é aberta
-    document.addEventListener('DOMContentLoaded', carregarPedidos);
+    function renderAvaliacaoExistente(avaliacao) {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += `<i class="fas fa-star ${i <= avaliacao.nota ? 'text-warning' : 'text-secondary'}"></i>`;
+      }
+      
+      return `
+        <div class="d-flex justify-content-end mt-2">
+          <div class="avaliacao-badge bg-light p-2 rounded" data-bs-toggle="tooltip" 
+               title="${avaliacao.comentario || 'Sem comentário'}">
+            <div class="d-flex justify-content-center">
+              ${stars}
+            </div>
+            ${avaliacao.comentario ? `<small class="d-block text-muted mt-1">${avaliacao.comentario.substring(0, 30)}${avaliacao.comentario.length > 30 ? '...' : ''}</small>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Funções para o modal de avaliação
+    function setRating(value) {
+      currentRating = parseInt(value);
+      document.getElementById('avaliacaoNota').value = currentRating;
+      
+      const stars = document.querySelectorAll('#avaliacaoModal .star');
+      stars.forEach(star => {
+        star.classList.toggle('active', star.getAttribute('data-value') <= value);
+      });
+    }
+    
+    function highlightStars(value) {
+      const stars = document.querySelectorAll('#avaliacaoModal .star');
+      stars.forEach(star => {
+        star.classList.toggle('hover', star.getAttribute('data-value') <= value);
+      });
+    }
+    
+    function resetStars() {
+      const stars = document.querySelectorAll('#avaliacaoModal .star');
+      stars.forEach(star => {
+        star.classList.remove('hover');
+        star.classList.toggle('active', star.getAttribute('data-value') <= currentRating);
+      });
+    }
+    
+    function abrirModalAvaliacao(pedidoId, produtoId) {
+      document.getElementById('avaliacaoPedidoId').value = pedidoId;
+      document.getElementById('avaliacaoProdutoId').value = produtoId;
+      document.getElementById('avaliacaoComentario').value = '';
+      currentRating = 0;
+      resetStars();
+      
+      if (!avaliacaoModal) {
+        avaliacaoModal = new bootstrap.Modal(document.getElementById('avaliacaoModal'));
+      }
+      avaliacaoModal.show();
+    }
+
+    // Carregar pedidos do usuário
+    async function carregarPedidos() {
+  try {
+    const pedidosResponse = await fetch(`http://localhost:3000/api/pedidos/${user.id}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!pedidosResponse.ok) {
+      throw new Error(await pedidosResponse.text() || 'Erro ao carregar pedidos');
+    }
+
+    const pedidos = await pedidosResponse.json();
+    const container = document.getElementById('pedidos-container');
+
+    if (pedidos.length === 0) {
+      container.innerHTML = `
+        <div class="text-center">
+          <i class="fas fa-box-open fa-3x text-secondary mb-3"></i>
+          <h4 class="text-muted">Nenhum pedido encontrado.</h4>
+          <a href="index.html" class="btn btn-tech mt-3">Voltar para loja</a>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+
+    pedidos.forEach(pedido => {
+      const totalPedido = pedido.itens.reduce((total, item) => 
+        total + (item.quantidade * item.precoUnitario), 0
+      );
+
+      html += `
+        <div class="pedido-card ${pedido.status.toLowerCase()}">
+          <div class="card-header">
+            <div>
+              <strong class="me-3">Pedido #${pedido.id}</strong>
+              <small class="text-muted">${formatarData(pedido.createdAt)}</small>
+            </div>
+            ${getStatusBadge(pedido.status)}
+          </div>
+          <div class="card-body">
+            <div class="row g-4">
+              <div class="col-lg-8">
+                <h5 class="mb-3"><i class="fas fa-boxes me-2"></i>Itens do Pedido</h5>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Produto</th>
+                        <th class="text-end">Preço Unitário</th>
+                        <th class="text-center">Qtd</th>
+                        <th class="text-end">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${pedido.itens.map(item => {
+                        const avaliacao = pedido.avaliacoes?.find(av => av.produtoId === item.produtoId);
+                        return `
+                          <tr>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <img src="${item.produto.imagem || 'https://via.placeholder.com/70?text=Produto'}"
+                                  class="produto-img me-3" alt="${item.produto.nome}">
+                                <div>
+                                  <strong>${item.produto.nome}</strong>
+                                  ${item.produto.descricao ? `<small class="text-muted d-block">${item.produto.descricao.substring(0, 50)}...</small>` : ''}
+                                </div>
+                              </div>
+                              ${avaliacao
+                                ? renderAvaliacaoExistente(avaliacao)
+                                : (pedido.status === 'aprovado' ? renderAvaliacoes(pedido.id, item.produtoId) : '')}
+                            </td>
+                            <td class="text-end">${formatarMoeda(item.precoUnitario)}</td>
+                            <td class="text-center">${item.quantidade}</td>
+                            <td class="text-end fw-bold">${formatarMoeda(item.quantidade * item.precoUnitario)}</td>
+                          </tr>
+                        `;
+                      }).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="resumo-card">
+                  <h5 class="mb-4"><i class="fas fa-receipt me-2"></i>Resumo</h5>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal:</span>
+                    <span>${formatarMoeda(totalPedido)}</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span>Frete:</span>
+                    <span class="text-success">Grátis</span>
+                  </div>
+                  <hr>
+                  <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
+                    <span>Total:</span>
+                    <span>${formatarMoeda(totalPedido)}</span>
+                  </div>
+                  ${pedido.status === 'aprovado' && pedido.dataPagamento ? `
+                    <div class="alert alert-success mt-3">
+                      <i class="fas fa-check-circle me-2"></i> Pagamento aprovado em ${formatarData(pedido.dataPagamento)}
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    // Inicializar tooltips
+    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+    }
+
+    // Adicionar eventos de Avaliar
+    document.querySelectorAll('.btn-avaliar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pedidoId = btn.getAttribute('data-pedido');
+        const produtoId = btn.getAttribute('data-produto');
+        abrirModalAvaliacao(pedidoId, produtoId);
+      });
+    });
+
+    // Estrelas Modal
+    const stars = document.querySelectorAll('#avaliacaoModal .star');
+    stars.forEach(star => {
+      star.addEventListener('click', () => setRating(star.getAttribute('data-value')));
+      star.addEventListener('mouseover', () => highlightStars(star.getAttribute('data-value')));
+      star.addEventListener('mouseout', resetStars);
+    });
+
+  } catch (error) {
+    console.error('Erro:', error);
+    document.getElementById('pedidos-container').innerHTML = `
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Erro ao carregar pedidos:</strong> ${error.message}
+      </div>
+    `;
+  }
+}
+
+
+     // Salvar avaliação - ATUALIZADA
+     document.getElementById('btnSalvarAvaliacao')?.addEventListener('click', async () => {
+      const pedidoId = document.getElementById('avaliacaoPedidoId').value;
+      const produtoId = document.getElementById('avaliacaoProdutoId').value;
+      const nota = document.getElementById('avaliacaoNota').value;
+      const comentario = document.getElementById('avaliacaoComentario').value;
+      
+      if (!nota || nota < 1 || nota > 5) {
+        alert('Por favor, selecione uma nota entre 1 e 5 estrelas');
+        return;
+      }
+      
+      try {
+        const response = await fetch('http://localhost:3000/api/avaliacoes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            pedidoId,
+            produtoId,
+            nota: parseInt(nota), // Garante que é número
+            comentario: comentario || null // Trata comentário opcional
+          })
+        });
+
+        // Tratamento melhorado da resposta
+        const responseData = await response.text();
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(responseData);
+            throw new Error(errorData.message || 'Erro ao salvar avaliação');
+          } catch {
+            throw new Error(responseData || 'Erro desconhecido');
+          }
+        }
+
+        const avaliacao = JSON.parse(responseData);
+        
+        // Fechar modal e recarregar
+        if (avaliacaoModal) avaliacaoModal.hide();
+        await carregarPedidos(); // Aguarda recarregar
+        
+      } catch (error) {
+        console.error('Erro ao salvar avaliação:', error);
+        alert(`Erro: ${error.message}`);
+      }
+    });
+
+    // Inicialização - ATUALIZADA
+    document.addEventListener('DOMContentLoaded', () => {
+      // Garante que Bootstrap está carregado
+      if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap não está carregado!');
+        return;
+      }
+      
+      // Inicializa modal se existir
+      const modalElement = document.getElementById('avaliacaoModal');
+      if (modalElement) {
+        avaliacaoModal = new bootstrap.Modal(modalElement);
+      }
+      
+      // Carrega pedidos
+      carregarPedidos();
+    });
   </script>
 </body>
 </html>

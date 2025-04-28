@@ -56,4 +56,3 @@ export const listarTodasAvaliacoes = async (req, res) => {
     res.status(500).json({ error: 'Erro ao listar todas as avaliações', details: error.message });
   }
 };
-

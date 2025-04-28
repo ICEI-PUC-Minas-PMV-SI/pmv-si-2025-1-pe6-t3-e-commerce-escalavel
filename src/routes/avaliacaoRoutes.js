@@ -1,16 +1,10 @@
 import express from 'express';
-import {
-  criarAvaliacao,
-  listarAvaliacoes,
-  listarTodasAvaliacoes
-} from '../controllers/avaliacaoController.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
+import { authMiddleware } from '../middleware/authMiddleware.js'; 
+import { criarAvaliacao } from '../controllers/paymentController.js'; // <- Pega do paymentController
 
 const router = express.Router();
 
-router.get('/avaliacoes', listarTodasAvaliacoes); // <- nova rota
-router.post('/avaliacoes', authMiddleware, criarAvaliacao);
-router.get('/avaliacoes/:produtoId', listarAvaliacoes);
-
+// Criar nova avaliação
+router.post('/', authMiddleware, criarAvaliacao);
 
 export default router;

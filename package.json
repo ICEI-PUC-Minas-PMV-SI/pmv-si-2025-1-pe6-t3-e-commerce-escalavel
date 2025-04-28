@@ -24,7 +24,7 @@
     "mercadopago": "^2.4.0",
     "mongoose": "^8.12.2",
     "mongose": "^0.0.2-security",
-    "status": "^0.0.13",
+    "status": "^0.0.6",
     "stripe": "^18.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"

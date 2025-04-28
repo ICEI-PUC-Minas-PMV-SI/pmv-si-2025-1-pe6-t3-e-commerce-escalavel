@@ -9,6 +9,7 @@ import 'dotenv/config';
 import config from './config.js'; 
 
 
+
 import swaggerUi from 'swagger-ui-express';
 import specs from './swagger.js';
 
@@ -22,8 +23,9 @@ app.use('/api', userRoutes); // Rotas de usuários
 app.use('/api', productRoutes); // Rotas de produtos
 app.use('/api', cartRoutes); // Rotas do carrinho
 app.use('/api', paymentRoutes); //Rotas de pagamento
-app.use('/api', avaliacaoRoutes); // Rota avalicao
+app.use('/api/avaliacoes', avaliacaoRoutes); // Rota avalicao
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 
 // Iniciar servidor
 app.listen(3000, () => {
