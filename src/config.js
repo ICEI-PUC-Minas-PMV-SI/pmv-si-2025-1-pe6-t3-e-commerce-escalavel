@@ -1,4 +1,4 @@
-  // config.js
+// config.js
 import dotenv from 'dotenv';
 dotenv.config(); // Carrega as variáveis do .env
 
