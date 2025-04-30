@@ -45,6 +45,11 @@ export const loginUser = async (req, res) => {
 };
 
 
+
+
+
+
+
 // Esqueci a senha - gera token
 export const forgotPassword = async (req, res) => {
   try {
@@ -62,35 +67,39 @@ export const forgotPassword = async (req, res) => {
       { expiresIn: '1h' } // Token expira em 1 hora
     );
 
-    const resetLink = `http://localhost:5173/forgot-password.html?token=${token}`;
+    const resetLink = `${config.frontendUrl}/frontend/reset-password.html?token=${token}`;
+
+
+
+
+
 
     // Configura o transporte de e-mail (Exemplo usando Gmail)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,   // seu email de envio
-    pass: process.env.EMAIL_PASS    // senha do app (não a senha normal do gmail)
-  }
-});
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.sendgrid.net',
+      port: 587,
+      auth: {
+        user: 'apikey', // SIM, literalmente o usuário é a palavra "apikey"
+        pass: process.env.SENDGRID_API_KEY // A sua API Key do SendGrid
+      }
+    });
 
-// Configura a mensagem
-const mailOptions = {
-  from: process.env.EMAIL_USER,
-  to: user.email,
-  subject: 'Redefinição de senha - TechParts',
-  html: `
-    <p>Olá, ${user.nome || 'usuário'}!</p>
-    <p>Você pediu para redefinir sua senha. Clique no link abaixo para continuar:</p>
-    <a href="${resetLink}">Redefinir senha</a>
-    <p>Se você não solicitou isso, ignore este e-mail.</p>
-  `
-};
+    // Configura a mensagem
+    const mailOptions = {
+      from: 'TechParts <marcos.sabino@sga.pucminas.br>', // Esse email deve estar verificado no SendGrid
+      to: user.email,
+      subject: 'Redefinição de senha - TechParts',
+      html: `
+        <p>Olá, ${user.nome || 'usuário'}!</p>
+        <p>Você pediu para redefinir sua senha. Clique no link abaixo para continuar:</p>
+        <a href="${resetLink}" target="_blank">Redefinir senha</a>
+        <p>Se você não solicitou isso, ignore este e-mail.</p>
+      `
+    };
+    
 
-// Envia o e-mail
-await transporter.sendMail(mailOptions);
-
-res.status(200).json({ message: 'Link de redefinição enviado para o e-mail.' });
-
+    // Envia o e-mail
+    await transporter.sendMail(mailOptions);
 
 
     console.log(`Link de redefinição de senha: ${resetLink}`);
