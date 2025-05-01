@@ -4,6 +4,13 @@ import {
   confirmarPagamento,
   getPedidosUsuario
 } from '../controllers/paymentController.js';
+
+import {
+  criarAvaliacao,
+  getAvaliacoesByProduto,
+  getAvaliacoesByProdutos
+} from '../controllers/avaliacaoController.js'; // Importe os novos controllers
+
 import { authMiddleware } from '../middleware/authMiddleware.js'; // ✅ certo
 
 
@@ -15,5 +22,11 @@ router.post('/pagamento/create-checkout-session', authMiddleware, createCheckout
 router.post('/confirmar/:pedidoId', confirmarPagamento); // Nova rota
 
 router.get('/pedidos/:usuarioId', getPedidosUsuario); // Nova rota
+
+
+router.post('/avaliacoes', authMiddleware, criarAvaliacao);
+router.get('/avaliacoes/produto/:produtoId', getAvaliacoesByProduto);
+router.get('/avaliacoes/produtos', getAvaliacoesByProdutos); // Para múltiplos produtos
+
 
 export default router;

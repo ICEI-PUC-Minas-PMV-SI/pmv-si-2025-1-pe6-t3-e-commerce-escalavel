@@ -3,6 +3,12 @@ import Stripe from 'stripe';
 import config from '../config.js';
 
 const prisma = new PrismaClient();
+
+
+if (!config.stripeSecretKey) {
+  throw new Error('Stripe Secret Key não configurada');
+}
+
 const stripe = new Stripe(config.stripeSecretKey);
 
 // Serviço auxiliar para atualizar estoque

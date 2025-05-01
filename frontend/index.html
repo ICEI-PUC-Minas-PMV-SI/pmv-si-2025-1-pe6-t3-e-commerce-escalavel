@@ -100,6 +100,32 @@
         </li>
       </ul>
     </nav>
+
+<!-- Modal de Avaliações -->
+<div class="modal fade" id="avaliacoesModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="avaliacoesModalLabel">Avaliações do Produto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="avaliacoesModalBody">
+        <div class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+          </div>
+          <p class="mt-2">Carregando avaliações...</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
   </main>
 
   <!-- Footer -->
@@ -183,7 +209,6 @@
   
     async function carregarProdutos(categoria = 'todos') {
   try {
-    // Monta a URL com o parâmetro de categoria se não for 'todos'
     const url = categoria === 'todos' 
       ? "http://localhost:3000/api/produtos" 
       : `http://localhost:3000/api/produtos?categoria=${encodeURIComponent(categoria)}`;
@@ -197,11 +222,16 @@
     const produtos = await res.json();
     const container = document.getElementById("produtos");
 
-    // Limpa o container antes de adicionar os novos produtos
+    // Carrega as avaliações para todos os produtos de uma vez
+    const avaliacoesPorProduto = await carregarAvaliacoesPorProduto(produtos.map(p => p.id));
+
     container.innerHTML = "";
-    
-    // Adiciona cada produto ao container
     produtos.forEach((p) => {
+      const avaliacoes = avaliacoesPorProduto[p.id] || [];
+      const mediaAvaliacoes = avaliacoes.length > 0 
+        ? (avaliacoes.reduce((sum, av) => sum + av.nota, 0) / avaliacoes.length).toFixed(1)
+        : null;
+
       container.innerHTML += `
         <div class="col-md-4 col-lg-3">
           <div class="card product-card h-100">
@@ -213,6 +243,24 @@
             <div class="card-body">
               <h5 class="card-title">${p.nome}</h5>
               <p class="card-text text-muted product-description">${p.descricao}</p>
+              
+              <!-- Área de avaliações -->
+              <div class="avaliacoes-container mb-2">
+                ${mediaAvaliacoes ? `
+                  <div class="d-flex align-items-center mb-1">
+                    <div class="rating-stars-small me-2">
+                      ${renderStars(mediaAvaliacoes)}
+                    </div>
+                    <small class="text-muted">${mediaAvaliacoes} (${avaliacoes.length} avaliações)</small>
+                  </div>
+                ` : '<small class="text-muted">Sem avaliações</small>'}
+                ${avaliacoes.length > 0 ? `
+                  <button class="btn btn-sm btn-outline-tech w-100 ver-avaliacoes" data-produto-id="${p.id}">
+                    <i class="fas fa-star me-1"></i> Ver avaliações
+                  </button>
+                ` : ''}
+              </div>
+              
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <span class="badge bg-tech-light text-dark">${p.categoria}</span>
                 <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
@@ -226,12 +274,165 @@
         </div>
       `;
     });
+
+    // Adiciona eventos aos botões de ver avaliações
+    document.querySelectorAll('.ver-avaliacoes').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const produtoId = this.getAttribute('data-produto-id');
+        abrirModalAvaliacoes(produtoId);
+      });
+    });
+
   } catch (error) {
     console.error("Erro ao carregar produtos:", error);
     showNotification('danger', 'Erro ao carregar produtos. Tente novamente.');
   }
 }
+
+// Função auxiliar para renderizar estrelas
+function renderStars(notaMedia) {
+  const nota = parseFloat(notaMedia);
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= Math.floor(nota)) {
+      stars += '<i class="fas fa-star text-warning"></i>';
+    } else if (i - 0.5 <= nota) {
+      stars += '<i class="fas fa-star-half-alt text-warning"></i>';
+    } else {
+      stars += '<i class="far fa-star text-warning"></i>';
+    }
+  }
+  return stars;
+}
+
+// Função para carregar avaliações por produto
+async function carregarAvaliacoesPorProduto(produtoIds) {
+  try {
+    const res = await fetch(`http://localhost:3000/api/avaliacoes/produtos?ids=${produtoIds.join(',')}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     
+    if (!res.ok) throw new Error('Erro ao carregar avaliações');
+    
+    const avaliacoes = await res.json();
+    
+    // Organiza as avaliações por produtoId
+    return avaliacoes.reduce((acc, av) => {
+      if (!acc[av.produtoId]) acc[av.produtoId] = [];
+      acc[av.produtoId].push(av);
+      return acc;
+    }, {});
+    
+  } catch (error) {
+    console.error("Erro ao carregar avaliações:", error);
+    return {};
+  }
+}
+
+// Função para abrir o modal de avaliações
+let avaliacoesModal = null;
+async function abrirModalAvaliacoes(produtoId) {
+  try {
+    if (!avaliacoesModal) {
+      avaliacoesModal = new bootstrap.Modal(document.getElementById('avaliacoesModal'));
+    }
+    
+    // Atualiza o título do modal
+    document.getElementById('avaliacoesModalLabel').textContent = 'Carregando...';
+    
+    // Mostra o spinner de carregamento
+    document.getElementById('avaliacoesModalBody').innerHTML = `
+      <div class="text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2">Carregando avaliações...</p>
+      </div>
+    `;
+    
+    // Abre o modal
+    avaliacoesModal.show();
+    
+    // Busca as avaliações e detalhes do produto
+    const [produtoRes, avaliacoesRes] = await Promise.all([
+      fetch(`http://localhost:3000/api/produtos/${produtoId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      }),
+      fetch(`http://localhost:3000/api/avaliacoes/produto/${produtoId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+    ]);
+    
+    if (!produtoRes.ok || !avaliacoesRes.ok) {
+      throw new Error('Erro ao carregar dados');
+    }
+    
+    const produto = await produtoRes.json();
+    const avaliacoes = await avaliacoesRes.json();
+    
+    // Atualiza o título do modal
+    document.getElementById('avaliacoesModalLabel').textContent = `Avaliações: ${produto.nome}`;
+    
+    // Calcula a média das avaliações
+    const media = avaliacoes.length > 0 
+      ? (avaliacoes.reduce((sum, av) => sum + av.nota, 0) / avaliacoes.length).toFixed(1)
+      : 0;
+    
+    // Renderiza o conteúdo do modal
+    document.getElementById('avaliacoesModalBody').innerHTML = `
+      <div class="mb-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div>
+            <h5>${produto.nome}</h5>
+            <p class="text-muted mb-0">${produto.descricao}</p>
+          </div>
+          <div class="text-end">
+            <div class="display-4">${media}</div>
+            <div class="rating-stars mb-2">
+              ${renderStars(media)}
+            </div>
+            <small class="text-muted">${avaliacoes.length} avaliações</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="avaliacoes-list">
+        ${avaliacoes.length > 0 
+          ? avaliacoes.map(av => `
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <h6 class="card-title">${av.usuario?.nome || 'Usuário anônimo'}</h6>
+                    <div class="text-warning">
+                      ${Array.from({length: 5}, (_, i) => 
+                        i < av.nota 
+                          ? '<i class="fas fa-star"></i>' 
+                          : '<i class="far fa-star"></i>'
+                      ).join('')}
+                    </div>
+                  </div>
+                  ${av.comentario ? `
+                    <p class="card-text mt-2">${av.comentario}</p>
+                  ` : '<p class="card-text text-muted mt-2">Sem comentário</p>'}
+                  <small class="text-muted">${new Date(av.createdAt).toLocaleDateString('pt-BR')}</small>
+                </div>
+              </div>
+            `).join('')
+          : '<div class="text-center py-4"><p>Nenhuma avaliação encontrada para este produto.</p></div>'
+        }
+      </div>
+    `;
+    
+  } catch (error) {
+    console.error("Erro ao carregar avaliações:", error);
+    document.getElementById('avaliacoesModalBody').innerHTML = `
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        Erro ao carregar avaliações: ${error.message}
+      </div>
+    `;
+  }
+}
   
     async function adicionarAoCarrinho(produtoId) {
       try {
@@ -319,7 +520,7 @@
 
 
       // Função para filtrar produtos por categoria
-async function filtrarPorCategoria(categoria) {
+      async function filtrarPorCategoria(categoria) {
   try {
     const url = categoria === 'todos' 
       ? "http://localhost:3000/api/produtos" 
@@ -334,8 +535,16 @@ async function filtrarPorCategoria(categoria) {
     const produtos = await res.json();
     const container = document.getElementById("produtos");
 
+    // Carrega as avaliações para todos os produtos filtrados
+    const avaliacoesPorProduto = await carregarAvaliacoesPorProduto(produtos.map(p => p.id));
+
     container.innerHTML = "";
     produtos.forEach((p) => {
+      const avaliacoes = avaliacoesPorProduto[p.id] || [];
+      const mediaAvaliacoes = avaliacoes.length > 0 
+        ? (avaliacoes.reduce((sum, av) => sum + av.nota, 0) / avaliacoes.length).toFixed(1)
+        : null;
+
       container.innerHTML += `
         <div class="col-md-4 col-lg-3">
           <div class="card product-card h-100">
@@ -347,6 +556,24 @@ async function filtrarPorCategoria(categoria) {
             <div class="card-body">
               <h5 class="card-title">${p.nome}</h5>
               <p class="card-text text-muted product-description">${p.descricao}</p>
+              
+              <!-- Área de avaliações -->
+              <div class="avaliacoes-container mb-2">
+                ${mediaAvaliacoes ? `
+                  <div class="d-flex align-items-center mb-1">
+                    <div class="rating-stars-small me-2">
+                      ${renderStars(mediaAvaliacoes)}
+                    </div>
+                    <small class="text-muted">${mediaAvaliacoes} (${avaliacoes.length} avaliações)</small>
+                  </div>
+                ` : '<small class="text-muted">Sem avaliações</small>'}
+                ${avaliacoes.length > 0 ? `
+                  <button class="btn btn-sm btn-outline-tech w-100 ver-avaliacoes" data-produto-id="${p.id}">
+                    <i class="fas fa-star me-1"></i> Ver avaliações
+                  </button>
+                ` : ''}
+              </div>
+              
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <span class="badge bg-tech-light text-dark">${p.categoria}</span>
                 <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
@@ -360,6 +587,15 @@ async function filtrarPorCategoria(categoria) {
         </div>
       `;
     });
+
+    // Adiciona eventos aos botões de ver avaliações
+    document.querySelectorAll('.ver-avaliacoes').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const produtoId = this.getAttribute('data-produto-id');
+        abrirModalAvaliacoes(produtoId);
+      });
+    });
+
   } catch (error) {
     console.error("Erro ao filtrar produtos:", error);
     showNotification('danger', 'Erro ao filtrar produtos. Tente novamente.');

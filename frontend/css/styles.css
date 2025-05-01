@@ -334,7 +334,59 @@
   
   .notification.fade-out {
     animation: fadeOut 0.3s ease-out;
-  }
+  }/* Estilos para avaliações */
+.rating-stars {
+  color: #ffc107;
+  font-size: 1rem;
+}
+
+.rating-stars-small {
+  color: #ffc107;
+  font-size: 0.9rem;
+}
+
+.avaliacoes-container {
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ver-avaliacoes {
+  transition: all 0.2s;
+}
+
+.ver-avaliacoes:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+/* Modal de avaliações */
+.avaliacoes-list {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.avaliacoes-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.avaliacoes-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.avaliacoes-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.avaliacoes-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+
   
   @keyframes slideIn {
     from { transform: translateX(100%); opacity: 0; }
