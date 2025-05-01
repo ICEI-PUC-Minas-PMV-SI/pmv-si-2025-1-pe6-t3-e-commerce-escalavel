@@ -72,16 +72,17 @@
     </div>
 
     <!-- Filtros -->
-    <div class="mb-4">
-      <div class="d-flex flex-wrap gap-2">
-        <button class="btn btn-sm btn-outline-tech active">Todos</button>
-        <button class="btn btn-sm btn-outline-tech">Processadores</button>
-        <button class="btn btn-sm btn-outline-tech">Placas de Vídeo</button>
-        <button class="btn btn-sm btn-outline-tech">Memórias</button>
-        <button class="btn btn-sm btn-outline-tech">Armazenamento</button>
-      </div>
-    </div>
-
+    <!-- Filtros -->
+<div class="mb-4">
+  <div class="d-flex flex-wrap gap-2">
+    <button class="btn btn-sm btn-outline-tech active" data-categoria="todos">Todos</button>
+    <button class="btn btn-sm btn-outline-tech" data-categoria="Processadores">Processadores</button>
+    <button class="btn btn-sm btn-outline-tech" data-categoria="Placas de Vídeo">Placas de Vídeo</button>
+    <button class="btn btn-sm btn-outline-tech" data-categoria="Memórias RAM">Memórias</button>
+    <button class="btn btn-sm btn-outline-tech" data-categoria="Armazenamento (SSD/HDD)">Armazenamento</button>
+    <button class="btn btn-sm btn-outline-tech" data-categoria="Placas-mãe">Placa Mãe</button>
+  </div>
+</div>
     <!-- Lista de Produtos -->
     <div id="produtos" class="row g-4"></div>
 
@@ -180,48 +181,57 @@
       }
     }
   
-    async function carregarProdutos() {
-      try {
-        const res = await fetch("http://localhost:3000/api/produtos", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-  
-        if (!res.ok) throw new Error('Erro ao carregar produtos');
-  
-        const produtos = await res.json();
-        const container = document.getElementById("produtos");
-  
-        container.innerHTML = "";
-        produtos.forEach((p) => {
-          container.innerHTML += `
-            <div class="col-md-4 col-lg-3">
-              <div class="card product-card h-100">
-                <div class="badge-overlay">
-                  ${p.estoque > 0 ? `<span class="badge bg-success">Em estoque</span>` : `<span class="badge bg-danger">Esgotado</span>`}
-                  ${p.estoque < 5 && p.estoque > 0 ? `<span class="badge bg-warning text-dark">Últimas unidades</span>` : ''}
-                </div>
-                <img src="${p.imagem || 'https://via.placeholder.com/300x200?text=TechParts'}" class="card-img-top product-image" alt="${p.nome}">
-                <div class="card-body">
-                  <h5 class="card-title">${p.nome}</h5>
-                  <p class="card-text text-muted product-description">${p.descricao}</p>
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span class="badge bg-tech-light text-dark">${p.categoria}</span>
-                    <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
-                  </div>
-                  <button onclick="adicionarAoCarrinho('${p.id}')" class="btn btn-tech w-100" ${p.estoque <= 0 ? 'disabled' : ''}>
-                    <i class="fas fa-cart-plus me-2"></i>
-                    ${p.estoque > 0 ? 'Adicionar ao carrinho' : 'Indisponível'}
-                  </button>
-                </div>
-              </div>
+    async function carregarProdutos(categoria = 'todos') {
+  try {
+    // Monta a URL com o parâmetro de categoria se não for 'todos'
+    const url = categoria === 'todos' 
+      ? "http://localhost:3000/api/produtos" 
+      : `http://localhost:3000/api/produtos?categoria=${encodeURIComponent(categoria)}`;
+    
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!res.ok) throw new Error('Erro ao carregar produtos');
+
+    const produtos = await res.json();
+    const container = document.getElementById("produtos");
+
+    // Limpa o container antes de adicionar os novos produtos
+    container.innerHTML = "";
+    
+    // Adiciona cada produto ao container
+    produtos.forEach((p) => {
+      container.innerHTML += `
+        <div class="col-md-4 col-lg-3">
+          <div class="card product-card h-100">
+            <div class="badge-overlay">
+              ${p.estoque > 0 ? `<span class="badge bg-success">Em estoque</span>` : `<span class="badge bg-danger">Esgotado</span>`}
+              ${p.estoque < 5 && p.estoque > 0 ? `<span class="badge bg-warning text-dark">Últimas unidades</span>` : ''}
             </div>
-          `;
-        });
-      } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
-        showNotification('danger', 'Erro ao carregar produtos. Tente novamente.');
-      }
-    }
+            <img src="${p.imagem || 'https://via.placeholder.com/300x200?text=TechParts'}" class="card-img-top product-image" alt="${p.nome}">
+            <div class="card-body">
+              <h5 class="card-title">${p.nome}</h5>
+              <p class="card-text text-muted product-description">${p.descricao}</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-tech-light text-dark">${p.categoria}</span>
+                <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
+              </div>
+              <button onclick="adicionarAoCarrinho('${p.id}')" class="btn btn-tech w-100" ${p.estoque <= 0 ? 'disabled' : ''}>
+                <i class="fas fa-cart-plus me-2"></i>
+                ${p.estoque > 0 ? 'Adicionar ao carrinho' : 'Indisponível'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  } catch (error) {
+    console.error("Erro ao carregar produtos:", error);
+    showNotification('danger', 'Erro ao carregar produtos. Tente novamente.');
+  }
+}
+    
   
     async function adicionarAoCarrinho(produtoId) {
       try {
@@ -306,5 +316,74 @@
   
     // Tornar funções globais
     window.adicionarAoCarrinho = adicionarAoCarrinho;
+
+
+      // Função para filtrar produtos por categoria
+async function filtrarPorCategoria(categoria) {
+  try {
+    const url = categoria === 'todos' 
+      ? "http://localhost:3000/api/produtos" 
+      : `http://localhost:3000/api/produtos?categoria=${encodeURIComponent(categoria)}`;
+    
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!res.ok) throw new Error('Erro ao filtrar produtos');
+
+    const produtos = await res.json();
+    const container = document.getElementById("produtos");
+
+    container.innerHTML = "";
+    produtos.forEach((p) => {
+      container.innerHTML += `
+        <div class="col-md-4 col-lg-3">
+          <div class="card product-card h-100">
+            <div class="badge-overlay">
+              ${p.estoque > 0 ? `<span class="badge bg-success">Em estoque</span>` : `<span class="badge bg-danger">Esgotado</span>`}
+              ${p.estoque < 5 && p.estoque > 0 ? `<span class="badge bg-warning text-dark">Últimas unidades</span>` : ''}
+            </div>
+            <img src="${p.imagem || 'https://via.placeholder.com/300x200?text=TechParts'}" class="card-img-top product-image" alt="${p.nome}">
+            <div class="card-body">
+              <h5 class="card-title">${p.nome}</h5>
+              <p class="card-text text-muted product-description">${p.descricao}</p>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-tech-light text-dark">${p.categoria}</span>
+                <span class="product-price">R$ ${p.preco.toFixed(2)}</span>
+              </div>
+              <button onclick="adicionarAoCarrinho('${p.id}')" class="btn btn-tech w-100" ${p.estoque <= 0 ? 'disabled' : ''}>
+                <i class="fas fa-cart-plus me-2"></i>
+                ${p.estoque > 0 ? 'Adicionar ao carrinho' : 'Indisponível'}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  } catch (error) {
+    console.error("Erro ao filtrar produtos:", error);
+    showNotification('danger', 'Erro ao filtrar produtos. Tente novamente.');
+  }
+}
+
+// Event listeners para os botões de filtro
+document.querySelectorAll('[data-categoria]').forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Remove a classe 'active' de todos os botões
+    document.querySelectorAll('[data-categoria]').forEach(b => {
+      b.classList.remove('active');
+    });
+    
+    // Adiciona a classe 'active' apenas ao botão clicado
+    this.classList.add('active');
+    
+    // Obtém a categoria do atributo data-categoria
+    const categoria = this.getAttribute('data-categoria');
+    
+    // Filtra os produtos pela categoria selecionada
+    filtrarPorCategoria(categoria);
+  });
+});
+
   </script>
   
