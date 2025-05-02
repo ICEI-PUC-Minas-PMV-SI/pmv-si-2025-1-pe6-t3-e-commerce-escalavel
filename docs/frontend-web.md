@@ -134,7 +134,7 @@ Banco de Dados (MongoDB Atlas)
 ### Fluxo detalhado para compra:
 
 
-![arq](https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/fec2819a3f919514784f0c17c200f5a086f95697/docs/img/Fluxograma_TechParts.png)
+![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Fluxograma.png?raw=true)
 
 
 
