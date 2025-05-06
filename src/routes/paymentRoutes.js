@@ -6,7 +6,7 @@ import {
 } from '../controllers/paymentController.js';
 
 import {
-  criarAvaliacao,
+ 
   getAvaliacoesByProduto,
   getAvaliacoesByProdutos
 } from '../controllers/avaliacaoController.js'; // Importe os novos controllers
@@ -24,7 +24,7 @@ router.post('/confirmar/:pedidoId', confirmarPagamento); // Nova rota
 router.get('/pedidos/:usuarioId', getPedidosUsuario); // Nova rota
 
 
-router.post('/avaliacoes', authMiddleware, criarAvaliacao);
+router.post('/avaliacoes', authMiddleware);
 router.get('/avaliacoes/produto/:produtoId', getAvaliacoesByProduto);
 router.get('/avaliacoes/produtos', getAvaliacoesByProdutos); // Para múltiplos produtos
 

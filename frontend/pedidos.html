@@ -571,7 +571,7 @@
             pedidoId,
             produtoId,
             nota: parseInt(nota), // Garante que é número
-            comentario: comentario || null // Trata comentário opcional
+            ...(comentario?.trim() && { comentario: comentario.trim() })
           })
         });
 

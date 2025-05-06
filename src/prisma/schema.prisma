@@ -89,7 +89,7 @@ model Avaliacao {
   produtoId  String   @db.ObjectId
   pedidoId   String   @db.ObjectId
   nota       Int
-  comentario String
+  comentario String?
   createdAt  DateTime @default(now())
   usuario    User     @relation(fields: [usuarioId], references: [id])
   produto    Product  @relation(fields: [produtoId], references: [id])
