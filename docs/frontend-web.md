@@ -18,6 +18,7 @@ TechParts é uma plataforma de e-commerce especializada em peças de computador,
 
 - Histórico de pedidos detalhado
 
+
 ### Tecnologias Utilizadas
 
 - Front-end: HTML5, CSS3, JavaScript (ES6+)
@@ -28,6 +29,8 @@ TechParts é uma plataforma de e-commerce especializada em peças de computador,
 
 - Autenticação: JWT (JSON Web Tokens)
 
+- Serviço de e-mail: SendGrid
+
 ### Integrações
 
 - API RESTful personalizada para gestão de produtos/pedidos
@@ -35,6 +38,8 @@ TechParts é uma plataforma de e-commerce especializada em peças de computador,
 - Gateway de pagamento Stripe para transações seguras
 
 - Sistema de gestão de estoque em tempo real
+
+- Sistema de redefinição de senha utilizando SendGrid para envio de e-mails e a biblioteca Nodemailer para Node.js.
 
 ### Diferenciais
 
