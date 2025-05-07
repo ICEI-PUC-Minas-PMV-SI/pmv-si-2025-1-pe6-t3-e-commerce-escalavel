@@ -214,4 +214,5 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 - SendGrid Docs: https://docs.sendgrid.com
 - FontAwesome: https://fontawesome.com
 - Bootstrap 5 Docs: https://getbootstrap.com/docs/5.0/getting-started/introduction/
+- JSON Web Token (JWT): https://jwt.io
 
