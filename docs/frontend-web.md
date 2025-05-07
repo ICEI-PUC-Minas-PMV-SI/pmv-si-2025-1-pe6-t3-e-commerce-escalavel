@@ -1,10 +1,10 @@
 # Front-end Web - TechParts E-commerce:
 
 ### Descrição do Projeto
-TechParts é uma plataforma de e-commerce especializada em peças de computador, desenvolvida  para oferecer uma experiência de compra escalável e intuitiva.
+TechParts é uma plataforma de e-commerce especializada em peças de computador, desenvolvida para oferecer uma experiência de compra escalável e intuitiva.
 
 ### Objetivos Principais
- -  Interface de Usuário 
+-  Interface de usuário 
 
 - Prover uma experiência de compra limpa e responsiva
 
@@ -39,7 +39,8 @@ TechParts é uma plataforma de e-commerce especializada em peças de computador,
 
 - Sistema de gestão de estoque em tempo real
 
-- Sistema de redefinição de senha utilizando SendGrid para envio de e-mails e a biblioteca Nodemailer para Node.js.
+- Sistema de redefinição de senha utilizando Nodemailer com o serviço SendGrid para envio de e-mails.
+
 
 ### Diferenciais
 
@@ -51,10 +52,12 @@ TechParts é uma plataforma de e-commerce especializada em peças de computador,
 
 - Sistema de avaliações de produtos.
 
+- Layout adaptável a diferentes resoluções (mobile, tablet e desktop)
+
 ## Projeto da Interface Web
 
 ### Descrição da interface
-A interface web do projeto TechParts consiste em uma aplicação web moderna e responsiva destinada a um e-commerce especializado em peças para computadores. O projeto apresenta uma navegação intuitiva, visualmente agradável, e projetada para garantir uma experiência de usuário simples, clara e direta, desde o login até a finalização dos pedidos e a administração do site.
+A interface web do projeto TechParts consiste em uma aplicação web moderna e responsiva destinada a um e-commerce especializado em peças para computadores. O projeto apresenta uma navegação intuitiva, visualmente agradável e projetada para garantir uma experiência de usuário simples, clara e direta, desde o login até a finalização dos pedidos e a administração do site.
 
 **Páginas principais:**
 
@@ -67,6 +70,8 @@ A interface web do projeto TechParts consiste em uma aplicação web moderna e r
 - Página dos Pedidos
 
 - Página do Painel Admin
+
+- Página de redefinição de senha
 
 ### Wireframes das páginas principais:
 
@@ -203,4 +208,10 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 
 # Referências
 
-Inclua todas as referências (livros, artigos, sites, etc) utilizados no desenvolvimento do trabalho.
+## Referências
+
+- Stripe Docs: https://stripe.com/docs
+- SendGrid Docs: https://docs.sendgrid.com
+- FontAwesome: https://fontawesome.com
+- Bootstrap 5 Docs: https://getbootstrap.com/docs/5.0/getting-started/introduction/
+
