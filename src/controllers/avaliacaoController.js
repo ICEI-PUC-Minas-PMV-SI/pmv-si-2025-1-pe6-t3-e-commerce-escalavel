@@ -2,11 +2,6 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e4a233591744daed42f54a1c8c45014ae3c37eaa
-
 // Listar avaliações de um produto
 export const listarAvaliacoes = async (req, res) => {
   try {
