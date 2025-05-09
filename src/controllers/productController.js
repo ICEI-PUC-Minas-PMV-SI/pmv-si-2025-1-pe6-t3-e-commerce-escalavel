@@ -13,7 +13,9 @@ export const createProduct = async (req, res) => {
       'Placas de Vídeo': 'PLACAS_VIDEO',
       'Memórias RAM': 'MEMORIAS_RAM',
       'Armazenamento (SSD/HDD)': 'ARMAZENAMENTO',
-      'Placas-mãe': 'PLACAS_MAE'
+      'Placas mãe': 'PLACAS_MAE',
+      'Periféricos': 'PERIFERICOS'
+
     };
 
     if (!categoriaMap[req.body.categoria]) {
@@ -48,7 +50,9 @@ export const getProducts = async (req, res) => {
       'PLACAS_VIDEO': 'Placas de Vídeo',
       'MEMORIAS_RAM': 'Memórias RAM',
       'ARMAZENAMENTO': 'Armazenamento (SSD/HDD)',
-      'PLACAS_MAE': 'Placas-mãe'
+      'PLACAS_MAE': 'Placas-mãe',
+      'PERIFERICOS': 'Periféricos'
+
     };
 
     if (req.query.nome) {

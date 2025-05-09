@@ -114,11 +114,13 @@
                 <label class="form-label">Categoria</label>
                 <select class="form-select" id="categoria" required>
                   <option value="" selected disabled>Selecione uma categoria</option>
-                  <option value="Processadores">Processadores</option>
-                  <option value="Placas de Vídeo">Placas de Vídeo</option>
-                  <option value="Memórias RAM">Memórias RAM</option>
+                  <option value="Processadores">Processador</option>
+                  <option value="Placas de Vídeo">Placa de Vídeo</option>
+                  <option value="Memórias RAM">Memória RAM</option>
                   <option value="Armazenamento (SSD/HDD)">Armazenamento (SSD/HDD)</option>
-                  <option value="Placas-mãe">Placas-mãe</option>
+                  <option value="Placas mãe">Placa mãe</option>
+                  <option value="Periféricos">Periféricos</option>
+
                 </select>
               </div>
               <div class="col-12">
@@ -220,8 +222,12 @@
                 <img src="${produto.imagem || 'https://via.placeholder.com/50?text=TechParts'}" 
                      alt="${produto.nome}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
               </td>
-              <td>${produto.nome}</td>
-              <td><span class="badge bg-tech-light">${produto.categoria}</span></td>
+              <td>
+                <strong>${produto.nome}</strong><br>
+                <small class="text-muted">${produto.descricao}</small>
+              </td>
+
+              <td><span class="badge bg-tech-light text-dark">${produto.categoria}</span></td>
               <td>R$ ${produto.preco.toFixed(2)}</td>
               <td>
                 <span class="badge ${produto.estoque > 0 ? 'bg-success' : 'bg-danger'}">
