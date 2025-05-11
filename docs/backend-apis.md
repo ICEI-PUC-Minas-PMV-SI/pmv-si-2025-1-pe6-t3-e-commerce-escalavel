@@ -101,10 +101,11 @@ Lista das tecnologias usadas no projeto, com justificativas e como elas se integ
 |Banco de Dados |	MongoDB	|6.x+	|Schema-less e escalável para modelos de dados flexíveis (ex: carrinho com produtos variados).|
 |ORM/ODM |Prisma|	5.x+	|Type-safe, suporte nativo ao MongoDB e gerenciamento fácil de relações.|
 |Autenticação	|JWT	|2.x	|Stateless, ideal para APIs RESTful e fácil integração com frontend.|
-|Pagamentos|	Mercado Pago SDK|	2.x+	| Solução completa para pagamentos no Brasil, com sandbox para testes.|
+|Pagamentos|	Stripe|	2.x+	| Totalmente integrado de produtos para gestão financeira e pagamentos.|
 |Documentação |	Swagger UI	|4.x|	Geração automática de docs interativos para facilitar o consumo da API por frontend/equipe.|
 |Testes	|Insomnnia |	| Aplicativo para testar e desenvolver APIs	|
-|Deploy	|	Docker	|	20.x+		|Empacotamento consistente para produção e fácil escalabilidade.	|
+|Deploy	|	Docker	|	20.x+		|Empacotamento consistente para produção e fácil escalabilidade.|
+|E-mail | SendGrid |  8.1.5x | Oferece alta entregabilidade, APIs modernas, suporte a templates e rastreamento de métricas.|
 
 
 
@@ -348,13 +349,13 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
     JWT (JSON Web Tokens)
     JWT.io Introduction. Disponível em: https://jwt.io/introduction/
 
-    Mercado Pago API
-    Mercado Pago Developers. Disponível em: https://www.mercadopago.com.br/developers
-
+    Stripe
+    Stripe Checkout. Disponível em: https://stripe.com/br
+   
     Docker
     Docker Documentation. Disponível em: https://docs.docker.com/
 
-2. Artigos e Tutoriais
+3. Artigos e Tutoriais
     Autenticação com JWT em Node.js
     "How to Implement JWT Authentication in Node.js" – Auth0. Disponível em: https://auth0.com/blog/node-js-jwt-authentication/
 
@@ -364,7 +365,7 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
     Deploy de Aplicações Node.js
     "How to Deploy a Node.js App to Production" – DigitalOcean. Disponível em: https://www.digitalocean.com/community/tutorials
 
-3. Livros - 
+4. Livros - 
     Node.js Design Patterns
     Mario Casciaro & Luciano Mammino (3rd Edition, 2020)
 
@@ -374,7 +375,7 @@ Render.com (para deploy rápido) ou DigitalOcean + MongoDB Atlas (para maior con
     API Security in Action
     Neil Madden (2021, Manning Publications)
 
-4. Ferramentas de Teste e Documentação
+5. Ferramentas de Teste e Documentação
     Insomnia (Teste de APIs)
     Documentação Oficial. Disponível em: https://docs.insomnia.rest/
 
