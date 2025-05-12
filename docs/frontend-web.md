@@ -218,7 +218,7 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 | Playwright            | Testes end-to-end e de interface                        |
 | Insomnia              | Testes de API                                           |
 | Lighthouse            | Performance e responsividade                            |
-| OWASP ZAP / Snyk      | Testes de segurança                                     |
+| OWASP ZAPk            | Testes de segurança                                     |
 | JMeter / K6           | Testes de carga                                         |
 
 ---
