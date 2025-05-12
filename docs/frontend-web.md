@@ -216,7 +216,7 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 |-----------------------|---------------------------------------------------------|
 | Jest                  | Testes unitários e de integração                        |
 | Cypress / Playwright  | Testes end-to-end e de interface                        |
-| Postman               | Testes de API                                           |
+| Insomnia              | Testes de API                                           |
 | Lighthouse            | Performance e responsividade                           |
 | OWASP ZAP / Snyk      | Testes de segurança                                     |
 | JMeter / K6           | Testes de carga                                         |
