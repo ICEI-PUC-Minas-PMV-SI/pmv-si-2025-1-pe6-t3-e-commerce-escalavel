@@ -198,12 +198,88 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 
 ## Testes
 
+### Estratégia de Testes
 
-1. Crie casos de teste para cobrir todos os requisitos funcionais e não funcionais da aplicação.
-2. Implemente testes unitários para testar unidades individuais de código, como funções e classes.
-3. Realize testes de integração para verificar a interação correta entre os componentes da aplicação.
-4. Execute testes de carga para avaliar o desempenho da aplicação sob carga significativa.
-5. Utilize ferramentas de teste adequadas, como frameworks de teste e ferramentas de automação de teste, para agilizar o processo de teste.
+
+| Tipo de Teste        | Objetivo                                                                 |
+|----------------------|--------------------------------------------------------------------------|
+| Testes Unitários     | Validar o funcionamento isolado de funções, métodos e componentes.       |
+| Testes de Integração | Verificar a comunicação entre módulos (ex: autenticação + banco de dados).|
+| Testes Funcionais    | Garantir que os requisitos funcionais estão corretos.                    |
+| Testes de Interface  | Avaliar a usabilidade e responsividade da interface.                     |
+| Testes de Carga      | Testar o desempenho sob alta demanda.                                    |
+| Testes de Segurança  | Verificar autenticação e proteção contra ataques.                        |
+
+### Ferramentas
+
+| Ferramenta            | Finalidade                                              |
+|-----------------------|---------------------------------------------------------|
+| Jest                  | Testes unitários e de integração                        |
+| Cypress / Playwright  | Testes end-to-end e de interface                        |
+| Postman               | Testes de API                                           |
+| Lighthouse            | Performance e responsividade                           |
+| OWASP ZAP / Snyk      | Testes de segurança                                     |
+| JMeter / K6           | Testes de carga                                         |
+
+---
+
+### Casos de Teste
+
+### Requisitos Funcionais
+
+#### RF-001 - Gestão de Usuários
+
+- **CT001**: Criar conta (cliente ou lojista) com dados válidos.
+- **CT002**: Login com sucesso e falha (credenciais inválidas).
+- **CT003**: Atualizar dados do perfil.
+
+#### RF-002 - Gestão de Produtos
+
+- **CT004**: Cadastrar e editar produto.
+- **CT005**: Visualizar lista de produtos (cliente e lojista).
+
+#### RF-003 - Carrinho de Compras e Checkout
+
+- **CT006**: Adicionar e remover produto do carrinho.
+- **CT007**: Finalizar compra com cálculo do total.
+
+#### RF-004 - Processamento de Pedidos e Pagamentos
+
+- **CT008**: Realizar pagamento com dados válidos.
+- **CT009**: Simular erro de pagamento e verificar resposta.
+
+#### RF-005 - Acompanhamento e Histórico de Pedidos
+
+- **CT010**: Verificar status atual e histórico do pedido.
+
+#### RF-006 - Gestão de Estoque
+
+- **CT011**: Reduzir estoque após venda.
+
+#### RF-007 - Avaliações e Suporte
+
+- **CT012**: Adicionar e visualizar avaliação de produto.
+
+---
+
+### Requisitos Não Funcionais
+
+#### RNF-001 - Responsividade
+
+- **CT013**: Verificar layout e usabilidade em celular.
+
+#### RNF-002 - Performance
+
+- **CT014**: Testar tempo de resposta das páginas principais (< 3s).
+
+#### RNF-003 - Segurança
+
+- **CT015**: Validar proteção contra injeção de SQL e XSS.
+
+#### RNF-004 - Integração com Simulador de Pagamento
+
+- **CT016**: Simular transação bem-sucedida com o gateway de teste.
+
 
 # Referências
 
