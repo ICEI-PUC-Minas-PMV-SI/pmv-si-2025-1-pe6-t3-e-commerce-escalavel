@@ -229,14 +229,14 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 
 #### RF-001 - Gestão de Usuários
 
-- **CT001**: Criar conta (cliente ou lojista) com dados válidos.
+- **CT001**: Criar conta com dados válidos.
 - **CT002**: Login com sucesso e falha (credenciais inválidas).
 - **CT003**: Atualizar dados do perfil.
 
 #### RF-002 - Gestão de Produtos
 
 - **CT004**: Cadastrar e editar produto.
-- **CT005**: Visualizar lista de produtos (cliente e lojista).
+- **CT005**: Visualizar lista de produtos (cliente e admin).
 
 #### RF-003 - Carrinho de Compras e Checkout
 
@@ -266,7 +266,7 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 
 #### RNF-001 - Responsividade
 
-- **CT013**: Verificar layout e usabilidade em celular.
+- **CT013**: Verificar layout.
 
 #### RNF-002 - Performance
 
@@ -274,7 +274,7 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 
 #### RNF-003 - Segurança
 
-- **CT015**: Validar proteção contra injeção de SQL e XSS.
+- **CT015**: Armazenamento de senhas com hash seguro.
 
 #### RNF-004 - Integração com Simulador de Pagamento
 
