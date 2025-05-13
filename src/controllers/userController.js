@@ -107,12 +107,43 @@ export const updateUser = async (req, res) => {
   }
 };
 
-// Deletar usuário
 export const deleteUser = async (req, res) => {
-  
-    await prisma.User.delete({
-      where: { id: req.params.id },
+  try {
+    const { id } = req.params;
+
+    // Verifica se o usuário existe
+    const userExists = await prisma.user.findUnique({
+      where: { id }
     });
-    res.status(200).send({message:"usuário deletado com sucesso"});
-  
+
+    if (!userExists) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    // Executa todas as operações em uma transação
+    await prisma.$transaction([
+      // Deleta avaliações do usuário
+      prisma.avaliacao.deleteMany({ where: { usuarioId: id } }),
+      
+      // Deleta itens de pedido associados aos pedidos do usuário
+      prisma.itemPedido.deleteMany({ where: { pedido: { usuarioId: id } } }),
+      
+      // Deleta carrinhos do usuário
+      prisma.carrinho.deleteMany({ where: { usuarioId: id } }),
+      
+      // Deleta pedidos do usuário
+      prisma.pedido.deleteMany({ where: { usuarioId: id } }),
+      
+      // Finalmente deleta o usuário
+      prisma.user.delete({ where: { id } })
+    ]);
+
+    res.status(200).send({ message: "Usuário e todos os dados relacionados deletados com sucesso" });
+  } catch (error) {
+    console.error('Erro ao deletar usuário:', error);
+    res.status(500).json({ 
+      error: 'Erro ao deletar usuário', 
+      details: error.message 
+    });
   }
+}
