@@ -6,8 +6,6 @@ generator client {
   output   = "../../node_modules/.prisma/client"
 }
 
-
-
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -20,9 +18,9 @@ model User {
   cel        String
   senha      String
   perfil     String      @default("user") // (admin ou user)
-  carrinho   Carrinho[]
-  pedidos    Pedido[]
-  avaliacoes Avaliacao[]
+  carrinho   Carrinho[]  @relation("UserToCarrinho")
+  pedidos    Pedido[]    @relation("UserToPedido")
+  avaliacoes Avaliacao[] @relation("UserToAvaliacao")
 }
 
 enum CategoriaProduto {
@@ -54,9 +52,10 @@ model Carrinho {
   produtoId  String   @db.ObjectId
   quantidade Int
   createdAt  DateTime @default(now())
-  usuario    User     @relation(fields: [usuarioId], references: [id])
+  usuario    User     @relation("UserToCarrinho", fields: [usuarioId], references: [id], onDelete: Cascade)
   produto    Product  @relation(fields: [produtoId], references: [id])
-  Pedido     Pedido?
+  pedido     Pedido?  @relation("CarrinhoToPedido")
+  pedidoId   String?  @db.ObjectId
 }
 
 model Pedido {
@@ -67,11 +66,11 @@ model Pedido {
   createdAt       DateTime     @default(now())
   dataPagamento   DateTime?
   paymentIntentId String?
-  usuario         User         @relation(fields: [usuarioId], references: [id])
-  itens           ItemPedido[]
-  Carrinho        Carrinho?    @relation(fields: [carrinhoId], references: [id])
-  carrinhoId      String?      @unique @db.ObjectId // Adicionei @unique aqui
-  avaliacoes      Avaliacao[]
+  usuario         User         @relation("UserToPedido", fields: [usuarioId], references: [id], onDelete: Cascade)
+  itens           ItemPedido[] @relation("PedidoToItem")
+  carrinho        Carrinho?    @relation("CarrinhoToPedido", fields: [carrinhoId], references: [id], onDelete: Cascade)
+  carrinhoId      String?      @unique @db.ObjectId
+  avaliacoes      Avaliacao[]  @relation("PedidoToAvaliacao")
 }
 
 model ItemPedido {
@@ -80,7 +79,7 @@ model ItemPedido {
   produtoId     String  @db.ObjectId
   quantidade    Int
   precoUnitario Float
-  pedido        Pedido  @relation(fields: [pedidoId], references: [id])
+  pedido        Pedido  @relation("PedidoToItem", fields: [pedidoId], references: [id], onDelete: Cascade)
   produto       Product @relation(fields: [produtoId], references: [id])
 }
 
@@ -92,7 +91,7 @@ model Avaliacao {
   nota       Int
   comentario String?
   createdAt  DateTime @default(now())
-  usuario    User     @relation(fields: [usuarioId], references: [id])
+  usuario    User     @relation("UserToAvaliacao", fields: [usuarioId], references: [id], onDelete: Cascade)
   produto    Product  @relation(fields: [produtoId], references: [id])
-  pedido     Pedido   @relation(fields: [pedidoId], references: [id]) // Corrigido o nome do modelo
+  pedido     Pedido   @relation("PedidoToAvaliacao", fields: [pedidoId], references: [id], onDelete: Cascade)
 }
