@@ -230,35 +230,58 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 #### RF-001 - Gestão de Usuários
 
 - **CT001**: Criar conta com dados válidos.
+- ![image](https://github.com/user-attachments/assets/dbb60ce9-d2c5-4b2b-ba56-a5acd3c85238)
+
 - **CT002**: Login com sucesso e falha (credenciais inválidas).
+- ![image](https://github.com/user-attachments/assets/03c804f8-aac5-464c-90aa-d096d9205e89)
+
 - **CT003**: Atualizar dados do perfil.
+![image](https://github.com/user-attachments/assets/72500420-2eca-4f31-b81c-2b3deea85d6e)
 
 #### RF-002 - Gestão de Produtos
 
 - **CT004**: Cadastrar e editar produto.
+- ![image](https://github.com/user-attachments/assets/9e5c91ed-69af-4977-b7be-dc0f367f758e)
+
 - **CT005**: Visualizar lista de produtos (cliente e admin).
+- ![image](https://github.com/user-attachments/assets/36251990-1aa8-404f-b98a-080884bb5262)
+
 
 #### RF-003 - Carrinho de Compras e Checkout
 
 - **CT006**: Adicionar e remover produto do carrinho.
+- ![image](https://github.com/user-attachments/assets/c80522dc-1bf6-4d0f-86a8-dde11fd96cfb)
+
 - **CT007**: Finalizar compra com cálculo do total.
+- ![image](https://github.com/user-attachments/assets/826cd8ed-f0b2-4f9a-804f-512c88e2a2d3)
+
 
 #### RF-004 - Processamento de Pedidos e Pagamentos
 
 - **CT008**: Realizar pagamento com dados válidos.
+- ![image](https://github.com/user-attachments/assets/e01dc743-7ac3-4eaf-bf5d-4865f6e984f1)
+
 - **CT009**: Simular erro de pagamento e verificar resposta.
+- ![image](https://github.com/user-attachments/assets/790ec42b-df6a-40af-8c35-8062dd6769a0)
+
 
 #### RF-005 - Acompanhamento e Histórico de Pedidos
 
 - **CT010**: Verificar status atual e histórico do pedido.
+- ![image](https://github.com/user-attachments/assets/449c7e71-a68c-4c03-a778-e69be959fd1b)
+
 
 #### RF-006 - Gestão de Estoque
 
 - **CT011**: Reduzir estoque após venda.
+- ![image](https://github.com/user-attachments/assets/5af9db9f-9745-44ad-96fe-1e105fa4a6ff)
+
 
 #### RF-007 - Avaliações e Suporte
 
 - **CT012**: Adicionar e visualizar avaliação de produto.
+- ![image](https://github.com/user-attachments/assets/6dce63e7-3fa0-4c1a-a607-de9629cd11c9)
+
 
 ---
 
@@ -267,18 +290,26 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 #### RNF-001 - Responsividade
 
 - **CT013**: Verificar layout.
+- ![image](https://github.com/user-attachments/assets/440e16ec-9de4-409f-ac69-21d6257ecff1)
+
 
 #### RNF-002 - Performance
 
 - **CT014**: Testar tempo de resposta das páginas principais (< 3s).
+- ![image](https://github.com/user-attachments/assets/7dcec0cc-693b-4d55-af1f-f2de52c4f960)
+
 
 #### RNF-003 - Segurança
 
 - **CT015**: Armazenamento de senhas com hash seguro.
+- ![image](https://github.com/user-attachments/assets/f5bfcae0-82a5-47b1-8445-c31c77fff465)
+
 
 #### RNF-004 - Integração com Simulador de Pagamento
 
 - **CT016**: Simular transação bem-sucedida com o gateway de teste.
+- ![image](https://github.com/user-attachments/assets/3fb2766e-6620-4765-ae87-2f64aeb7494a)
+
 
 
 # Referências
