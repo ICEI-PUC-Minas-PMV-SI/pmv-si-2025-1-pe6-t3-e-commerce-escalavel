@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "jest"
+    "test": "jest",
+      "build": "vite build"
   },
   "dependencies": {
     "@prisma/client": "^6.7.0",
