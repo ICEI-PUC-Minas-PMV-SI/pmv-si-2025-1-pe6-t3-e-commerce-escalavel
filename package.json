@@ -14,11 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "@react-native-async-storage/async-storage": "^2.1.2",
+    "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
+    "expo": "^52.0.44",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mercadopago": "^2.3.0",
@@ -26,11 +29,17 @@
     "mongose": "^0.0.2-security",
     "status": "^0.0.13",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "react-dom": "18.3.1",
+    "react-native-web": "~0.19.13",
+    "@expo/metro-runtime": "~4.0.1",
+    "react-native-screens": "~4.4.0",
+    "react-native-safe-area-context": "4.12.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.13.10",
+    "@types/react": "^19.1.0",
     "nodemon": "^3.1.9",
     "prisma": "^6.5.0",
     "tsx": "^4.19.3",
