@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ecommerce-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npx prisma generate
+    startCommand: node src/app.js
+    envVars:
+      - key: DATABASE_URL
+        value: mongodb+srv://marcossousa:ecommerce@cluster0.v0w2s.mongodb.net/Users
+      - key: JWT_SECRET
+        value: sua_chave_secreta_super_segura
+      - key: MERCADOPAGO_ACCESS_TOKEN
+        value: APP_USR-1323837803473380-032415-06dd4bf7ac5c0558f3834e5e6391488a-2342632607
