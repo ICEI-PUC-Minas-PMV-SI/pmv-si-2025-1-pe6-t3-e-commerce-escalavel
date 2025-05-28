@@ -8,6 +8,9 @@ const prisma = new PrismaClient();
 
 // Login do usuário
 export const loginUser = async (req, res) => {
+  // ⬇️ ADICIONE AQUI
+  console.log('🔥 loginUser: rota /login foi chamada');
+
   try {
     const { email, senha } = req.body;
 
@@ -18,21 +21,17 @@ export const loginUser = async (req, res) => {
       return res.status(404).json({ error: 'Usuário não encontrado.' });
     }
 
-    // Compara a senha fornecida com a senha criptografada
     const senhaValida = await bcrypt.compare(senha, user.senha);
-
     if (!senhaValida) {
       return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
-    // Gera o token JWT
     const token = jwt.sign(
-      { id: user.id, email: user.email, perfil: user.perfil }, // Payload do token (inclui o perfil)
-      config.jwtSecret, // Chave secreta
-      { expiresIn: config.jwtExpiration } // Tempo de expiração
+      { id: user.id, email: user.email, perfil: user.perfil },
+      config.jwtSecret,
+      { expiresIn: config.jwtExpiration }
     );
 
-    // Remove a senha da resposta
     const userSemSenha = { ...user, senha: undefined };
 
     res.status(200).json({ user: userSemSenha, token });

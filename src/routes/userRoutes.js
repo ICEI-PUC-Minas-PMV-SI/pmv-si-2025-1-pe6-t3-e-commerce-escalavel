@@ -48,6 +48,7 @@ const router = express.Router();
  *       401:
  *         description: Credenciais inválidas
  */
+
 router.post('/login', loginUser);
 
 /**
@@ -82,6 +83,7 @@ router.post('/login', loginUser);
  *         description: Dados inválidos
  */
 router.post('/usuarios', createUser);
+
 
 /**
  * @swagger
