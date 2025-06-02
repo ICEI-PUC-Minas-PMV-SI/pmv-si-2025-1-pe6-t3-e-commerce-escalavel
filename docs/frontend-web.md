@@ -1,4 +1,4 @@
-[Casos de Teste.pptx](https://github.com/user-attachments/files/20559299/Casos.de.Teste.pptx)# Front-end Web - TechParts E-commerce:
+# Front-end Web - TechParts E-commerce:
 
 ### Descrição do Projeto
 TechParts é uma plataforma de e-commerce especializada em peças de computador, desenvolvida para oferecer uma experiência de compra escalável e intuitiva.
