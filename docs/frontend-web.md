@@ -77,24 +77,28 @@ A interface web do projeto TechParts consiste em uma aplicação web moderna e r
 
 **Página Login**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Login.png?raw=true)
+![image](https://github.com/user-attachments/assets/5722880f-78f3-40f6-94f1-ea725107019e)
 
 
 **Página Principal**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20produ.png?raw=true)
+![image](https://github.com/user-attachments/assets/c1a32cf1-6982-4ea4-b3e0-cf1259195699)
+
 
 **Página Carrinho**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20carrinho.png?raw=true)
+![image](https://github.com/user-attachments/assets/202689e1-1e96-46e4-aa2d-058e6de229f6)
+
 
 **Página Admin**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20Admin.png?raw=true)
+![image](https://github.com/user-attachments/assets/d42c9a28-49a1-48e4-a65d-2763cbca00dd)
+
 
 **Página Pedidos**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20pedidos.png?raw=true  )
+![image](https://github.com/user-attachments/assets/b2ad7f12-4784-47b3-8afd-901c58c579f0)
+
 
 ### Design Visual
 
