@@ -77,24 +77,31 @@ A interface web do projeto TechParts consiste em uma aplicação web moderna e r
 
 **Página Login**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Login.png?raw=true)
-
+![image](https://github.com/user-attachments/assets/5722880f-78f3-40f6-94f1-ea725107019e)
+![Login](https://github.com/user-attachments/assets/53a45f4c-80ec-4f65-82ac-19a5ab7326d4)
 
 **Página Principal**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20produ.png?raw=true)
+![image](https://github.com/user-attachments/assets/c1a32cf1-6982-4ea4-b3e0-cf1259195699)
+![pagina produ](https://github.com/user-attachments/assets/d72e65df-9b2e-42a3-9f11-560d4c3802e9)
+
 
 **Página Carrinho**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20carrinho.png?raw=true)
+![image](https://github.com/user-attachments/assets/202689e1-1e96-46e4-aa2d-058e6de229f6)
+![pagina carrinho](https://github.com/user-attachments/assets/ed07120d-f67c-4b7f-989c-f776cb45cf7a)
 
 **Página Admin**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20Admin.png?raw=true)
+![image](https://github.com/user-attachments/assets/d42c9a28-49a1-48e4-a65d-2763cbca00dd)
+![pagina Admin](https://github.com/user-attachments/assets/106a3056-d5ee-4e42-a3b7-e27e9d529e37)
+
 
 **Página Pedidos**
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/pagina%20pedidos.png?raw=true  )
+![image](https://github.com/user-attachments/assets/b2ad7f12-4784-47b3-8afd-901c58c579f0)
+![pagina pedidos](https://github.com/user-attachments/assets/78ff8ded-7118-43a0-b59c-f8b09d58ac83)
+
 
 ### Design Visual
 
@@ -144,7 +151,8 @@ Banco de Dados (MongoDB Atlas)
 ### Fluxo detalhado para compra:
 
 
-![arq](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/img/Fluxograma.png?raw=true)
+![image](https://github.com/user-attachments/assets/dde3ca4b-6a0a-486e-b981-b54b830c0a98)
+
 
 
 
