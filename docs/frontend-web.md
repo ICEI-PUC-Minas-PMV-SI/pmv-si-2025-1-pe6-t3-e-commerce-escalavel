@@ -1,4 +1,4 @@
-# Front-end Web - TechParts E-commerce:
+[Casos de Teste.pptx](https://github.com/user-attachments/files/20559299/Casos.de.Teste.pptx)# Front-end Web - TechParts E-commerce:
 
 ### Descrição do Projeto
 TechParts é uma plataforma de e-commerce especializada em peças de computador, desenvolvida para oferecer uma experiência de compra escalável e intuitiva.
@@ -279,6 +279,9 @@ Para colocar a aplicação TechParts em funcionamento, siga estes passos:
 #### RNF-004 - Integração com Simulador de Pagamento
 
 - **CT016**: Simular transação bem-sucedida com o gateway de teste.
+
+  
+[Casos de Teste.pptx](https://github.com/user-attachments/files/20559303/Casos.de.Teste.pptx)
 
 
 # Referências
