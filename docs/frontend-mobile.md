@@ -22,20 +22,56 @@ Cada interação foi pensada para minimizar cliques, acelerar o tempo de respost
 
 Os wireframes representam o esqueleto visual da aplicação e mostram como os elementos são organizados em cada tela. As principais telas incluem:
 
-- Login/Registro  
-  *(imagem aqui)*
+- Login/Registro
 
-- Home com destaque de categorias  
-  *(imagem aqui)*
+![Slide3](https://github.com/user-attachments/assets/940ff9a7-f3d4-4c64-8032-8531d6c30e42)![Slide5](https://github.com/user-attachments/assets/21c33f70-0e2b-4b11-870d-7577c4cfbdc8)
 
-- Produto com imagem, descrição, avaliações e botão “Adicionar ao Carrinho”  
-  *(imagem aqui)*
 
-- Carrinho com listagem de itens, quantidade e botão de checkout  
-  *(imagem aqui)*
+![image](https://github.com/user-attachments/assets/cb4fc082-a439-4313-95f4-3156702e79b9)![image](https://github.com/user-attachments/assets/768ea603-6b40-4a39-a40a-61ce4baeb0d3)
 
-- Pedidos com status atual (Em processamento, Enviado, Entregue)  
-  *(imagem aqui)*
+
+- Produto com imagem, descrição, valor e botão “Adicionar ao Carrinho”
+
+![Slide9](https://github.com/user-attachments/assets/c7b6459b-9482-42df-ad52-966e06a4fdd9)
+
+
+![image](https://github.com/user-attachments/assets/7613a46c-588e-4d9e-800a-aefc0106e93c)
+
+
+- Carrinho com listagem de itens, quantidade e botão de checkout
+
+![Slide11](https://github.com/user-attachments/assets/cc9bd1f5-54dd-47c7-8ada-3b65d1339c18)
+
+
+![image](https://github.com/user-attachments/assets/edf8157d-83d5-491f-a061-f521a164b267)
+
+
+- Painel de pagamento com opções de pagamento
+
+![Slide12 - Copia](https://github.com/user-attachments/assets/d3280055-8146-408a-a408-332a56c31f1e)![Slide12](https://github.com/user-attachments/assets/b1f0a225-eeec-499e-ad5d-6b2087f068fb)
+
+
+![image](https://github.com/user-attachments/assets/5186cfda-b6fe-47f5-88e2-909cd6a96d28)![image](https://github.com/user-attachments/assets/57d82d8b-eda7-466e-a92c-9b7afb2815d8)
+
+
+- Painel de cadastro de produtos (admin)
+
+![Slide4](https://github.com/user-attachments/assets/849ad3f1-25f7-49b3-a839-635948b0a299)![Slide7](https://github.com/user-attachments/assets/8a99f461-5a93-4e34-8e5f-a9495fa7521c)
+
+
+![image](https://github.com/user-attachments/assets/b012017c-32fc-41a5-9019-d46d33f4dac7)![image](https://github.com/user-attachments/assets/5475cae1-c97c-40cb-acd0-be0e42d8c99b)
+
+
+
+
+- Painel de perfil de usuário
+
+![Slide6](https://github.com/user-attachments/assets/4b8908b1-ca6b-4915-a2b0-bba6ab0eafaf)
+
+
+![image](https://github.com/user-attachments/assets/40c3175b-3a99-4517-89e4-2d8062a34580)
+
+
 
 ### Design Visual
 
