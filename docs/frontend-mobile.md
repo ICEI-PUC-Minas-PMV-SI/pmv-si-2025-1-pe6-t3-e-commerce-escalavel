@@ -108,7 +108,6 @@ Os wireframes representam o esqueleto visual da aplicação e mostram como os el
 **Observação:** Este estilo promove uma experiência limpa, acessível e focada em usabilidade, ideal para aplicações web/mobile como o e-commerce TechParts.
 
 
-
 ## Fluxo de Dados
 
 O fluxo de dados na aplicação segue a arquitetura cliente-servidor, com comunicação entre os clientes (aplicativos mobile e web), a API (backend) e o banco de dados.
@@ -125,19 +124,17 @@ O fluxo de dados na aplicação segue a arquitetura cliente-servidor, com comuni
 - Após a autenticação, o usuário pode executar ações como:  
   - Navegar por categorias  
   - Adicionar produtos ao carrinho  
-  - Finalizar uma compra  
-  - Acompanhar um pedido  
+  - Finalizar uma compra   
 - O frontend faz requisições HTTP com `Axios` para a API.
 
 ### 3. Processamento pelo Backend
 
 - A API recebe a requisição e valida o token JWT (autorização).  
 - O servidor executa as ações solicitadas:  
-  - Busca ou insere dados no banco de dados MongoDB.  
+  - Busca ou insere dados no banco de dados local.  
   - Atualiza o estoque.  
   - Cria um pedido.  
   - Processa o pagamento (simulado ou via gateway).  
-  - Envia notificações se necessário.
 
 ### 4. Resposta ao Cliente
 
