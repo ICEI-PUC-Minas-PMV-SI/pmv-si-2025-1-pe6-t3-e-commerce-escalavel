@@ -148,32 +148,39 @@ O fluxo de dados na aplicação segue a arquitetura cliente-servidor, com comuni
 
 ## Tecnologias Utilizadas
 
-A aplicação móvel foi construída com **React Native** e as bibliotecas do ecossistema Expo. As principais dependências utilizadas no desenvolvimento são:
+### Frontend (React Native)
+- **React Native**: Framework principal para desenvolvimento do app mobile.
+- **Expo**: Ambiente simplificado de desenvolvimento e build para React Native.
+- **React Navigation**: Navegação entre telas.
+- **React Context API**: Gerenciamento de estado.
+- **React Native AsyncStorage**: Armazenamento local persistente.
+- **LinearGradient (expo-linear-gradient)**: Gradientes visuais nos layouts.
+- **Ionicons (expo/vector-icons)**: Ícones no app.
+- **FlatList, TouchableOpacity, SafeAreaView**: Componentes nativos para UI/UX.
 
-### Navegação
+### Backend e Integrações
+- **Axios**: Cliente HTTP para requisições à API externa.
+- **API externa com JWT**: Autenticação via token JWT armazenado localmente.
+- **API local (fallback)**: Backup local caso a API externa esteja offline.
 
-- `@react-navigation/native` – gerenciador de navegação principal  
-- `@react-navigation/bottom-tabs` – navegação por abas inferior  
-- `@react-navigation/native-stack` – navegação em pilha (stack)
+### Lógica e Serviços
+- **EventBus (custom)**: Sistema de eventos para sincronizar atualizações (ex: carrinho).
+- **Validação de usuário local e remoto**: Tentativa de login primeiro via API externa, depois fallback local.
+- **Gerenciamento de produtos e usuários**:
+  - `ProdutoApiService.js`
+  - `ProdutoLocalService.js`
+  - `AuthService.js`
 
-### Interface e Componentes Visuais
+### Armazenamento Local
+- **AsyncStorage**:
+  - Armazena dados do carrinho por usuário.
+  - Salva token JWT.
+  - Guarda dados locais como usuários e produtos.
 
-- `react-native-paper` – componentes visuais com suporte a Material Design  
-- `@expo/vector-icons` e `react-native-vector-icons` – ícones populares (Ionicons, MaterialIcons, etc.)  
-- `expo-linear-gradient` – gradientes lineares para elementos visuais  
-- `expo-font` – gerenciamento de fontes customizadas
+### Autenticação
+- **Login via API externa**: Gera token JWT.
+- **Verificação de administrador**: Verifica email e senha para atribuir tipo `admin` ou `usuario`.
 
-### Gerenciamento de Estado e Dados
-
-- `@react-native-async-storage/async-storage` – armazenamento local de dados e sessões  
-- `axios` – requisições HTTP à API  
-- `events` – manipulação de eventos customizados
-
-### Outros Utilitários
-
-- `react-native-reanimated`, `react-native-gesture-handler` e `react-native-screens` – melhor desempenho em animações e transições  
-- `expo-status-bar` – personalização da barra de status  
-- `expo-sqlite` – armazenamento relacional local para dados persistentes
 
 ## Considerações de Segurança
 
