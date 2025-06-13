@@ -246,7 +246,7 @@ Testam funções e componentes isoladamente.
 
 Verificam a comunicação entre os módulos do sistema.
 
-- **Exemplos:** registro de usuário, login, verificação por e-mail, integração Prisma/MongoDB  
+- **Exemplos:** registro de usuário, login
 - **Ferramentas:** `Supertest`, `Jest`
 
 ### 3. Testes End-to-End (E2E)
@@ -260,7 +260,7 @@ Simulam a experiência real do usuário.
 
 Avaliam o desempenho sob alta demanda.
 
-- **Exemplos:** múltiplos logins, envio em massa de e-mails  
+- **Exemplos:** múltiplos logins  
 - **Ferramentas:** `Artillery`, `k6`
 
 ### 5. Testes de Segurança
