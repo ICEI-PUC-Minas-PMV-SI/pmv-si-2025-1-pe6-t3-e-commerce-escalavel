@@ -246,7 +246,7 @@ A segurança é um dos pilares fundamentais da aplicação TechParts, tanto para
 | TC06  | Remover produto do carrinho                      | Unitário           | Produto removido e total atualizado                         |
 | TC07  | Processar pagamento com simulação                | Integração         | Pagamento validado, status atualizado e confirmação enviada|
 | TC08  | Resposta do app em até 3 segundos após requisição| Performance        | Tempo de resposta menor ou igual a 3 segundos               |
-| TC09  | Segurança dos dados - tentativa de acesso sem autenticação | Segurança          | Acesso negado e usuário redirecionado para login           |
+| TC09  | Segurança dos dados - tentativa de acesso sem autenticação | Segurança          | Acesso negado            |
 | TC10  | Responsividade em diferentes dispositivos móveis (smartphones/tablets) | Usabilidade        | Interface exibida corretamente e elementos acessíveis       |
 
 
