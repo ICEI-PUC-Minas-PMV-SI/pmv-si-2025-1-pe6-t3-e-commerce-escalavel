@@ -234,78 +234,33 @@ A segurança é um dos pilares fundamentais da aplicação TechParts, tanto para
 
 ## Teste e Ferramentas
 
-### 1. Testes Unitários
+### Casos de Teste para Requisitos Funcionais e Não Funcionais
 
-Testam funções e componentes isoladamente.
+| ID   | Caso de Teste                                  | Tipo               | Resultado Esperado                                         |
+|-------|-----------------------------------------------|--------------------|-----------------------------------------------------------|
+| TC01  | Cadastro de usuário com dados válidos          | Unitário/Integração | Usuário criado com sucesso e dados armazenados            |
+| TC02  | Autenticação com credenciais válidas           | Unitário/Integração | Login realizado com sucesso e token JWT gerado             |
+| TC03  | Cadastro de produto com todos os campos obrigatórios | Unitário/Integração | Produto cadastrado e listado corretamente                   |
+| TC04  | Edição e exclusão de produto                     | Integração         | Produto editado/excluído refletido na lista                |
+| TC05  | Adicionar produtos ao carrinho e calcular total | Unitário/Integração | Carrinho atualizado e valor total calculado corretamente   |
+| TC06  | Remover produto do carrinho                      | Unitário           | Produto removido e total atualizado                         |
+| TC07  | Processar pagamento com simulação                | Integração         | Pagamento validado, status atualizado e confirmação enviada|
+| TC08  | Resposta do app em até 3 segundos após requisição| Performance        | Tempo de resposta menor ou igual a 3 segundos               |
+| TC09  | Segurança dos dados - tentativa de acesso sem autenticação | Segurança          | Acesso negado e usuário redirecionado para login           |
+| TC10  | Responsividade em diferentes dispositivos móveis (smartphones/tablets) | Usabilidade        | Interface exibida corretamente e elementos acessíveis       |
 
-- **Back-end:** funções utilitárias, serviços, validações  
-- **Front-end:** componentes, hooks, lógica de navegação  
-- **Ferramentas:** `Jest`, `React Native Testing Library`
 
-### 2. Testes de Integração
 
-Verificam a comunicação entre os módulos do sistema.
+### Ferramentas Recomendadas
 
-- **Exemplos:** registro de usuário, login
-- **Ferramentas:** `Supertest`, `Jest`
-
-### 3. Testes End-to-End (E2E)
-
-Simulam a experiência real do usuário.
-
-- **Exemplos:** registro completo, navegação no app  
-- **Ferramentas:** `Detox` (mobile), `Cypress` / `Puppeteer` (web/email)
-
-### 4. Testes de Carga
-
-Avaliam o desempenho sob alta demanda.
-
-- **Exemplos:** múltiplos logins  
-- **Ferramentas:** `Artillery`, `k6`
-
-### 5. Testes de Segurança
-
-Garantem a proteção contra ataques comuns.
-
-- **Exemplos:** manipulação de JWT, headers, rate limiting  
-- **Ferramentas:** `OWASP ZAP`, `Postman`
-
----
-
-## Casos de Teste
-
-### Funcionais
-
-| ID   | Caso                                | Tipo       | Resultado Esperado           |
-|-------|------------------------------------|------------|-----------------------------|
-| TC01  | Registro com e-mail e senha válidos | Integração | Conta criada e e-mail enviado |
-| TC02  | Verificação com token JWT válido    | Integração | Conta ativada               |
-| TC03  | Login com credenciais válidas       | Integração | JWT retornado               |
-| TC04  | Acesso sem token                    | Unidade/Integração | 401 Unauthorized         |
-| TC05  | Falha no envio de e-mail           | Unidade    | Erro tratado                |
-
-### Não Funcionais
-
-| ID   | Caso                        | Tipo      | Resultado Esperado           |
-|-------|-----------------------------|-----------|-----------------------------|
-| NF01  | 1000 logins simultâneos      | Carga     | Sistema responde sem erros   |
-| NF02  | Token JWT expirado           | Segurança | Acesso negado               |
-| NF03  | Envio em massa com SendGrid  | Carga     | Sistema gerencia filas      |
-| NF04  | Renderização em dispositivos variados | E2E       | Layout consistente          |
-
----
-
-## Ferramentas Resumo
-
-| Tipo                | Ferramenta                      |
-|---------------------|--------------------------------|
-| Unitário (Back-end)  | Jest                           |
-| Unitário (Front-end) | React Native Testing Library   |
-| Integração API       | Supertest                      |
-| E2E Mobile          | Detox                          |
-| E2E Web/Email        | Cypress, Puppeteer             |
-| Carga               | Artillery, k6                  |
-| Segurança           | OWASP ZAP, Postman             |
+| Tipo de Teste           | Ferramentas Sugestionadas             |
+|------------------------|-------------------------------------|
+| Unitário               | Jest, React Testing Library          |
+| Integração             | Detox, React Testing Library         |
+| Funcional/End-to-End   | Detox, Appium                       |
+| Carga/Performance      | JMeter, Locust                      |
+| Segurança              | OWASP ZAP, SonarQube                |
+| Usabilidade/Responsividade | Emuladores Android/iOS, BrowserStack |
 
 # Referências
 
