@@ -262,7 +262,8 @@ A segurança é um dos pilares fundamentais da aplicação TechParts, tanto para
 | Segurança              | OWASP ZAP, SonarQube                |
 | Usabilidade/Responsividade | Emuladores Android/iOS, BrowserStack |
 
-[Testes.pptx](https://github.com/user-attachments/files/20734555/Testes.pptx)
+[Uploading Testes TechParts.pdf…]()
+
 
 
 
