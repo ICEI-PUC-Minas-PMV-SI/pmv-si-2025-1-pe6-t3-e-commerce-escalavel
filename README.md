@@ -9,7 +9,7 @@
 
 O projeto consiste no desenvolvimento de um e-commerce completo, incluindo versões web e mobile, com foco na simplicidade da interface e robustez do backend. A plataforma será destinada a pequenos e médios empreendedores que desejam vender produtos online de forma acessível e eficiente, sem depender de grandes marketplaces e suas altas taxas de comissão.
 
-A solução será construída utilizando React.js e React Native no frontend, Node.js com Express no backend e PostgreSQL ou MongoDB como banco de dados. Além disso, contará com autenticação segura, integração com gateways de pagamento e hospedagem escalável, garantindo um ambiente confiável para lojistas e clientes.
+A solução será construída utilizando React.js e React Native no frontend, Node.js com Express no backend e  MongoDB como banco de dados. Além disso, contará com autenticação segura, integração com gateways de pagamento e hospedagem escalável, garantindo um ambiente confiável para lojistas e clientes.
 
 ## Integrantes
 
