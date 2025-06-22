@@ -14,4 +14,6 @@ https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalav
 
 ## Vídeo apresentação da aplicação Mobile:
 
+https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-1-pe6-t3-e-commerce-escalavel/blob/main/docs/Videos/Apresenta%C3%A7%C3%A3o_Mobile.mp4
+
 
